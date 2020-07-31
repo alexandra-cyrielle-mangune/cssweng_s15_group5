@@ -1,0 +1,58 @@
+
+/* Features */
+.features-section
+{
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+    text-align: center;
+}
+
+.features-section img
+{
+    object-fit: cover;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.features-item-info
+{
+    margin-bottom: 0;
+}
+
+.features-section .btn
+{
+    margin-top: 1.5rem;
+    background-color: #4F516A;
+    border-color: #4F516A;
+}
+
+.features-section .btn:hover
+{
+    background-color: #393b52;
+}
+
+/* Contact Us */
+.contact-section .container
+{
+    padding: 4rem 0;
+    background-color: #4F516A;
+}
+
+.contact-section a
+{
+    color: #fff;
+}
+
+.contact-section a:hover
+{
+    color: rgb(199, 199, 199);
+    text-decoration: none;
+}
+
+/* Testimonials */
+
+.testimonial-section
+{
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}

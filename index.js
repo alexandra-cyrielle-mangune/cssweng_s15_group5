@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 // express application
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.engine('hbs', exphbs({
   extname: 'hbs',
@@ -32,6 +32,17 @@ app.get('/login', function(req, res) {
 app.get('/register', function(req, res) {
   res.render('register', {title: "Lipay", layout: "main-plain"})
 });
+
+app.get('/cart', function(req, res) {
+  res.render('cart', {title: "Lipay"})
+});
+
+
+app.get('/billing', function(req, res) {
+  res.render('billing', {title: "Lipay"})
+});
+
+
 app.use(express.static('public'));
 app.listen(port, function() {
   console.log('App listening at port ' + port);

@@ -65,6 +65,11 @@ app.get('/purchase_history', function(req, res) {
   res.render('purchaseHistory', {title: "Lipay"});
 });
 
+// purchase details
+app.get('/purchase_details', function(req, res) {
+  res.render('purchaseDetails', {title: "Lipay"});
+});
+
 // settings
 app.get('/settings', function(req, res) {
   res.render('settings', {title: "Change Details"})

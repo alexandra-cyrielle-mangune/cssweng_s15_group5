@@ -293,10 +293,16 @@ body
 }
 
 /* Purchase History */
+.purchase-history .card
+{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .purchase-history .card-body
 {
   display: flex;
-  background-color: #FFBB99;
+  background-color: #FFD2BC;
 }
 
 .dark-pink
@@ -314,7 +320,6 @@ body
 
 .purchase-history .card-text-group
 {
-  margin-top: 3rem;
   margin-left: 3rem;
 }
 
@@ -324,6 +329,48 @@ body
 }
 
 .purchase-history .card-text-group a:hover
+{
+  text-decoration: none;
+  color: rgb(31, 31, 31);
+}
+
+.purchase-history .table
+{
+  width: 1000px !important;
+}
+
+/* Purchase Details */
+.purchase-details .card-body
+{
+  display: flex;
+  background-color: #FFD2BC;
+}
+
+.dark-pink
+{
+  color: #fff;
+  background-color: #CC5E92;
+}
+
+.light-pink
+{
+  width: 100%;
+  color: #fff;
+  background-color: #E287B2;
+}
+
+.purchase-details .card-text-group
+{
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+.purchase-details .card-text-group a
+{
+  color: rgb(31, 31, 31);
+}
+
+.purchase-details .card-text-group a:hover
 {
   text-decoration: none;
   color: rgb(31, 31, 31);

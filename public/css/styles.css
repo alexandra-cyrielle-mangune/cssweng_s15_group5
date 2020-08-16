@@ -88,12 +88,12 @@ body
 
 .contact-section a
 {
-    color: rgba(21, 36, 21, 0.267);
+    color: rgba(31, 31, 31, 0.8);
 }
 
 .contact-section a:hover
 {
-    color: rgba(6, 10, 6, 0.267);
+    color: rgb(31, 31, 31);
     text-decoration: none;
 }
 
@@ -186,7 +186,135 @@ body
   color: #fff;
 }
 
-.display-items
+/* Quantity Box */
+.quantity
 {
-  padding-bottom: 7rem;
+  display: flex;
+  margin-bottom: 3rem;
+}
+
+.quantity dt
+{
+  margin-right: 4rem;
+}
+ 
+.quantity .input-text.qty
+{
+  width: 5rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #efefef;
+}
+ 
+.quantity.buttons_added
+{
+  text-align: left;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+ .quantity.buttons_added input
+ {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+    box-shadow: none;
+ }
+ 
+ .quantity.buttons_added .minus,
+ .quantity.buttons_added .plus
+ {
+    padding: 0.5rem 1rem 0.5rem;
+    height: 41px;
+    background-color: #E287B2;
+    border: 1px solid #E287B2;
+    cursor:pointer;
+}
+ 
+.quantity.buttons_added .minus
+{
+  border-right: 0; 
+}
+
+.quantity.buttons_added .plus
+{
+  border-left: 0;
+}
+
+.quantity.buttons_added .minus:hover,
+.quantity.buttons_added .plus:hover
+{
+  background-color: #CC5E92;
+}
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button
+{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+}
+
+.quantity.buttons_added .minus:focus,
+.quantity.buttons_added .plus:focus
+{
+  outline: none; 
+}
+
+/* Product Details */
+.product-details .card
+{
+  background-color: transparent;
+  border: none;
+}
+
+.item-description
+{
+  margin-bottom: 3rem; 
+}
+
+.detailed-description
+{
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* Purchase History */
+.purchase-history .card-body
+{
+  display: flex;
+  background-color: #FFBB99;
+}
+
+.dark-pink
+{
+  color: #fff;
+  background-color: #CC5E92;
+}
+
+.light-pink
+{
+  width: 100%;
+  color: #fff;
+  background-color: #E287B2;
+}
+
+.purchase-history .card-text-group
+{
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+.purchase-history .card-text-group a
+{
+  color: rgb(31, 31, 31);
+}
+
+.purchase-history .card-text-group a:hover
+{
+  text-decoration: none;
+  color: rgb(31, 31, 31);
 }

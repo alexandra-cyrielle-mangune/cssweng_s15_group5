@@ -35,29 +35,36 @@ app.get('/register', function(req, res) {
   res.render('register', {title: "Lipay", layout: "main-plain"})
 });
 
-<<<<<<< HEAD
+// cart
 app.get('/cart', function(req, res) {
   res.render('cart', {title: "Lipay"})
 });
 
-
+// billing
 app.get('/billing', function(req, res) {
   res.render('billing', {title: "Lipay"})
 });
 
-
-=======
 // shop
 app.get('/shop', function(req, res) {
-  res.render('shop', {title: "Lipay", layout: "main"});
+  res.render('shop', {title: "Lipay"});
 });
 
 // contact us
 app.get('/contact_us', function(req, res) {
-  res.render("contact", {title: "Lipay", layout: "main"});
+  res.render("contact", {title: "Lipay"});
 });
 
->>>>>>> 2fa528883c8d1b3ae22401c61e47dee7e32d270c
+// item detail
+app.get('/product_details', function(req, res) {
+  res.render('productDetails', {title: "Lipay"});
+});
+
+// purchase history
+app.get('/purchase_history', function(req, res) {
+  res.render('purchaseHistory', {title: "Lipay"});
+});
+
 app.use(express.static('public'));
 app.listen(port, function() {
   console.log('App listening at port ' + port);

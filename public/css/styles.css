@@ -1,7 +1,7 @@
 
 body
 {
-    background-color: #DFFADB !important;
+  background-color: #DFFADB !important;
 }
 
 /* Navbar */
@@ -97,9 +97,96 @@ body
     text-decoration: none;
 }
 
+.contact-section-shop
+{
+  padding: 4rem 0;
+  background-color: #B9EFB0;
+}
+
+.contact-section-shop .btn
+{
+  background-color: #E287B2;
+}
+
+.contact-section-shop a
+{
+  color: #fff;
+}
+
+.contact-section-shop .btn:hover
+{
+  background-color: #CC5E92;
+}
+
+.contact-section-shop a:hover
+{
+  color: #fff;
+  text-decoration: none;
+}
+
+.contact-us-title
+{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.contact-us-container
+{
+  padding-bottom: 5rem;
+}
+
+/* Buttons */
+
+.btn
+{
+  color: #fff !important;
+  background-color: #E287B2 !important;
+  border:  #E287B2 !important;
+}
+
+.btn:hover
+{
+  color: #fff !important;
+  background-color: #CC5E92 !important;
+  border:  #CC5E92 !important;
+}
+
 /*Footer*/
 .footer-section .container
 {
     color: #fff;
     background-color: #93E187;
+}
+
+/* Shop */
+.shop-section 
+{
+  padding-top: 5rem;
+}
+
+.shop-search
+{
+  padding-bottom: 3rem !important;
+}
+
+.shop-search .form-control
+{
+  width: 135%;
+}
+
+.shop-search .btn
+{
+  background-color: #E287B2 !important;
+  color: #fff;
+}
+
+.shop-search .btn:hover
+{
+  background-color: #CC5E92 !important;
+  color: #fff;
+}
+
+.display-items
+{
+  padding-bottom: 7rem;
 }

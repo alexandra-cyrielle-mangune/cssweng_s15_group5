@@ -1,7 +1,7 @@
 
 body
 {
-    background-color: #DFFADB !important;
+  background-color: #DFFADB !important;
 }
 
 /* Navbar */
@@ -24,6 +24,7 @@ body
 {
   background-color: #DFFADB;
 }
+
 #login-filler
 {
   background-image: url(/img/features-placeholder-2.jpg);
@@ -101,4 +102,37 @@ body
 {
     color: #fff;
     background-color: #93E187;
+}
+
+/* Shop */
+.shop-section 
+{
+  padding-top: 5rem;
+}
+
+.shop-search
+{
+  padding-bottom: 3rem !important;
+}
+
+.shop-search .form-control
+{
+  width: 135%;
+}
+
+.shop-search .btn
+{
+  background-color: #E287B2 !important;
+  color: #fff;
+}
+
+.shop-search .btn:hover
+{
+  background-color: #CC5E92 !important;
+  color: #fff;
+}
+
+.display-items
+{
+  padding-bottom: 7rem;
 }

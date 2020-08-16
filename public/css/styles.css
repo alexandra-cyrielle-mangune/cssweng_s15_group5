@@ -4,6 +4,48 @@ body
     background-color: #DFFADB !important;
 }
 
+/* Navbar */
+.navbar
+{
+  background-color: #B9EFB0;
+}
+
+.bg-1
+{
+  background-color: #B9EFB0;
+}
+
+.bg-2
+{
+  background-color: #CDF5C6;
+}
+
+.bg-3
+{
+  background-color: #DFFADB;
+}
+#login-filler
+{
+  background-image: url(/img/features-placeholder-2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.55;
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+}
+
+#register-filler
+{
+  background-image: url(/img/features-placeholder-3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.55;
+  filter: blur(3px);
+  -webkit-filter: blur(3px);
+}
+
 /* Features */
 .features-section
 {

@@ -25,6 +25,13 @@ app.get('/', function(req, res) {
   res.render('home', {title: "Lipay"});
 });
 
+app.get('/login', function(req, res) {
+  res.render('login', {title: "Lipay", layout: "main-plain"});
+});
+
+app.get('/register', function(req, res) {
+  res.render('register', {title: "Lipay", layout: "main-plain"})
+});
 app.use(express.static('public'));
 app.listen(port, function() {
   console.log('App listening at port ' + port);

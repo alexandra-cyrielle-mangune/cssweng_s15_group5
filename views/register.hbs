@@ -1,0 +1,38 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <div class="row bg-cstm-yellow flex-grow-1">
+    <div class="col-xs-12 col-md-6 p-4 d-flex flex-column bg-1">
+      <div class="p-4 flex-grow-1 bg-2">
+        <div class="p-4 bg-3">
+          <p class="text-center mt-4"><a href="/" class="text-dark">Logo</a></p>
+          <hr class="ml-auto mr-auto mt-4">
+          <h1>Register</h1>
+          <form id="register" action="/register" method="POST">
+            <div id="register-basic">
+              <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input id="fullname" class="form-control input-basic" name="fullname" type="text">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control input-basic" name="email" type="email">
+              </div>
+              <div class="form-group mt-3">
+                <label for="password">Password</label>
+                <input id="password" class="form-control input-basic" name="password" type="password">
+              </div>
+              <div class="form-group mt-3">
+                <label for="confirm">Confirm password</label>
+                <input id="confirm" class="form-control input-basic" name="confirm" type="password">
+              </div>
+              <input id="next" type="button" class="btn btn-light" value="Next">
+              <p class="mt-3">Have an account? <a href="/login" class="font-weight-bold">Login</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="register-filler" class="col-6 d-none d-md-block flex-grow-1">
+      &nbsp;
+    </div>
+  </div>
+</div>

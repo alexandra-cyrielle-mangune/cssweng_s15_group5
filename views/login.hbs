@@ -1,0 +1,32 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <div class="row flex-grow-1">
+    <div class="col-xs-12 col-md-6 p-4 d-flex flex-column bg-1">
+      <div class="p-4 flex-grow-1 bg-2">
+        <div class="p-4 bg-3">
+          <p class="text-center mt-4"><a href="/" class="text-dark">Logo</a></p>
+          <hr class="ml-auto mr-auto mt-4">
+          <h1>Log In</h1>
+          <form id="login" action="/login" method="POST">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input id="username" class="form-control" name="username" type="text">
+            </div>
+            <div class="form-group mt-3">
+              <label for="password">Password</label>
+              <input id="password" class="form-control" name="password" type="password">
+            </div>
+            <div class="row mt-3">
+              <div class="col-10">
+                <button type="submit" class="btn btn-light">Login</button>
+              </div>
+            </div>
+            <p class="mt-3">Don't have an account yet? <a href="/register" class="font-weight-bold">Register</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="login-filler" class="col-6 d-none d-md-block flex-grow-1">
+      &nbsp;
+    </div>
+  </div>
+</div>

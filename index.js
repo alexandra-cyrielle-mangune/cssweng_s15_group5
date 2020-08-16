@@ -36,8 +36,13 @@ app.get('/register', function(req, res) {
 });
 
 // shop
-app.get('/shop', function(req,res) {
+app.get('/shop', function(req, res) {
   res.render('shop', {title: "Lipay", layout: "main"});
+});
+
+// contact us
+app.get('/contact_us', function(req, res) {
+  res.render("contact", {title: "Lipay", layout: "main"});
 });
 
 app.use(express.static('public'));

@@ -97,6 +97,18 @@ body
     text-decoration: none;
 }
 
+.contact-section .btn
+{
+  color: #fff;
+  background-color: #E287B2;
+}
+
+.contact-section .btn:hover
+{
+  color: #fff;
+  background-color: #CC5E92;
+}
+
 /*Footer*/
 .footer-section .container
 {

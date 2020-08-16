@@ -1,4 +1,9 @@
 
+body
+{
+    background-color: #DFFADB !important;
+}
+
 /* Features */
 .features-section
 {
@@ -22,29 +27,36 @@
 .features-section .btn
 {
     margin-top: 1.5rem;
-    background-color: #4F516A;
-    border-color: #4F516A;
+    background-color: #E287B2;
+    border-color: #E287B2;
 }
 
 .features-section .btn:hover
 {
-    background-color: #393b52;
+    background-color: #CC5E92;
 }
 
 /* Contact Us */
 .contact-section .container
 {
     padding: 4rem 0;
-    background-color: #4F516A;
+    background-color: #B9EFB0;
 }
 
 .contact-section a
 {
-    color: #fff;
+    color: rgba(21, 36, 21, 0.267);
 }
 
 .contact-section a:hover
 {
-    color: rgb(199, 199, 199);
+    color: rgba(6, 10, 6, 0.267);
     text-decoration: none;
+}
+
+/*Footer*/
+.footer-section .container
+{
+    color: #fff;
+    background-color: #93E187;
 }

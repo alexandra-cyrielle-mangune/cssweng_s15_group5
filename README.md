@@ -3,15 +3,10 @@
 ## Team Name: Pink Panthers
 
 ## Team Members:
-Product Owner
-  * Go, Thea Ellen T.
-Scrum Master
-  * Jatico II, Nilo Cantil K.
-Quality Assurance Tester
-  * Chua, Jeric Kerby G.
-Development Team
-  * Mangune, Alexandra Cyrielle L.
-  * Marcelo, Jan Uriel A.
+* Product Owner: Go, Thea Ellen T.
+* Scrum Master: Jatico II, Nilo Cantil K.
+* Quality Assurance Tester: Chua, Jeric Kerby G.
+* Development Team: Mangune, Alexandra Cyrielle L., Marcelo, Jan Uriel A.
 
 ## Set Up
 1. Clone repository `https://github.com/alexandra-cyrielle-mangune/cssweng_s15_group5.git`. 

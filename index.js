@@ -55,7 +55,7 @@ app.get('/contact_us', function(req, res) {
   res.render("contact", {title: "Lipay"});
 });
 
-// item detail
+// product detail
 app.get('/product_details', function(req, res) {
   res.render('productDetails', {title: "Lipay"});
 });
@@ -63,6 +63,11 @@ app.get('/product_details', function(req, res) {
 // purchase history
 app.get('/purchase_history', function(req, res) {
   res.render('purchaseHistory', {title: "Lipay"});
+});
+
+// settings
+app.get('/settings', function(req, res) {
+  res.render('settings', {title: "Change Details"})
 });
 
 app.use(express.static('public'));

@@ -110,7 +110,7 @@ body
 
 .contact-section-shop a
 {
-  color: #fff;
+  color: #fff !important;
 }
 
 .contact-section-shop .btn:hover
@@ -154,7 +154,7 @@ body
 /*Footer*/
 .footer-section .container
 {
-    color: #fff;
+    color: rgb(31, 31, 31);
     background-color: #93E187;
 }
 
@@ -162,6 +162,16 @@ body
 .shop-section 
 {
   padding-top: 5rem;
+}
+
+.display-items a
+{
+  color: rgba(31, 31, 31, 0.9);
+}
+
+.display-items a:hover
+{
+  color: rgb(31, 31, 31);
 }
 
 .shop-search
@@ -317,4 +327,10 @@ body
 {
   text-decoration: none;
   color: rgb(31, 31, 31);
+}
+
+/* Settings */
+.settings-container h4
+{
+  margin-top: 5rem;
 }

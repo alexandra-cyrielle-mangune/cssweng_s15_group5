@@ -4,10 +4,22 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
 const bodyParser = require('body-parser');
+const mongoose = require('./models/connection');
+const session = require('express-session');
+const flash = require('connect-flash');
+const MongoStore = require('connect-mongo')(session);
+const moment = require('moment');
 
 // express application
 const app = express();
 const port = 4000;
+// const port = envPort || 4000; // for deployment
+
+// root routes
+const indexRouter = require('./routes/indexRoutes');
+const productRouter = require('./routes/productRoutes');
+const userRouter = require('./routes/userRoutes');
+const authRouter = require('./routes/authRoutes');
 
 app.engine('hbs', exphbs({
   extname: 'hbs',
@@ -20,60 +32,40 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// homepage
-app.get('/', function(req, res) {
-  res.render('home', {title: "Lipay"});
+// sessions - server configuration
+app.use(session({
+  // secret: sessionKey, 
+  secret: 'somegibberishsecret',
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 }
+}));
+
+// flash
+app.use(flash());
+
+// global variable messages
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.isAuthenticated = req.session.user ? true : false;
+  next();
 });
 
-// login
-app.get('/login', function(req, res) {
-  res.render('login', {title: "Lipay", layout: "main-plain"});
-});
+// homepage(public), catalogue(public), contact us(public)
+app.use('/', indexRouter);
 
-// register
-app.get('/register', function(req, res) {
-  res.render('register', {title: "Lipay", layout: "main-plain"})
-});
+// product details
+app.use('/', productRouter);
 
-// cart
-app.get('/cart', function(req, res) {
-  res.render('cart', {title: "Lipay"})
-});
+// homepage(private), catalogue(private), contact us(private)
+// cart, purchase history, purchase details, settings, billing
+app.use('/', userRouter);
 
-// billing
-app.get('/billing', function(req, res) {
-  res.render('billing', {title: "Lipay"})
-});
+// login, register
+app.use('/', authRouter);
 
-// shop
-app.get('/shop', function(req, res) {
-  res.render('shop', {title: "Lipay"});
-});
-
-// contact us
-app.get('/contact_us', function(req, res) {
-  res.render("contact", {title: "Lipay"});
-});
-
-// product detail
-app.get('/product_details', function(req, res) {
-  res.render('productDetails', {title: "Lipay"});
-});
-
-// purchase history
-app.get('/purchase_history', function(req, res) {
-  res.render('purchaseHistory', {title: "Lipay"});
-});
-
-// purchase details
-app.get('/purchase_details', function(req, res) {
-  res.render('purchaseDetails', {title: "Lipay"});
-});
-
-// settings
-app.get('/settings', function(req, res) {
-  res.render('settings', {title: "Change Details"})
-});
 
 app.use(express.static('public'));
 app.listen(port, function() {

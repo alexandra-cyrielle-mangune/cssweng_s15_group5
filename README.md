@@ -14,3 +14,15 @@
 3. In `cmd` or Terminal, run `npm install` and `npm install -g nodemon` if the dependencies are not available.
 4. Run `nodemon index.js`.
 5. Open [http://localhost:4000]() in a browser to see the app running.
+
+## Completed as of August 20, 2020
+* User authentication (register and login validation)
+* Some private and public pages can be accessed. 
+
+## Issues as of August 20, 2020
+* Navigation between private and public pages are still wonky.
+
+## For Testing (delete later)
+### Login:
+Email: juandelacruz@email.com
+Password: 12345678

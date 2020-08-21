@@ -5,14 +5,18 @@ const { isPublic, isPrivate } = require('../middlewares/checkAuth.js');
 
 // GET method for login
 router.get('/login', isPublic, (req, res) => {
-  res.render('login', 
-            {title: 'Log In',
-             img: 'img/login-image-placeholder.jpg'});
+  res.render('login', {
+    title: 'Log In',
+    img: 'img/login-image-placeholder.jpg'
+  });
 });
 
 // GET method for register
 router.get('/register', isPublic, (req, res) => {
-  res.render('register', {title: 'Create a New Account'});
+  res.render('register', {
+    title: 'Create a New Account',
+    img: 'img/register-image-placeholder.jpg'
+  });
 });
 
 // GET method for logout
@@ -21,5 +25,7 @@ router.get('/logout', isPrivate, userController.logoutUser);
 // POST methods for form submissions
 router.post('/login', isPublic, loginValidation, userController.loginUser);
 router.post('/register', isPublic, registerValidation, userController.registerUser);
+
+// to do: GET and POST methods for admin
 
 module.exports = router;

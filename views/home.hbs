@@ -20,34 +20,10 @@
 <section class="features-section" id="features">
   <div class="container">
     <h4>What's new at this shop?</h4>
-    <div class="row">
-      <div class="col-lg-3 col-sm-6">
-        <img src={{featuresImg1}} width="250px" height="250px">
-        <p class="features-item-info">Placeholder Item #1</p>
-        <p>₱ 250.00</p>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <img src={{featuresImg2}} width="250px" height="250px">
-        <p class="features-item-info">Placeholder Item #2</p>
-        <p>₱ 150.00</p>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <img src={{featuresImg3}} width="250px" height="250px">
-        <p class="features-item-info">Placeholder Item #3</p>
-        <p>₱ 200.00</p>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <img src={{featuresImg4}} width="250px" height="250px">
-        <p class="features-item-info">Placeholder Item #4</p>
-        <p>₱ 450.00</p>
-      </div>
-    </div>
+    {{> display-products}}
     <a class="btn button" href={{catalogueLink}}>View All Items</a>
   </div>
 </section>
 
 <!-- Contact Us -->
-<div class="contact-section text-center" id="contact">
-  <h4 class="mb-4"> Didn’t quite find what you were looking for or ordering an archived bag in bulk?</h4>
-  <a class="btn button" href={{contactUsLink}} role="button">Talk to Us</a>
-</div>
+{{> contact-section}}

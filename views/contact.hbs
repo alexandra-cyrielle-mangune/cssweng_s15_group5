@@ -1,43 +1,35 @@
 <div class="container contact-us-container">
-  <!-- Title -->
-  <h4 class="contact-us-title text-center">{{title}}</h4>
-
-  <!-- Contact Us Form -->
-  <form>
-    <table class="table table-borderless">
-      <tr>
-        <td>Name</td>
-        <td>Contact Number</td>
-      </tr>
-      <tr>
-        <td>
-          <input class="form-control" type="text" placeholder="">
-        </td>
-        <td>
-          <input class="form-control" type="number" placeholder="">
-        </td>
-      </tr>
-      <tr>
-        <td>Email</td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <input class="form-control" type="email" placeholder="">
-        </td>
-      </tr>
-      <tr>
-        <td>Message</td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <textarea class="form-control" rows="10" aria-label="With textarea"></textarea>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td colspan="2">
-          <button class="btn w-50" type="button">Submit</button>
-        </td>
-      </tr>
-    </table>
-  </form>
+  <div class="row">
+    <div class="col">
+      <img src="img/contact-us-image.png" width="520px">
+    </div>
+    <div class="col text-center contact-us-col">
+      <h4 class="contact-us-title text-center">{{title}}</h4>
+      <!-- Contact Us Form -->
+      <form>
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <input class="form-control" type="text" placeholder="Name">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="form-control" type="email" placeholder="Email">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <textarea class="form-control message" rows="10" aria-label="With textarea" placeholder="Message"></textarea>
+            </td>
+          </tr>
+          <tr class="text-center">
+            <td>
+              <button class="btn w-50" type="button">Submit</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
 </div>

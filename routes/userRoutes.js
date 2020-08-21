@@ -7,10 +7,24 @@ router.get('/home', isPrivate, (req, res) => {
     title: 'Lipay',
     layout: 'main-private',
     mastheadImg: 'img/masthead-banner-placeholder.jpg',
-    featuresImg1: 'img/features-placeholder-1.jpg',
-    featuresImg2: 'img/features-placeholder-2.jpg',
-    featuresImg3: 'img/features-placeholder-3.jpg',
-    featuresImg4: 'img/features-placeholder-4.jpg',
+    products: [
+      {img: 'img/features-placeholder-1.jpg',
+      info: 'Placeholder Item #1',
+      productDetailsLink: '/product_details_',
+      price: '₱ 250.00'},
+      {img: 'img/features-placeholder-2.jpg',
+      info: 'Placeholder Item #2',
+      productDetailsLink: '/product_details_',
+      price: '₱ 150.00'},
+      {img: 'img/features-placeholder-3.jpg',
+      info: 'Placeholder Item #3',
+      productDetailsLink: '/product_details_',
+      price: '₱ 200.00'},
+      {img: 'img/features-placeholder-4.jpg',
+      info: 'Placeholder Item #4',
+      productDetailsLink: '/product_details_',
+      price: '₱ 450.00'}
+    ],
     catalogueLink: '/catalogue_',
     contactUsLink: '/contact_us_'
   });
@@ -45,7 +59,7 @@ router.get('/catalogue_', isPrivate, (req, res) => {
 
 // Contact Us - private
 router.get('/contact_us_', isPrivate, (req, res) => {
-  res.render('contact', {title: 'Lipay', layout: 'main-private'});
+  res.render('contact', {title: 'Talk to Us', layout: 'main-private'});
 });
 
 // Cart

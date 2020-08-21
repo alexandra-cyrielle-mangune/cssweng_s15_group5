@@ -122,12 +122,24 @@ body {
 }
 
 .contact-us-title {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  font-family: 'Pacifico', serif;
+  font-size: 2.5rem;
+  color: #649179;
 }
 
 .contact-us-container {
-  padding-bottom: 5rem;
+  padding: 7rem 0 5rem 0;
+}
+
+.contact-us-col .form-control {
+  padding: 0 0 0 1rem;
+  border-radius: 50px !important;
+  background-color: #f9f9f9;
+}
+
+.contact-us-col textarea.form-control {
+  border-radius: 25px !important;
+  padding: 1rem 0 0 1rem !important;
 }
 
 /* Buttons */

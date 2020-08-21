@@ -60,4 +60,9 @@ router.get('/contact_us', isPublic, (req, res) => {
   res.render('contact', {title: "Talk to Us"});
 });
 
+// Product Details (public)
+router.get('/product_details', isPublic, (req, res) => {
+  res.render('productDetails', {title: 'Lipay'});
+});
+
 module.exports = router;

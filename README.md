@@ -17,5 +17,5 @@
 
 ## For Testing (delete later)
 ### Login:
-Email: juandelacruz@email.com
-Password: 12345678
+* Email: juandelacruz@email.com
+* Password: 12345678

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {isPrivate} = require('../middlewares/checkAuth');
 
-// Homepage - private
+// Homepage (private)
 router.get('/home', isPrivate, (req, res) => {
   res.render('home', {
     title: 'Lipay',
@@ -30,7 +30,7 @@ router.get('/home', isPrivate, (req, res) => {
   });
 });
 
-// Shop - private
+// Catalogue (private)
 router.get('/catalogue_', isPrivate, (req, res) => {
   res.render('catalogue', {
     title: "Catalogue",
@@ -57,7 +57,12 @@ router.get('/catalogue_', isPrivate, (req, res) => {
   });
 });
 
-// Contact Us - private
+// Product Details (private)
+router.get('/product_details_', isPrivate, (req, res) => {
+  res.render('productDetails', {title: 'Lipay', layout: 'main-private'});
+});
+
+// Contact Us (private)
 router.get('/contact_us_', isPrivate, (req, res) => {
   res.render('contact', {title: 'Talk to Us', layout: 'main-private'});
 });

@@ -15,10 +15,9 @@ const app = express();
 const port = 4000;
 // const port = envPort || 4000; // for deployment
 
-// root routes
-const indexRouter = require('./routes/indexRoutes');
-const productRouter = require('./routes/productRoutes');
-const userRouter = require('./routes/userRoutes');
+// routes
+const publicRouter = require('./routes/publicRoutes');
+const privateRouter = require('./routes/privateRoutes');
 const authRouter = require('./routes/authRoutes');
 
 app.engine('hbs', exphbs({
@@ -53,19 +52,41 @@ app.use((req, res, next) => {
   next();
 });
 
-// homepage(public), catalogue(public), contact us(public)
-app.use('/', indexRouter);
+/*
+  Public Routes:
+  - Homepage
+  - Catalogue
+  - Product Details
+  - Contact Us
+*/
+app.use('/', publicRouter);
 
-// product details
-app.use('/', productRouter);
+/*
+  Private Routes:
+  - Homepage
+  - Catalogue
+  - Product Details
+  - Contact Us
+  - Cart
+  - Purchase History
+  - Purchase Details
+  - User Settings
+  - Billing
 
-// homepage(private), catalogue(private), contact us(private)
-// cart, purchase history, purchase details, settings, billing
-app.use('/', userRouter);
+  to do: 
+  - admin pages
+*/
+app. use('/', privateRouter);
 
-// login, register
+/*
+  Authentication Routes:
+  - Register User
+  - Login User
+
+  to do:
+  - admin login
+*/
 app.use('/', authRouter);
-
 
 app.use(express.static('public'));
 app.listen(port, function() {

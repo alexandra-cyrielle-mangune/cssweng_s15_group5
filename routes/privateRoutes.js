@@ -64,7 +64,11 @@ router.get('/product_details_', isPrivate, (req, res) => {
 
 // Contact Us (private)
 router.get('/contact_us_', isPrivate, (req, res) => {
-  res.render('contact', {title: 'Talk to Us', layout: 'main-private'});
+  res.render('contact', {
+    title: 'Talk to Us', 
+    layout: 'main-private',
+    img: 'img/contact-us-image.png'
+  });
 });
 
 // Cart

@@ -57,7 +57,10 @@ router.get('/catalogue', isPublic, (req, res) => {
 
 // Contact Us
 router.get('/contact_us', isPublic, (req, res) => {
-  res.render('contact', {title: "Talk to Us"});
+  res.render('contact', {
+    title: "Talk to Us",
+    img: 'img/contact-us-image.png'
+  });
 });
 
 // Product Details (public)

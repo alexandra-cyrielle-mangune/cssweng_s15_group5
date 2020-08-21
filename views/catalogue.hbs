@@ -1,4 +1,5 @@
-<div class="container shop-section" id="shop-section"></div>
+<div class="container shop-section text-center" id="shop-section"></div>
+  <h4>{{title}}</h4>
   <!-- Search Bar -->
   <div class="shop-search">
     <form>
@@ -18,106 +19,57 @@
   <!-- Display Items on Sale -->
   <div class="display-items text-center">
     <div class="row">
+      {{#each products}}
       <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-1.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #1</p>
-          <p>₱ 250.00</p>
+        <a href={{this.productDetailsLink}}>
+          <img src={{this.img}} width="250px" height="250px">
+          <p class="features-item-info">{{this.info}}</p>
+          <p>{{this.price}}</p>
         </a>
       </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-2.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #2</p>
-          <p>₱ 150.00</p>
-        </a>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-3.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #3</p>
-          <p>₱ 200.00</p>
-        </a>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-4.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #4</p>
-          <p>₱ 450.00</p>
-        </a>
-      </div>
-    </div>
-
-   <div class="row">
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-1.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #1</p>
-          <p>₱ 250.00</p>
-        </a>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-2.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #2</p>
-          <p>₱ 150.00</p>
-        </a>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-3.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #3</p>
-          <p>₱ 200.00</p>
-        </a>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-4.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #4</p>
-          <p>₱ 450.00</p>
-        </a>
-      </div>
+      {{/each}}
     </div>
 
     <div class="row">
+      {{#each products}}
       <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-1.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #1</p>
-          <p>₱ 250.00</p>
+        <a href={{this.productDetailsLink}}>
+          <img src={{this.img}} width="250px" height="250px">
+          <p class="features-item-info">{{this.info}}</p>
+          <p>{{this.price}}</p>
         </a>
       </div>
+      {{/each}}
+    </div>
+
+    <div class="row">
+      {{#each products}}
       <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-2.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #2</p>
-          <p>₱ 150.00</p>
+        <a href={{this.productDetailsLink}}>
+          <img src={{this.img}} width="250px" height="250px">
+          <p class="features-item-info">{{this.info}}</p>
+          <p>{{this.price}}</p>
         </a>
       </div>
+      {{/each}}
+    </div>
+
+    <div class="row">
+      {{#each products}}
       <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-3.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #3</p>
-          <p>₱ 200.00</p>
+        <a href={{this.productDetailsLink}}>
+          <img src={{this.img}} width="250px" height="250px">
+          <p class="features-item-info">{{this.info}}</p>
+          <p>{{this.price}}</p>
         </a>
       </div>
-      <div class="col-lg-3 col-sm-6">
-        <a href="/product_details">
-          <img src="img/features-placeholder-4.jpg" width="250px" height="250px">
-          <p class="features-item-info">Placeholder Item #4</p>
-          <p>₱ 450.00</p>
-        </a>
-      </div>
+      {{/each}}
     </div>
 
   <!-- Contact Us -->
-  <section class="contact-section-shop" id="contact">
-    <div class="container text-center">
-      <h4 class="mb-4">
-        Didn't find what you were looking for? Ordering an archived bag in bulk? Contact us!
-      </h4>
-      <button class="btn" type="button"><a href="/contact_us">Contact Us!</a></button>
-    </div>
-  </section>
+  <div class="contact-section text-center" id="contact">
+    <h4 class="mb-4"> Didn’t quite find what you were looking for or ordering an archived bag in bulk?</h4>
+    <a class="btn button" href={{contactUsLink}} role="button">Talk to Us</a>
+  </div>
 
 </div>

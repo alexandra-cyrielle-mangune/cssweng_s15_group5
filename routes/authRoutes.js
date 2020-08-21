@@ -5,7 +5,9 @@ const { isPublic, isPrivate } = require('../middlewares/checkAuth.js');
 
 // GET method for login
 router.get('/login', isPublic, (req, res) => {
-  res.render('login', {title: 'Log In'});
+  res.render('login', 
+            {title: 'Log In',
+             img: 'img/login-image-placeholder.jpg'});
 });
 
 // GET method for register

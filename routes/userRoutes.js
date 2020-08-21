@@ -2,13 +2,45 @@ const router = require('express').Router();
 const {isPrivate} = require('../middlewares/checkAuth');
 
 // Homepage - private
-router.get('/home', isPrivate, (req,res) => {
-  res.render('home-private', {title: "Lipay", layout: 'main-private'});
+router.get('/home', isPrivate, (req, res) => {
+  res.render('home', {
+    title: 'Lipay',
+    layout: 'main-private',
+    mastheadImg: 'img/masthead-banner-placeholder.jpg',
+    featuresImg1: 'img/features-placeholder-1.jpg',
+    featuresImg2: 'img/features-placeholder-2.jpg',
+    featuresImg3: 'img/features-placeholder-3.jpg',
+    featuresImg4: 'img/features-placeholder-4.jpg',
+    catalogueLink: '/catalogue_',
+    contactUsLink: '/contact_us_'
+  });
 });
 
 // Shop - private
-router.get('/my_catalogue', isPrivate, (req, res) => {
-  res.render('catalogue-private', {title: 'Lipay', layout: 'main-private'});
+router.get('/catalogue_', isPrivate, (req, res) => {
+  res.render('catalogue', {
+    title: "Catalogue",
+    layout: 'main-private',
+    products: [
+      {img: 'img/features-placeholder-1.jpg',
+      info: 'Placeholder Item #1',
+      productDetailsLink: '/product_details_',
+      price: '₱ 250.00'},
+      {img: 'img/features-placeholder-2.jpg',
+      info: 'Placeholder Item #2',
+      productDetailsLink: '/product_details_',
+      price: '₱ 150.00'},
+      {img: 'img/features-placeholder-3.jpg',
+      info: 'Placeholder Item #3',
+      productDetailsLink: '/product_details_',
+      price: '₱ 200.00'},
+      {img: 'img/features-placeholder-4.jpg',
+      info: 'Placeholder Item #4',
+      productDetailsLink: '/product_details_',
+      price: '₱ 450.00'}
+    ],
+    contactUsLink: '/contact_us_'
+  });
 });
 
 // Contact Us - private

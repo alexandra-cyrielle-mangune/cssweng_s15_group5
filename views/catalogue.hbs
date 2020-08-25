@@ -18,10 +18,12 @@
 
   <!-- Display Items on Sale -->
   <div class="display-items text-center">
-    {{> display-products}}
-    {{> display-products}}
-    {{> display-products}}
-    {{> display-products}}
+    {{#if products}}
+      {{> display-products}}
+      {{> display-products}}
+      {{> display-products}}
+      {{> display-products}}
+    {{/if}}
 
   <!-- Contact Us -->
   {{> contact-section}}

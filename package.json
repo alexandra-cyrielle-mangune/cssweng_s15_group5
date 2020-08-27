@@ -1,0 +1,35 @@
+{
+  "name": "cssweng_s15_group5",
+  "version": "1.0.0",
+  "description": "* Product Owner: Go, Thea Ellen T.\r * Scrum Master: Jatico II, Nilo Cantil K.\r * Quality Assurance Tester: Chua, Jeric Kerby G.\r * Development Team: Mangune, Alexandra Cyrielle L., Marcelo, Jan Uriel A.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandra-cyrielle-mangune/cssweng_s15_group5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexandra-cyrielle-mangune/cssweng_s15_group5/issues"
+  },
+  "homepage": "https://github.com/alexandra-cyrielle-mangune/cssweng_s15_group5#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bootstrap": "^4.5.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.1",
+    "handlebars": "^4.7.6",
+    "moment": "^2.27.0",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.10.1"
+  }
+}

@@ -1,4 +1,5 @@
 # Lipay
+* Lipay is a startup business based in Iloilo that creates products with their own stylistic designs. Currently, their only product available and in-production are tote bags.
 
 ## Team Name: Pink Panthers
 * Product Owner: Go, Thea Ellen T.
@@ -11,7 +12,7 @@
 * Navigate to the folder `cd cssweng_s15_group5`.
 * In `cmd` or Terminal, run `npm install` and `npm install -g nodemon` if the dependencies are not available. 
 * Additional packages that are needed for this project include the following (if they were not included in the installation):
-  * `connect flash`, `connect-mongo`, `moment`, `express-validator`, `dotenv`, `bcrypt`, `cookie-parser`
+  * `connect`, `flash`, `connect-mongo`, `moment`, `express-validator`, `dotenv`, `bcrypt`, `cookie-parser`
 * Run `nodemon index.js`.
 * Open [http://localhost:4000]() in a browser to see the app running.
 

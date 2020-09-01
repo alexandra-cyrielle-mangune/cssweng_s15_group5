@@ -4,8 +4,11 @@ const mongoose = require('./connection');
 // Initializes a new cart schema
 const cartSchema = new mongoose.Schema({
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
-  product: {type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true},
-  quantity: {type: Int32Array, required: true}
+  cartItems: [{
+    product: {type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true},
+    quantity: {type: Number, required: true},
+    total: {type: Number, required: true}
+  }],
 });
 
 // Creates a cart object called `cartModel`
@@ -17,12 +20,3 @@ exports.getByUser = (user, next) => {
     next(err, cart);
   });
 };
-
-// Add a product to the cart
-
-
-
-// Delete a product from the cart
-
-
-// Delete all products from the cart

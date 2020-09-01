@@ -19,13 +19,19 @@ router.get('/register', isPublic, (req, res) => {
   });
 });
 
+// GET method for admin login
+router.get('/admin', isPublic, (req, res) => {
+  res.render('admin', {
+    title: 'Log In as Admin',
+  });
+});
+
 // GET method for logout
 router.get('/logout', isPrivate, userController.logoutUser);
 
 // POST methods for form submissions
 router.post('/login', isPublic, loginValidation, userController.loginUser);
 router.post('/register', isPublic, registerValidation, userController.registerUser);
-
-// to do: GET and POST methods for admin
+router.post('/admin', isPublic, adminValidation, userController.adminLogin);
 
 module.exports = router;

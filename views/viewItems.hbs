@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <h4 class="mt-4">View All Items</h4>
+  <br>
+  <table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">Product No.</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

@@ -18,6 +18,7 @@ const port = 4000;
 // routes
 const publicRouter = require('./routes/publicRoutes');
 const privateRouter = require('./routes/privateRoutes');
+const adminRouter = require('./routes/adminRoutes');
 const authRouter = require('./routes/authRoutes');
 
 app.engine('hbs', exphbs({
@@ -35,11 +36,16 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   // secret: sessionKey, 
   secret: 'somegibberishsecret',
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 7 }
+  cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24 * 7}
 }));
+
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 
 // flash
 app.use(flash());
@@ -52,40 +58,9 @@ app.use((req, res, next) => {
   next();
 });
 
-/*
-  Public Routes:
-  - Homepage
-  - Catalogue
-  - Product Details
-  - Contact Us
-*/
 app.use('/', publicRouter);
-
-/*
-  Private Routes:
-  - Homepage
-  - Catalogue
-  - Product Details
-  - Contact Us
-  - Cart
-  - Purchase History
-  - Purchase Details
-  - User Settings
-  - Billing
-
-  to do: 
-  - admin pages
-*/
-app. use('/', privateRouter);
-
-/*
-  Authentication Routes:
-  - Register User
-  - Login User
-
-  to do:
-  - admin login
-*/
+app.use('/', privateRouter);
+app.use('/', adminRouter);
 app.use('/', authRouter);
 
 app.use(express.static('public'));

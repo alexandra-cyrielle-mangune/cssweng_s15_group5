@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 const {validationResult} = require('express-validator');
+const {isPrivate} = require('../middlewares/checkAuth');
 
 // This function registers a new user
 exports.registerUser = (req, res) => {
@@ -35,8 +36,10 @@ exports.registerUser = (req, res) => {
             }
             else {
               console.log(user); // for testing
-              req.flash('success_msg', 'You are now registered! Login below.');
-              res.redirect('/login');
+              // req.flash('success_msg', 'You are now registered! Login below.');
+              req.session.user = user._id;
+              req.session.name = user.name;
+              res.redirect('/home');
             }
           });
         });
@@ -100,4 +103,42 @@ exports.logoutUser = (req, res) => {
   }
 }
 
-// Missing: Admin login function
+// Admin login function
+exports.adminLogin = (req, res) => {
+  const errors = validationResult(req);
+  if(errors.isEmpty()) {
+    const {email, password} = req.body;
+    console.log(req.body.email) // for testing
+
+    userModel.getOne({email: email}, (err, user) => {
+      if(err) {
+        req.flash('error_msg', 'Something happened! Please try again.');
+        res.redirect('/admin');
+      }
+      else {
+        if(user) {
+          bcrypt.compare(password, user.password, (err, result) => {
+            if(result) {
+              req.session.user = user._id;
+              req.session.name = user.name;
+              res.redirect('/dashboard');
+            }
+            else {
+              req.flash('error_msg', 'Incorrect password. Please try again.');
+              res.redirect('/admin');
+            }
+          });
+        }
+        else {
+          req.flash('error_msg', 'No registered user with that email. Please register here.');
+          res.redirect('/register');
+        }
+      }
+    });
+  }
+  else {
+    const messages = errors.array().map((item) => item.msg);
+    req.flash('error_msg', messages.join(' '));
+    res.redirect('/admin');
+  }
+};

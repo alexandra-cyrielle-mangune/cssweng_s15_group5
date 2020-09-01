@@ -11,10 +11,10 @@ const registerValidation = [
   body('email').isEmail().withMessage("Please provide a valid email."),
 
   // Password needs to be minimum 8 characters
-  body('password').isLength({min: 8}).withMessage("Password must be at least 8 characters."),
+  body('password').isLength({min: 8, max: 32}).withMessage("Password must be 8-32 characters."),
 
   // Confirm password needs to be minimum 8 characters
-  body('confirm').isLength({min: 8}).withMessage("Confirm passowrd must be at least 8 characters."),
+  body('confirm').isLength({min: 8, max: 32}).withMessage("Confirm passowrd must be 8-32 characters."),
 
   // Confirm passowrd needs to match req.body.password
   body('confirm').custom((value, {req}) => {
@@ -36,5 +36,13 @@ const loginValidation = [
   body('password').not().isEmpty().withMessage("Password is required.")
 ];
 
+const adminValidation = [
+  // username should not be empty
+  body('username').isEmpty().withMessage("Username is required."),
+
+  // Password should not be empty
+  body('password').isEmpty().withMessage("Password is required.")
+];
+
 // Update exports
-module.exports = {registerValidation, loginValidation};
+module.exports = {registerValidation, loginValidation, adminValidation};

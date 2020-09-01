@@ -1,0 +1,50 @@
+<div class="container-fluid">
+  <h4 class="mt-4">Edit Item Details</h4>
+  <br>
+  <form>
+    <div class="form-group">
+      <label>Product ID</label>
+      <input type="text" class="form-control w-50" id="productID" placeholder="Enter product ID">
+    </div>
+    <div class="form-group">
+      <label>Product Name</label>
+      <input type="text" class="form-control w-50" id="productName" placeholder="Enter product name">
+    </div>
+    <div class="form-group">
+      <label>Product Description</label>
+      <input type="text" class="form-control w-50" id="description" placeholder="Enter product description">
+    </div>
+    <div class="form-group">
+      <label>Price</label>
+      <input type="text" class="form-control w-50" id="price" placeholder="Enter price">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlFile1">Upload Product Image</label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+    <button type="submit" class="btn">Submit</button>
+  </form>
+  <br>
+  <h4 class="mt-4">All Items</h4>
+  <br>
+  <table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">Product No.</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>

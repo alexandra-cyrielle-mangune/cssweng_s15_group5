@@ -7,3 +7,4 @@ exports.getAllProducts = (req, res) => {
       products: products});
   });
 };
+

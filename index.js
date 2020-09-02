@@ -15,12 +15,6 @@ const app = express();
 const port = 4000;
 // const port = envPort || 4000; // for deployment
 
-// routes
-const publicRouter = require('./routes/publicRoutes');
-const privateRouter = require('./routes/privateRoutes');
-const adminRouter = require('./routes/adminRoutes');
-const authRouter = require('./routes/authRoutes');
-
 app.engine('hbs', exphbs({
   extname: 'hbs',
   defaultView: 'main',
@@ -57,6 +51,12 @@ app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.user ? true : false;
   next();
 });
+
+// routes
+const publicRouter = require('./routes/publicRoutes');
+const privateRouter = require('./routes/privateRoutes');
+const adminRouter = require('./routes/adminRoutes');
+const authRouter = require('./routes/authRoutes');
 
 app.use('/', publicRouter);
 app.use('/', privateRouter);

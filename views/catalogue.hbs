@@ -1,31 +1,32 @@
-<div class="container shop-section text-center" id="shop-section"></div>
-  <h4>{{title}}</h4>
-  <!-- Search Bar -->
-  <div class="shop-search">
-    <form>
-      <table class="table table-borderless">
-        <tr>
-          <td>
-            <input class="form-control" type="search" placeholder="Search">
-          </td>
-          <td class="text-right">
-            <button class="btn" id="showSearchBooking" type="submit">Search</button>
-          </td>
-        </tr>
-      </table>
-    </form>
+<div class="catalogue" id="catalogue">
+  <h1 class="text-center">{{title}}</h1>
+  <br>
+  <div class="row">
+    <div class="sidebar-catalogue col-4">
+      <div class="input-group md-form mt-0">
+        <input type="text" class="form-control" placeholder="Search Catalogue">
+        <div class="input-group-append">
+          <button class="btn btn-search-cat" type="button">Search</button>
+        </div>
+      </div>
+      <br>
+      <h4>Categories</h4>
+      <div class="list-group-flush categories">
+        <a href="#" class="list-group-item list-group-item-action">Placeholder #1</a>
+        <a href="#" class="list-group-item list-group-item-action">Placeholder #2</a>
+        <a href="#" class="list-group-item list-group-item-action">Placeholder #3</a>
+        <a href="#" class="list-group-item list-group-item-action">Placeholder #4</a>
+      </div>
+    </div>
+    <div class="display-catalogue display-items col-8">
+      {{#if products}}
+        {{> display-products}}
+        {{> display-products}}
+        {{> display-products}}
+        {{> display-products}}
+      {{/if}}
+    </div>
   </div>
-
-  <!-- Display Items on Sale -->
-  <div class="display-items text-center">
-    {{#if products}}
-      {{> display-products}}
-      {{> display-products}}
-      {{> display-products}}
-      {{> display-products}}
-    {{/if}}
-
   <!-- Contact Us -->
   {{> contact-section}}
-
 </div>

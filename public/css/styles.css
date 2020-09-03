@@ -504,3 +504,28 @@ body {
 .admin a:hover {
   color: rgba(0, 0, 0, 0.699) !important;
 }
+
+/* Catalogue */
+.catalogue h1 {
+  font-family: 'Pacifico', serif;
+  color: #649179;
+  padding-top: 2rem !important;
+}
+
+.catalogue h4 {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.catalogue .form-control {
+  border-radius: 50px;
+}
+
+.catalogue .btn-search-cat {
+  padding: 0 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.products-price {
+  font-size: small;
+}

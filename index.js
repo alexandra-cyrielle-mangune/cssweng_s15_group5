@@ -41,6 +41,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// cart global variable
+app.get('*', (req, res, next) => {
+  res.locals.cart = req.session.cart;
+  res.locals.user = req.user || null;
+  next();
+});
+
 // flash
 app.use(flash());
 

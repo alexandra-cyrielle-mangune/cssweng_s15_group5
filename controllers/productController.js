@@ -1,6 +1,5 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
-const { template } = require('handlebars');
 
 // This functions gets all the products from the database
 exports.getAllProducts = (req, res) => {

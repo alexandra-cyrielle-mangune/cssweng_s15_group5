@@ -67,7 +67,9 @@ router.get('/product_details_', isPublic, (req, res) => {
   res.render('productDetails', {
     name: 'Username',
     title: 'Lipay', 
-    layout: 'main-private'
+    layout: 'main-private',
+    addToCart: '/add_to_cart',
+    checkout: 'checkout'
   });
 });
 

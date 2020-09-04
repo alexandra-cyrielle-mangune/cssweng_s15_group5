@@ -43,6 +43,13 @@ exports.getOne = (query, next) => {
   });
 };
 
+exports.getById = (query, next) => {
+  productModel.findById(query).populate('_id').exec((err, result) => {
+    if (err) throw err;
+    next(err, result);
+  });
+};
+
 // Update details of a specific product
 exports.updateDetails = (num, name, img, desc, price, next) => {
   const filter = {_id: num, name: name};

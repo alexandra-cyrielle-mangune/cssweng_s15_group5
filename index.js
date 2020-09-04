@@ -36,15 +36,9 @@ app.use(session({
   cookie: {secure: false, maxAge: 1000 * 60 * 60 * 24 * 7}
 }));
 
+// global variable session
 app.use((req, res, next) => {
   res.locals.session = req.session;
-  next();
-});
-
-// cart global variable
-app.get('*', (req, res, next) => {
-  res.locals.cart = req.session.cart;
-  res.locals.user = req.user || null;
   next();
 });
 
@@ -62,11 +56,13 @@ app.use((req, res, next) => {
 // routes
 const publicRouter = require('./routes/publicRoutes');
 const privateRouter = require('./routes/privateRoutes');
+const cartRouter = require('./routes/cartRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const authRouter = require('./routes/authRoutes');
 
 app.use('/', publicRouter);
 app.use('/', privateRouter);
+app.use('/', cartRouter);
 app.use('/', adminRouter);
 app.use('/', authRouter);
 

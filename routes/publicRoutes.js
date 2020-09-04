@@ -65,7 +65,11 @@ router.get('/contact_us', isPublic, (req, res) => {
 
 // Product Details (public)
 router.get('/product_details', isPublic, (req, res) => {
-  res.render('productDetails', {title: 'Lipay'});
+  res.render('productDetails', {
+    title: 'Lipay',
+    addToCart: '/login',
+    checkout: '/login'
+  });
 });
 
 module.exports = router;

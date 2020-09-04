@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const productController = require('../controllers/productController');
+const {productValidation} = require('../validators');
 const {isPublic} = require('../middlewares/checkAuth');
 
 var temp = [
@@ -52,6 +54,9 @@ router.get('/view_all_items', isPublic, (req, res) => {
   });
 });
 
+/*
+ *  GET METHOD: Add new Item 
+ */
 router.get('/add_new_item', isPublic, (req, res) => {
   res.render('addItem', {
     title: 'Lipay',
@@ -60,6 +65,11 @@ router.get('/add_new_item', isPublic, (req, res) => {
     products: temp
   });
 });
+
+/*
+ *  POST METHOD: Add new Item 
+ */
+router.post('/add_new_item', isPublic, productValidation, productController.addProduct);
 
 router.get('/delete_items', isPublic, (req, res) => {
   res.render('deleteItems', {

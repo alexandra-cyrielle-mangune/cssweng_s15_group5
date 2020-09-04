@@ -37,12 +37,26 @@ const loginValidation = [
 ];
 
 const adminValidation = [
-  // username should not be empty
-  body('username').isEmpty().withMessage("Username is required."),
+  // Username should not be empty
+  body('username').not().isEmpty().withMessage("Username is required."),
 
   // Password should not be empty
-  body('password').isEmpty().withMessage("Password is required.")
+  body('password').not().isEmpty().withMessage("Password is required.")
+];
+
+const productValidation = [
+  // Product name should not be empty
+  body('pName').not().isEmpty().withMessage('Product name is required.'),
+
+  // Product description should not be empty
+  body('desc').not().isEmpty().withMessage('Product description is required.'),
+
+  // Product category should not be empty
+  body('pCat').not().isEmpty().withMessage('Product category is required.'),
+
+  // Product price should not be empty
+  body('price').not().isEmpty().withMessage('Product price should not be empty.')
 ];
 
 // Update exports
-module.exports = {registerValidation, loginValidation, adminValidation};
+module.exports = {registerValidation, loginValidation, adminValidation, productValidation};

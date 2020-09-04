@@ -1,3 +1,17 @@
+## Cart Update (Notes from Devs, will delete later)
+* A cart is created using sessions and integrated with a user when logged in.
+* Functionalities related to the cart have been added in the `routes` folder called `cart.js`.
+* Modifications on the cart functions will be made later.
+* Functions so far include add a product, checkout, update product (update quantity), clear cart (delete all items in the cart), and buy now.
+
+## Modifications requested by the QA are that are on-going (Notes from Devs, will delete later):
+* User authentication errors
+* Admin UI
+
+## On-going development (Notes from Devs, will delete later):
+* Purchases MVC
+* User Story #4
+
 # Lipay
 * Lipay is a startup business based in Iloilo that creates products with their own stylistic designs. Currently, their only product available and in-production are tote bags.
 
@@ -6,6 +20,7 @@
 * Scrum Master: Jatico II, Nilo Cantil K.
 * Quality Assurance Tester: Chua, Jeric Kerby G.
 * Development Team: Mangune, Alexandra Cyrielle L., Marcelo, Jan Uriel A.
+
 
 ## Set Up
 * Clone repository `https://github.com/alexandra-cyrielle-mangune/cssweng_s15_group5.git`. 

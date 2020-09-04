@@ -142,33 +142,7 @@ body {
   flex-shrink: none;
 }
 
-/* Shop */
-.shop-section {
-  padding-top: 5rem;
-}
-
-.display-items a {
-  color: rgba(31, 31, 31, 0.9);
-}
-
-.display-items a:hover {
-  color: rgb(31, 31, 31);
-}
-
-.shop-search {
-  padding-bottom: 3rem !important;
-}
-
-.shop-search .form-control {
-  width: 135%;
-}
-
 /* Quantity Box */
-.quantity
-{
-  display: flex;
-  margin-bottom: 3rem;
-}
 
 .quantity dt
 {
@@ -177,7 +151,7 @@ body {
  
 .quantity .input-text.qty
 {
-  width: 5rem;
+  width: 3rem;
   height: 2.5rem;
   padding: 0 1rem;
   text-align: center;
@@ -187,10 +161,12 @@ body {
  
 .quantity.buttons_added
 {
+  display: flex;
   text-align: left;
   position: relative;
   white-space: nowrap;
   vertical-align: top;
+  padding-bottom: 1rem;
 }
 
 .quantity.buttons_added input
@@ -219,6 +195,10 @@ body {
 }
 
 /* Product Details */
+.product-details h2 {
+  padding-top: 2rem;
+}
+
 .product-details .card
 {
   background-color: transparent;
@@ -227,13 +207,30 @@ body {
 
 .item-description
 {
-  margin-bottom: 3rem; 
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .detailed-description
 {
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 3rem;
+}
+
+.price-detail-wrap {
+  color: #caa23e;
+}
+
+.quantity-text {
+  color: rgba(0, 0, 0, 0.7);
+  margin-right: 2rem;
+}
+
+.btn-checkout {
+  background-color: #D48199 !important;
+}
+
+.btn-checkout:hover {
+  background-color: #b15f76 !important;
 }
 
 /* Purchase History */
@@ -247,19 +244,6 @@ body {
 {
   display: flex;
   background-color: #FFD2BC;
-}
-
-.dark-pink
-{
-  color: #fff;
-  background-color: #CC5E92;
-}
-
-.light-pink
-{
-  width: 100%;
-  color: #fff;
-  background-color: #E287B2;
 }
 
 .purchase-history .card-text-group
@@ -446,4 +430,29 @@ body {
 
 .admin a:hover {
   color: rgba(0, 0, 0, 0.699) !important;
+}
+
+/* Catalogue */
+.catalogue h1 {
+  font-family: 'Pacifico', serif;
+  color: #649179;
+  padding-top: 2rem !important;
+}
+
+.catalogue h4 {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.catalogue .form-control {
+  border-radius: 50px;
+}
+
+.catalogue .btn-search-cat {
+  padding: 0 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.products-price {
+  font-size: small;
 }

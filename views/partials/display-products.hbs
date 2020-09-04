@@ -1,10 +1,10 @@
 <div class="row">
   {{#each products}}
-  <div class="col-lg-3 col-sm-6 mb-3">
+  <div class="col-lg-3 col-sm-6 text-center">
     <a href={{this.productDetailsLink}}>
-      <img src={{this.img}} width="250px" height="250px">
-      <p class="features-item-info pt-2">{{this.info}}</p>
-      <p>{{this.price}}</p>
+      <img src={{this.img}} width="150px" height="150px">
+      <p class="features-item-info">{{this.info}}</p>
+      <p class="products-price">{{this.price}}</p>
     </a>
   </div>
   {{/each}}

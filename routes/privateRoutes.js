@@ -132,4 +132,13 @@ router.get('/billing', isPublic, (req, res) => {
   });
 });
 
+// Payment Details (Online Payment / GCash)
+router.get('/payment_details', isPublic, (req, res) => {
+  res.render('paymentDetails', {
+    name: req.session.name,
+    title: "Lipay", 
+    layout: 'main-private'
+  });
+});
+
 module.exports = router;

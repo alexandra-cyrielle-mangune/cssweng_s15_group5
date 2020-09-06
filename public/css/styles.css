@@ -448,9 +448,14 @@ body {
 }
 
 .catalogue .btn-search-cat {
+  background-color: #E7BC50;
   padding: 0 1rem !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
+}
+
+.catalogue .btn-search-cat:hover {
+  background-color: #caa23e;
 }
 
 .products-price {

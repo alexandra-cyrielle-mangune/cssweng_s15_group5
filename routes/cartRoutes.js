@@ -1,19 +1,29 @@
 const router = require('express').Router();
 const productModel = require('../models/productModel');
 const cartModel = require('../models/cartModel');
+const e = require('express');
 
-router.get('/add_to_cart', (req, res) => {
+router.get('/my_cart', (req, res) => {
+  if(!req.session.cart) {
+    return res.render('cart', {products: null});
+  }
+  else {
+    var cart = new cartModel(req.session.cart);
+    res.render('cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
+  }
+})
+
+router.get('/add_to_cart/:id', (req, res) => {
   var productId = req.params.id;
-
-  // if a cart already exists in the session, pass it
-  // otherwise, pass an empty object
   var cart = new cartModel(req.session.cart ? req.session.cart: {});
-
-  productModel.getById({id: productId}, (err, product) => {
-    if(err) throw err;
-    cart.add(product, product.id);
+  productModel.findById(productId, (err, product) => {
+    if (err) {
+      return res.rendirect('/home');
+    }
+    cart.add(product, productId);
     req.session.cart = cart;
-    res.redirect('/');
+    console.log(req.session.cart); // for testing
+    res.redirect('/home')
   });
 });
 

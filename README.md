@@ -1,17 +1,3 @@
-## Cart Update (Notes from Devs, will delete later)
-* A cart is created using sessions and integrated with a user when logged in.
-* Functionalities related to the cart have been added in the `routes` folder called `cart.js`.
-* Modifications on the cart functions will be made later.
-* Functions so far include add a product, checkout, update product (update quantity), clear cart (delete all items in the cart), and buy now.
-
-## Modifications requested by the QA are that are on-going (Notes from Devs, will delete later):
-* User authentication errors
-* Admin UI
-
-## On-going development (Notes from Devs, will delete later):
-* Purchases MVC
-* User Story #4
-
 # Lipay
 * Lipay is a startup business based in Iloilo that creates products with their own stylistic designs. Currently, their only product available and in-production are tote bags.
 
@@ -36,5 +22,4 @@
 * There is no admin validation yet, so just press the `Log In` button to access the admin panel.
 
 ## User Login
-* User authentication is disabled for the meantime. 
-* Access to user routes can be accessed through the Login and Register pages, just click on the `Log In` or `Register` buttons in the respective pages.
+* User authentication is enabled.

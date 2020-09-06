@@ -20,7 +20,17 @@
 <section class="features-section" id="features">
   <div class="container">
     <h4>What's new at this shop?</h4>
-    {{> display-products}}
+    <div class="row">
+      {{#each products}}
+      <div class="col-lg-3 col-sm-6 text-center">
+        <a href={{this.productDetailsLink}}>
+          <img src={{this.img}} width="250px" height="250px">
+          <p class="features-item-info">{{this.info}}</p>
+          <p class="products-price">{{this.price}}</p>
+        </a>
+      </div>
+      {{/each}}
+    </div>
     <a class="btn btn-c-yellow button" href={{catalogueLink}}>View All Items</a>
   </div>
 </section>

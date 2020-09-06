@@ -1,5 +1,3 @@
-// userController.js controls the 
-
 const bcrypt = require('bcrypt');
 const userModel = require('../models/userModel');
 const {validationResult} = require('express-validator');

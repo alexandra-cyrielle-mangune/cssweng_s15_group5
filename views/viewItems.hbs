@@ -6,19 +6,25 @@
     <tr>
       <th scope="col">Product No.</th>
       <th scope="col">Product Name</th>
+      <th scope="col">Slug Name</th>
       <th scope="col">Description</th>
       <th scope="col">Price</th>
     </tr>
   </thead>
   <tbody>
-    {{#each products}}
-    <tr>
-      <th scope="row">{{this.id}}</th>
-      <td>{{this.name}}</td>
-      <td>{{this.description}}</td>
-      <td>{{this.price}}</td>
-    </tr>
-    {{/each}}
+    {{#if products}}
+      {{#each products}}
+      <tr>
+        <th scope="row">{{this._id}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.slug}}</td>
+        <td>{{this.desc}}</td>
+        <td>{{this.price}}</td>
+      </tr>
+      {{/each}}
+    {{else}}
+      <h4>No products available</h4>
+    {{/if}}
   </tbody>
 </table>
 </div>

@@ -14,7 +14,7 @@ const registerValidation = [
   body('password').isLength({min: 8, max: 32}).withMessage("Password must be 8-32 characters."),
 
   // Confirm password needs to be minimum 8 characters
-  body('confirm').isLength({min: 8, max: 32}).withMessage("Confirm passowrd must be 8-32 characters."),
+  body('confirm').isLength({min: 8, max: 32}).withMessage("Confirm password must be 8-32 characters."),
 
   // Confirm passowrd needs to match req.body.password
   body('confirm').custom((value, {req}) => {

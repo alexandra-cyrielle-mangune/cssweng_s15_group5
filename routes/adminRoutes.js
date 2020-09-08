@@ -45,17 +45,13 @@ router.get('/dashboard', isPublic, (req, res) => {
   });
 });
 
-router.get('/view_all_items', isPublic, (req, res) => {
-  res.render('viewItems', {
-    title: 'Lipay',
-    name: 'Admin Name',
-    layout: 'main-admin',
-    products: temp
-  });
-});
+/*
+ *  GET METHOD: View all items 
+ */
+router.get('/view_all_items', isPublic, productController.viewAllProducts);
 
 /*
- *  GET METHOD: Add new Item 
+ *  GET METHOD: Add new item 
  */
 router.get('/add_new_item', isPublic, (req, res) => {
   res.render('addItem', {
@@ -67,7 +63,7 @@ router.get('/add_new_item', isPublic, (req, res) => {
 });
 
 /*
- *  POST METHOD: Add new Item 
+ *  POST METHOD: Add new item 
  */
 router.post('/add_new_item', isPublic, productValidation, productController.addProduct);
 

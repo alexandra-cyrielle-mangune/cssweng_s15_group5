@@ -1,12 +1,27 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 
-// This functions gets all the products from the database
+// This functions gets all the products from the database 
+// and displays them in the catalogue
 exports.getAllProducts = (req, res) => {
   productModel.getAll({}, (err, products) => {
     res.render('catalogue', {
       title: 'Catalogue',
-      products: products});
+      products: products
+    });
+  });
+};
+
+// This functions gets all the products from the database 
+// and displays them in the admin 'view all products' pages
+exports.viewAllProducts = (req, res) => {
+  productModel.getAll({}, (err, products) => {
+    res.render('viewItems', {
+      title: 'Lipay',
+      name: 'Admin Name',
+      layout: 'main-admin',
+      products: products
+    });
   });
 };
 

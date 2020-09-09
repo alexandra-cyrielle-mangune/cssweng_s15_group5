@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const {isPrivate, isPublic} = require('../middlewares/checkAuth');
+const productController = require('../controllers/productController');
+const {isPrivate} = require('../middlewares/checkAuth');
 
 var temp = [
   {img: 'img/features-placeholder-1.jpg',
@@ -21,47 +22,36 @@ var temp = [
 ];
 
 // Homepage (private)
-router.get('/home', isPrivate, (req, res) => {
+router.get('/', (req, res) => {
   res.render('home', {
     name: req.session.name,
     title: 'Lipay',
-    layout: 'main-private',
+    layout: 'main',
     mastheadImg: 'img/masthead-banner-placeholder.jpg',
     products: temp,
-    catalogueLink: '/catalogue_',
-    contactUsLink: '/contact_us_'
+    loggedIn: req.session.user
   });
 });
 
-// Catalogue (private)
-router.get('/catalogue_', isPrivate, (req, res) => {
-  res.render('catalogue', {
-    name: req.session.name,
-    title: "Catalogue",
-    layout: 'main-private',
-    products: temp,
-    contactUsLink: '/contact_us_'
-  });
-});
+// Catalogue
+router.get('/catalogue', productController.getAllProducts);
 
-// Product Details (private)
-router.get('/product_details_', isPrivate, (req, res) => {
-  res.render('productDetails', {
-    name: req.session.name,
-    title: 'Lipay', 
-    layout: 'main-private',
-    addToCart: '/add_to_cart',
-    checkout: 'checkout'
-  });
-});
-
-// Contact Us (private)
-router.get('/contact_us_', isPrivate, (req, res) => {
+// Contact Us
+router.get('/contact_us', (req, res) => {
   res.render('contact', {
     name: req.session.name,
-    title: 'Talk to Us', 
-    layout: 'main-private',
-    img: 'img/contact-us-image.png'
+    title: "Talk to Us",
+    img: 'img/contact-us-image.png',
+    loggedIn: req.session.user,
+  });
+});
+
+// Product Details (public)
+router.get('/product_details', (req, res) => {
+  res.render('productDetails', {
+    name: req.session.name,
+    title: 'Lipay',
+    loggedIn: req.session.user,
   });
 });
 
@@ -70,7 +60,7 @@ router.get('/cart', isPrivate, (req, res) => {
   res.render('cart', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 
@@ -79,7 +69,7 @@ router.get('/purchase_history', isPrivate, (req, res) => {
   res.render('purchaseHistory', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 
@@ -88,7 +78,7 @@ router.get('/purchase_details', isPrivate, (req, res) => {
   res.render('purchaseDetails', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 
@@ -97,7 +87,7 @@ router.get('/settings', isPrivate, (req, res) => {
   res.render('settings', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 
@@ -106,7 +96,7 @@ router.get('/billing', isPrivate, (req, res) => {
   res.render('billing', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 
@@ -115,7 +105,7 @@ router.get('/payment_details', isPrivate, (req, res) => {
   res.render('paymentDetails', {
     name: req.session.name,
     title: "Lipay", 
-    layout: 'main-private'
+    loggedIn: req.session.user,
   });
 });
 

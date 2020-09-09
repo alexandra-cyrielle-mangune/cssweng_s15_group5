@@ -18,7 +18,7 @@ router.get('/add_to_cart/:id', (req, res) => {
   var cart = new cartModel(req.session.cart ? req.session.cart: {});
   productModel.findById(productId, (err, product) => {
     if (err) {
-      return res.rendirect('/home');
+      return res.redirect('/home');
     }
     cart.add(product, productId);
     req.session.cart = cart;

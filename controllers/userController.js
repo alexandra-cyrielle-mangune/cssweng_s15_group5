@@ -69,7 +69,7 @@ exports.loginUser = (req, res) => {
             if(result) {
               req.session.user = user._id;
               req.session.name = user.name;
-              res.redirect('/home');
+              res.redirect('/');
             }
             else {
               req.flash('error_msg', 'Incorrect password. Please try again.');

@@ -54,14 +54,12 @@ app.use((req, res, next) => {
 });
 
 // routes
-const publicRouter = require('./routes/publicRoutes');
-const privateRouter = require('./routes/privateRoutes');
+const userRouter = require('./routes/userRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const authRouter = require('./routes/authRoutes');
 
-app.use('/', publicRouter);
-app.use('/', privateRouter);
+app.use('/', userRouter);
 app.use('/', cartRouter);
 app.use('/', adminRouter);
 app.use('/', authRouter);

@@ -14,14 +14,36 @@
           <a class="nav-link" href="/contact_us">Contact Us</a>
         </li>
       </ul>
-      <ul class="navbar-nav my-auto my-2 my-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">My Cart</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-      </ul>
+      {{#if loggedIn}}
+        <ul class="navbar-nav my-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">My Cart
+            <span class="badge">{{session.cart.totalQty}}</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-user fa-fw" aria-hidden="true"></span>
+              <span class="d-lg-none d-xl-inline">{{name}}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/purchase_history">Purchase History</a>
+              <a class="dropdown-item" href="/settings">Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/logout">Log out</a>
+            </div>
+          </li>
+        </ul>
+      {{else}}
+        <ul class="navbar-nav my-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">My Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+        </ul>
+      {{/if}}
     </div>
   </div>
 </nav>

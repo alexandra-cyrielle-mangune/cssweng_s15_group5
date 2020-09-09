@@ -6,8 +6,10 @@ const {validationResult} = require('express-validator');
 exports.getAllProducts = (req, res) => {
   productModel.getAll({}, (err, products) => {
     res.render('catalogue', {
+      name: req.session.name,
       title: 'Catalogue',
-      products: products
+      products: products,
+      loggedIn: req.session.user,
     });
   });
 };

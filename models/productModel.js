@@ -3,7 +3,7 @@ const mongoose = require('./connection');
 
 // Initializes a new product schema
 const productSchema = new mongoose.Schema({
-  name: {type: String, required: true},
+  pName: {type: String, required: true},
   slug: {type: String},
   desc: {type: String, required: true},
   category: {type: String, required: true},
@@ -37,12 +37,13 @@ exports.getAll = (query, next) => {
 
 // Get a specific product from the database
 exports.getOne = (query, next) => {
-  productModel.findOne(query).populate('_id').exec((err, result) => {
+  productModel.findOne(query).exec((err, result) => {
     if (err) throw err;
     next(err, result);
   });
 };
 
+// Get a specific product from the database using ID
 exports.getById = (query, next) => {
   productModel.findById(query).populate('_id').exec((err, result) => {
     if (err) throw err;
@@ -52,7 +53,7 @@ exports.getById = (query, next) => {
 
 // Update details of a specific product
 exports.updateDetails = (num, name, img, desc, price, next) => {
-  const filter = {_id: num, name: name};
+  const filter = {_id: num, title: name};
   const update = {
     $set: {
       img: img,

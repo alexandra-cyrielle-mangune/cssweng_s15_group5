@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const cartController = require('../controllers/cartController');
 const productController = require('../controllers/productController');
 const {isPrivate} = require('../middlewares/checkAuth');
 
@@ -21,7 +22,7 @@ var temp = [
   price: '₱ 450.00'}
 ];
 
-// Homepage (private)
+// Homepage
 router.get('/', (req, res) => {
   res.render('home', {
     name: req.session.name,
@@ -46,21 +47,17 @@ router.get('/contact_us', (req, res) => {
   });
 });
 
-// Product Details (public)
-router.get('/product_details', (req, res) => {
-  res.render('productDetails', {
-    name: req.session.name,
-    title: 'Lipay',
-    loggedIn: req.session.user,
-  });
-});
+// Product Details
+router.get('/product_details/:slug', productController.getAProduct);
 
 // Cart GET method
+// router.get('/cart', isPrivate, cartController.getUser);
 router.get('/cart', isPrivate, (req, res) => {
   res.render('cart', {
     name: req.session.name,
-    title: "Lipay", 
+    title: "My Cart", 
     loggedIn: req.session.user,
+    product: temp
   });
 });
 

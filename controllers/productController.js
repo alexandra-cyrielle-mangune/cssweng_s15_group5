@@ -27,6 +27,43 @@ exports.viewAllProducts = (req, res) => {
   });
 };
 
+// Get a product then display its details
+exports.getAProduct = (req, res) => {
+  productModel.getOne({slug: req.params.slug}, (err, product) => {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      // console.log(product); // testing
+      res.render('productDetails', {
+        title: 'Lipay',
+        pName: product.pName,
+        desc: product.desc,
+        img: product.img,
+        price: product.price,
+        _id: product._id,
+        loggedIn: req.session.user
+      });
+    }
+  });
+};
+
+// Add a product to the CART
+// exports.addToCart = (req, res) => {
+//   var cart = new cartModel(req.session.cart ? req.session.cart: {});
+//   productModel.getOne({slug: req.params.slug}, (err, product) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     else {
+//       cart.addProduct(product, req.params._id);
+//       req.session.cart = cart;
+//       console.log(cart); // testing
+//       res.redirect('/cart');
+//     }
+//   });
+// };
+
 // This function add a new product to the database
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
@@ -43,7 +80,7 @@ exports.addProduct = (req, res) => {
       }
       else {
         const newProduct = {
-          name: pName,
+          pName: pName,
           slug: slug,
           desc: desc,
           category: pCat,

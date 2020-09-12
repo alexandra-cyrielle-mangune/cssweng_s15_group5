@@ -55,6 +55,20 @@ exports.addProduct = (filter, update, next) => {
   });
 };
 
+exports.deleteOne = (id, next) => {
+  cartModel.deleteOne({_id: id}, (err, result) => {
+    if (err) throw err;
+    next(err, result);
+  });
+};
+
+exports.deleteAll = (query, next) => {
+  cartModel.deleteMany({}, (err, result) => {
+    if (err) throw err;
+    next(err, result);
+  });
+};
+
 // // This does not save to the database yet
 // module.exports = function Cart(oldCart) {
 //   // initialization of the information of the products

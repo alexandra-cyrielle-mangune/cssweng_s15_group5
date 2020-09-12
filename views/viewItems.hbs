@@ -2,29 +2,29 @@
   <h4 class="mt-4">View All Items</h4>
   <br>
   <table class="table table-hover text-center">
-  <thead>
-    <tr>
-      <th scope="col">Product No.</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Slug Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#if products}}
-      {{#each products}}
+    <thead>
       <tr>
-        <th scope="row">{{this._id}}</th>
-        <td>{{this.name}}</td>
-        <td>{{this.slug}}</td>
-        <td>{{this.desc}}</td>
-        <td>{{this.price}}</td>
+        <th scope="col">Product No.</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Slug Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
       </tr>
-      {{/each}}
-    {{else}}
-      <h4>No products available</h4>
-    {{/if}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#if products}}
+        {{#each products}}
+        <tr>
+          <th scope="row">{{this._id}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.slug}}</td>
+          <td>{{this.desc}}</td>
+          <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+      {{else}}
+        <h4>No products available</h4>
+      {{/if}}
+    </tbody>
+  </table>
 </div>

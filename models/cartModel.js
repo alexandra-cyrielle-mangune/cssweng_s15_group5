@@ -35,6 +35,7 @@ exports.getAll = (query, next) => {
 // Get a cart by user
 exports.getByUser = (query, next) => {
   cartModel.findOne(query).exec((err, result) => {
+    console.log(result);
     if (err) throw err;
     next(err, result);
   });
@@ -42,7 +43,13 @@ exports.getByUser = (query, next) => {
 
 // Add item to cart
 exports.addProduct = (filter, update, next) => {
-  cartModel.findOneAndUpdate(filter, {$push: update}).exec((err, result) => {
+  console.log('filter');
+  console.log(filter);
+  console.log('update');
+  console.log(update);
+  cartModel.findOneAndUpdate(filter, {$push: {prod: update}}).exec((err, result) => {
+    console.log('after push');
+    console.log(result);
     if (err) throw err;
     next(err, result);
   });

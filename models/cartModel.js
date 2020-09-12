@@ -1,14 +1,19 @@
 // Connects to the database via Mongoose
 const mongoose = require('./connection');
 const { ObjectID } = require('mongodb');
+const e = require('express');
 
 // Initializes a new cart schema
 const cartSchema = new mongoose.Schema({
-  prod: [{type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true}],
+  prod: [
+    {
+      id: { type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true },
+      qty: { type: Number, required: true }
+    }
+  ],
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
   checkout: {type: Boolean, required: true}
 });
-
 // Creates a cart object called `cartModel`
 const cartModel = mongoose.model('cart', cartSchema);
 
@@ -34,7 +39,8 @@ exports.getAll = (query, next) => {
 
 // Get a cart by user
 exports.getByUser = (query, next) => {
-  cartModel.findOne(query).exec((err, result) => {
+  cartModel.findOne({user: query}).exec((err, result) => {
+    console.log('user');
     console.log(result);
     if (err) throw err;
     next(err, result);
@@ -47,13 +53,70 @@ exports.addProduct = (filter, update, next) => {
   console.log(filter);
   console.log('update');
   console.log(update);
-  cartModel.findOneAndUpdate(filter, {$push: {prod: update}}).exec((err, result) => {
-    console.log('after push');
-    console.log(result);
+  cartModel.findOne({user: filter}).exec((err, result) => {
     if (err) throw err;
-    next(err, result);
+    if (result) {
+      if (!result.prod.some(prod => prod.id == update)) {
+        cartModel.findOneAndUpdate(
+            {
+              user: filter
+            }, 
+            {
+              $push: {
+                prod: {
+                  id: update, 
+                  qty: 1
+                }
+              }
+            },
+            {
+              returnOriginal: false
+            }
+          ).exec((err, result) => {
+            if (err) throw err;
+            next(err, result);
+          });
+      }
+      else {
+        cartModel.findOneAndUpdate(
+          {
+            user: filter, 
+            'prod.id': update
+          }, 
+          {
+            $inc: {
+              'prod.$.qty': 1
+            }
+          }, 
+          {
+          returnOriginal: false
+          }
+        ).exec((err, result) => {
+          console.log('after push');
+          console.log(result);
+          console.log(err);
+          if (err) throw err;
+          next(err, result);
+        });
+      }
+    }
+    else {
+      var newCart = {
+        prod: [
+          {
+            id: update,
+            qty: 1
+          }
+        ],
+        user: filter,
+        checkout: false,
+      };
+
+      cartModel.create(newCart, next);
+    }
   });
 };
+
 
 exports.deleteOne = (id, next) => {
   cartModel.deleteOne({_id: id}, (err, result) => {
@@ -68,7 +131,6 @@ exports.deleteAll = (query, next) => {
     next(err, result);
   });
 };
-
 // // This does not save to the database yet
 // module.exports = function Cart(oldCart) {
 //   // initialization of the information of the products

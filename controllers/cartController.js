@@ -23,37 +23,15 @@ exports.addToCart = (req, res) => {
       res.redirect('/login');
     }
     else {
-      cartModel.getByUser({user: user}, (err, result) => {
-        if (result) {
-          cartModel.addProduct(user, product, (err, cart) => {
-            if(err) {
-              req.flash('error_msg', 'Could not add product. Please try again.');
-              res.redirect('/cart');
-            }
-            else {
-              console.log(product); // for testing
-              req.flash('success_msg', 'You have added a new product to the cart!');
-              res.redirect('/cart');
-            }
-          });
+      cartModel.addProduct(user, product, (err, cart) => {
+        if(err) {
+          req.flash('error_msg', 'Could not add product. Please try again.');
+          res.redirect('/cart');
         }
         else {
-          const newCart = {
-            prod: product,
-            user: user,
-            checkout: false
-          };
-          cartModel.create(newCart, (err, cart) => {
-            if(err) {
-              req.flash('error_msg', 'Could not add product. Cart does not exist.');
-              res.redirect('/cart');
-            }
-            else {
-              console.log("success! " + product); // for testing
-              req.flash('success_msg', 'You have added a new product to the cart!');
-              res.redirect('/cart');
-            }
-          });
+          console.log(product); // for testing
+          req.flash('success_msg', 'You have added a new product to the cart!');
+          res.redirect('/cart');
         }
       });
     }

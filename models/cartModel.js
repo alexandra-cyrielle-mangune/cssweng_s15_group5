@@ -65,7 +65,8 @@ exports.getByUser = (user, next) => {
 
             subPrice = item.price * cart.prod[index].qty;
             totalPrice += subPrice;
-
+            
+            product['pName'] = item.pName;
             product['img'] = item.img;
             product['subPrice'] = subPrice;
             product['qty'] = cart.prod[index].qty;

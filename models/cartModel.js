@@ -53,19 +53,20 @@ exports.getByUser = (user, next) => {
         cart.prod.forEach(function (item) {
           prodIds.push(item.id);
         });
-        console.log(prodIds); // testing
+        console.log('prodIds(getbyuser model): ' + prodIds); // testing
         productModel.getAllIds(prodIds, function(err, products) {
           var totalPrice = 0;
           var subPrice;
           var prodArray = [];
           products.forEach(function (item){
-            console.log(item); // for testing
+            console.log('item(getbyuser model): ' + item); // for testing
             var index = cart.prod.findIndex(x => x.id.equals(item._id));
             var product = {};
 
             subPrice = item.price * cart.prod[index].qty;
             totalPrice += subPrice;
 
+            product['pName'] = item.pName;
             product['img'] = item.img;
             product['subPrice'] = subPrice;
             product['qty'] = cart.prod[index].qty;

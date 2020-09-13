@@ -1,14 +1,33 @@
 <section id="features">
   <div class="container">
+    <br><br>
     <h4>{{title}}</h4>
     <br>
     <div class="row">
-      <div class="display-cart col-8">
-        <p>test test test</p>
-      </div>
+
+      {{#if products}}
+        {{#each products}}
+          <div class="display-cart col-8">
+
+            <div class="card">
+              <div class="card-body">
+                <img src="{{this.img}}" width="250px">
+                <h5 class="card-title">{{this.pName}}</h5>
+                <p class="card-text">Qty.: {{this.qty}}</p>
+                <p class="card-text">Php: {{this.subPrice}}</p>
+                <a href="#" class="btn btn-c-pink disabled">Delete</a>
+              </div>
+            </div>
+
+          </div>
+        {{/each}}
       <div class="sidebar-cart col-4">
-        <p>test test test</p>
+        <p>Price Summary Here</p>
       </div>
+      {{else}}
+      <p>No items in the cart!</p>
+      {{/if}}
+
     </div>
   </div>
 </section>

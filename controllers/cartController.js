@@ -15,15 +15,16 @@ exports.addToCart = (req, res) => {
   if(errors.isEmpty()) {
     var product = req.params.id;
     var user = req.session.user;
-    console.log(product);
-    console.log(user);
-    console.log(req.session.name);
+    console.log('product(addtocart): ' + product);
+    console.log('user(addtocart): ' + user);
+    // console.log(req.session.name);
     if(!user) {
       console.log(user + ' ' + product); // testing
       res.redirect('/login');
     }
     else {
       cartModel.addProduct(user, product, 1, (err, cart) => {
+        console.log('cart(addtocart): ' + cart);
         if(err) {
           req.flash('error_msg', 'Could not add product. Please try again.');
           return res.redirect('/cart');
@@ -39,30 +40,32 @@ exports.addToCart = (req, res) => {
 
 exports.getUserCart = (req, res) => {
   const errors = validationResult(req);
+  // console.log(errors);
   if(errors.isEmpty()) {
     var user = req.session.user;
-    if(!user) {
-      console.log(user + ' ' + product); // testing
-      res.redirect('/');
+    if (user) {
+      cartModel.getByUser(user, (err, result) => {
+        console.log('ayyyy');
+        console.log('CART(GETBYUSER): ' + result.products[0].pName);
+        if(result) {
+
+          console.log(result.products); // testing
+
+          res.render('cart', {
+            layout: 'main-1',
+            name: req.session.name,
+            title: "My Cart", 
+            loggedIn: user,
+            products: result.products
+          });
+        }
+        else {
+          console.log(err);
+        }
+      });
     }
-    else {
-      if (user) {
-        cartModel.getByUser(user, (err, result) => {
-          console.log('ayyyy');
-          console.log(result);
-          if(result) {
-            res.render('cart', {
-              name: req.session.name,
-              title: "My Cart", 
-              loggedIn: user,
-              product: result
-            });
-          }
-          else {
-            console.log(err);
-          }
-        });
-      }
-    }
+  }
+  else {
+    console.log(errors);
   }
 };

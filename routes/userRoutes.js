@@ -52,15 +52,6 @@ router.get('/product_details/:slug', productController.getAProduct);
 
 // Cart GET method
 router.get('/cart', isPrivate, cartController.getUserCart);
-// router.get('/cart/:id', isPrivate, (req, res) => {
-//   res.render('cart', {
-//     layout: 'main-1',
-//     name: req.session.name,
-//     title: "My Cart", 
-//     loggedIn: req.session.user,
-//     product: temp
-//   });
-// });
 
 // Purchase History
 router.get('/purchase_history', isPrivate, (req, res) => {

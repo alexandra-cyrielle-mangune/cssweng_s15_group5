@@ -48,70 +48,54 @@ exports.getByUser = (query, next) => {
 };
 
 // Add item to cart
-exports.addProduct = (filter, update, next) => {
+exports.addProduct = (filter, update, qty, next) => {
   console.log('filter');
   console.log(filter);
   console.log('update');
   console.log(update);
-  cartModel.findOne({user: filter}).exec((err, result) => {
+  cartModel.findOne({user: filter}).exec((err, cart) => {
     if (err) throw err;
-    if (result) {
-      if (!result.prod.some(prod => prod.id == update)) {
-        cartModel.findOneAndUpdate(
-            {
-              user: filter
-            }, 
-            {
-              $push: {
-                prod: {
-                  id: update, 
-                  qty: 1
-                }
-              }
-            },
-            {
-              returnOriginal: false
-            }
-          ).exec((err, result) => {
-            if (err) throw err;
-            next(err, result);
-          });
+    if (cart) {
+      console.log('cart');
+      console.log(cart)
+      console.log(cart.prod.some(prod => prod.id == update));
+      if (!cart.prod.some(prod => prod.id == update)) {
+        cart.prod.push({id: update, qty: qty})
+        cart.save(next(err, cart));
       }
       else {
-        cartModel.findOneAndUpdate(
-          {
-            user: filter, 
-            'prod.id': update
-          }, 
-          {
-            $inc: {
-              'prod.$.qty': 1
-            }
-          }, 
-          {
-          returnOriginal: false
+        var prodArray = cart.prod;
+        var prodIndex = prodArray.findIndex(x => x.id == update);
+        if (prodArray[prodIndex].qty + qty > 0) {
+          cart.prod[prodIndex].qty += qty;
+          cart.save(next(err, cart));
+        }
+        else {
+          cart.prod.splice(prodIndex);
+          if (cart.length == 0) {
+            cartModel.deleteOne({user: filter}).exec((err, result) => {
+              next(err, result);
+            });
           }
-        ).exec((err, result) => {
-          console.log('after push');
-          console.log(result);
-          console.log(err);
-          if (err) throw err;
-          next(err, result);
-        });
+          cart.save(next(err, cart));
+        }
       }
     }
     else {
+      if (qty < 0)
+        throw new Error('Negative quantity when cart does not exist');
+
       var newCart = {
         prod: [
           {
             id: update,
-            qty: 1
+            qty: qty
           }
         ],
         user: filter,
         checkout: false,
       };
-
+      
       cartModel.create(newCart, next);
     }
   });

@@ -23,13 +23,12 @@ exports.addToCart = (req, res) => {
       res.redirect('/login');
     }
     else {
-      cartModel.addProduct(user, product, (err, cart) => {
+      cartModel.addProduct(user, product, -2, (err, cart) => {
         if(err) {
           req.flash('error_msg', 'Could not add product. Please try again.');
           res.redirect('/cart');
         }
         else {
-          console.log(product); // for testing
           req.flash('success_msg', 'You have added a new product to the cart!');
           res.redirect('/cart');
         }

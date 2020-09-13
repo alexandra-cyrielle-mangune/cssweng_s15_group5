@@ -7,12 +7,14 @@ const e = require('express');
 const cartSchema = new mongoose.Schema({
   prod: [
     {
-      id: { type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true },
-      qty: { type: Number, required: true }
+      id: {type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true},
+      qty: {type: Number, required: true},
+      // price: {type: Number, required: true},
     }
   ],
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
-  checkout: {type: Boolean, required: true}
+  checkout: {type: Boolean, required: true},
+  // totalPrice: {type: Number, required: true},
 });
 // Creates a cart object called `cartModel`
 const cartModel = mongoose.model('cart', cartSchema);
@@ -72,12 +74,14 @@ exports.addProduct = (filter, update, qty, next) => {
         }
         else {
           cart.prod.splice(prodIndex);
-          if (cart.length == 0) {
+          if (cart.prod.length == 0) {
             cartModel.deleteOne({user: filter}).exec((err, result) => {
               next(err, result);
             });
           }
-          cart.save(next(err, cart));
+          else {
+            cart.save(next(err, cart));
+          }
         }
       }
     }

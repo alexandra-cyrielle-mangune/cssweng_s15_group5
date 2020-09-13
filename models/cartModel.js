@@ -39,58 +39,52 @@ exports.getAll = (query, next) => {
 };
 
 // Get a cart by user
-exports.getByUser = (query, next) => {
-  cartModel.findOne({user: query}).exec((err, result) => {
-    console.log('user');
-    console.log(result);
-    if (err) throw err;
-    next(err, result);
-  });
-};
-
-exports.getByUserWithPrices = (user, next) => {
+exports.getByUser = (user, next) => {
   cartModel.findOne({user: user}).exec((err, cart) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+    }
+    else {
+      if (!cart) {
+        next(err, cart);
+      } 
+      else {
+        var prodIds = [];
+        cart.prod.forEach(function (item) {
+          prodIds.push(item.id);
+        });
+        console.log(prodIds); // testing
+        productModel.getAllIds(prodIds, function(err, products) {
+          var totalPrice = 0;
+          var subPrice;
+          var prodArray = [];
+          products.forEach(function (item){
+            console.log(item); // for testing
+            var index = cart.prod.findIndex(x => x.id.equals(item._id));
+            var product = {};
 
-    if (!cart)
-      next(err, cart);
-    var prodIds = [];
-    cart.prod.forEach(function (item){
-      prodIds.push(item.id);
-    });
-    console.log(prodIds);
-    productModel.getAllIds(prodIds, function(err, products) {
-      var totalPrice = 0;
-      var subPrice;
-      var prodArray = [];
-      products.forEach(function (item){
-        var index = cart.prod.findIndex(x => x.id.equals(item._id));
-        var product = {};
+            subPrice = item.price * cart.prod[index].qty;
+            totalPrice += subPrice;
 
-        subPrice = item.price * cart.prod[index].qty;
-        totalPrice += subPrice;
+            product['img'] = item.img;
+            product['subPrice'] = subPrice;
+            product['qty'] = cart.prod[index].qty;
 
-        product['img'] = item.img;
-        product['subPrice'] = subPrice;
-        product['qty'] = cart.prod[index].qty;
-
-        prodArray.push(product);
-      });
-      next(err, {products: prodArray, total: totalPrice});
-    });
+            prodArray.push(product);
+          });
+          next(err, {products: prodArray, total: totalPrice});
+        });
+      }
+    }
   });
 };
+
 // Add item to cart
 exports.addProduct = (filter, update, qty, next) => {
-  console.log('filter');
-  console.log(filter);
-  console.log('update');
-  console.log(update);
   cartModel.findOne({user: filter}).exec((err, cart) => {
     if (err) throw err;
     if (cart) {
-      console.log('cart');
-      console.log(cart)
+      console.log(cart); // for testing
       console.log(cart.prod.some(prod => prod.id == update));
       if (!cart.prod.some(prod => prod.id == update)) {
         cart.prod.push({id: update, qty: qty})
@@ -117,21 +111,22 @@ exports.addProduct = (filter, update, qty, next) => {
       }
     }
     else {
-      if (qty < 0)
+      if (qty < 0) {
         throw new Error('Negative quantity when cart does not exist');
-
-      var newCart = {
-        prod: [
-          {
-            id: update,
-            qty: qty
-          }
-        ],
-        user: filter,
-        checkout: false,
-      };
-      
-      cartModel.create(newCart, next);
+      }
+      else {
+        var newCart = {
+          prod: [
+            {
+              id: update,
+              qty: qty
+            }
+          ],
+          user: filter,
+          checkout: false,
+        }; 
+        cartModel.create(newCart, next);
+      }
     }
   });
 };
@@ -150,70 +145,3 @@ exports.deleteAll = (query, next) => {
     next(err, result);
   });
 };
-// // This does not save to the database yet
-// module.exports = function Cart(oldCart) {
-//   // initialization of the information of the products
-//   // that will be added to the cart
-//   this.items = oldCart.items || {};
-//   this.totalQuantity = oldCart.totalQuantity || 0;
-//   this.totalPrice = oldCart.totalPrice || 0;
-
-//   // function that allows products to be added to the cart
-//   this.add = function(item, id) {
-//     var storedItem = this.items[id];
-//     if(!storedItem) {
-//       storedItem = this.items[id] = {
-//         item: item, 
-//         qty: 0, 
-//         price: 0
-//       };
-//     }
-//     storedItem.qty++;
-//     storedItem.price = storedItem.item.price * storedItem.qty;
-//     this.totalQuantity++;
-//     this.totalPrice += storedItem.item.price;
-//   };
-
-//   // function that decreases quantity of item by 1
-//   this.reduceByOne = function(id) {
-//     this.items[id].qty--;
-//     this.items[id].price -= this.items[id].item.price;
-//     this.totalQuantity--;
-//     this.totalPrice -= this.items[id].item.price;
-
-//     if(this.items[id].qty <= 0) {
-//       delete this.items[id];
-//     }
-//   };
-
-//   // function that increases quantity of item by 1
-//   this.increaseByOne = function(id) {
-//     this.items[id].qty++;
-//     this.items[id].price += this.items[id].item.price;
-//     this.totalQuantity++;
-//     this.totalPrice += this.items[id].item.price;
-//   };
-  
-//   // function removes an item from the cart
-//   this.removeItem = function(id) {
-//     this.totalQuantity -= this.items[id].qty;
-//     this.totalPrice -= this.items[id].price;
-//     delete this.items[id];
-//   };
-
-//   // function removes all items from the cart
-//   this.removeAll = function() {
-//     this.totalQuantity = 0;
-//     this.totalPrice = 0;
-//     delete this.items;
-//   };
-
-//   // function that retrieves items in the cart as an array
-//   this.generateArray = function() {
-//     var array = [];
-//     for(var id in this.items) {
-//       array.push(this.items[id]);
-//     }
-//     return array;
-//   };
-// };

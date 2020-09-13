@@ -25,7 +25,9 @@
 
 ## User Login
 * User authentication is enabled.
-|    Email      |   Password    |
-| ------------- | ------------- |
-| juandelacruz@email.com  | 12345678  |
-| johnsmith@email.com  | 12345678  |
+* User 1:
+  * Email: `juandelacruz@email.com`
+  * Password: `12345678`
+* User 2:
+  * Email: `johnsmith@email.com`
+  * Password: `password`

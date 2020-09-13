@@ -26,11 +26,11 @@ exports.addToCart = (req, res) => {
       cartModel.addProduct(user, product, 1, (err, cart) => {
         if(err) {
           req.flash('error_msg', 'Could not add product. Please try again.');
-          return res.redirect('/cart');
+          return res.redirect('/cart/:id');
         }
         else {
           req.flash('success_msg', 'You have added a new product to the cart!');
-          return res.redirect('/cart');
+          return res.redirect('/cart/:id');
         }
       });
     }
@@ -39,31 +39,30 @@ exports.addToCart = (req, res) => {
 
 exports.getUserCart = (req, res) => {
   const errors = validationResult(req);
-  var user = req.session.user;
-  console.log(!errors.isEmpty())
-  if(!errors.isEmpty()) {
+  if(errors.isEmpty()) {
+    var user = req.session.user;
     if(!user) {
       console.log(user + ' ' + product); // testing
       res.redirect('/');
     }
-  }
-  else {
-    if (user) {
-      cartModel.getByUserWithPrices(req.session.user, (err, result) => {
-        console.log('ayyyy');
-        console.log(result);
-        if(result) {
-          res.render('cart', {
-            name: req.session.name,
-            title: "My Cart", 
-            loggedIn: req.session.user,
-            product: result
-          });
-        }
-        else {
-          console.log(err);
-        }
-      });
+    else {
+      if (user) {
+        cartModel.getByUser(user, (err, result) => {
+          console.log('ayyyy');
+          console.log(result);
+          if(result) {
+            res.render('cart', {
+              name: req.session.name,
+              title: "My Cart", 
+              loggedIn: user,
+              product: result
+            });
+          }
+          else {
+            console.log(err);
+          }
+        });
+      }
     }
   }
 };

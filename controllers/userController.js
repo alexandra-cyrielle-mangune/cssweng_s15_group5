@@ -37,7 +37,7 @@ exports.registerUser = (req, res) => {
               // req.flash('success_msg', 'You are now registered! Login below.');
               req.session.user = user._id;
               req.session.name = user.name;
-              res.redirect('/home');
+              res.redirect('/');
             }
           });
         });

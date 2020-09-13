@@ -85,7 +85,7 @@ exports.addProduct = (req, res) => {
           slug: slug,
           desc: desc,
           category: pCat,
-          price: price.toFixed(2),
+          price: Math.round(price * 100) / 100.0,
           img: temp
         };
         productModel.create(newProduct, (err, product) => {

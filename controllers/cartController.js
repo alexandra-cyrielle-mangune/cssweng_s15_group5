@@ -39,20 +39,18 @@ exports.addToCart = (req, res) => {
 
 exports.getUserCart = (req, res) => {
   const errors = validationResult(req);
-  var user;
-  console.log('entered')
-  console.log(errors);
-  console.log(errors.isEmpty());
-  if(errors.isEmpty()) {
-    user = req.session.user;
+  var user = req.session.user;
+  console.log(!errors.isEmpty())
+  if(!errors.isEmpty()) {
     if(!user) {
       console.log(user + ' ' + product); // testing
-      res.redirect('/cart');
+      res.redirect('/');
     }
   }
   else {
     if (user) {
-      cartModel.getByUser({user: req.session.user}, (err, result) => {
+      cartModel.getByUserWithPrices(req.session.user, (err, result) => {
+        console.log('ayyyy');
         console.log(result);
         if(result) {
           res.render('cart', {

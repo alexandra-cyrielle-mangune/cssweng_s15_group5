@@ -2,6 +2,7 @@
 const mongoose = require('./connection');
 const { ObjectID } = require('mongodb');
 const e = require('express');
+const productModel = require('./productModel');
 
 // Initializes a new cart schema
 const cartSchema = new mongoose.Schema({
@@ -9,12 +10,10 @@ const cartSchema = new mongoose.Schema({
     {
       id: {type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true},
       qty: {type: Number, required: true},
-      // price: {type: Number, required: true},
     }
   ],
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
   checkout: {type: Boolean, required: true},
-  // totalPrice: {type: Number, required: true},
 });
 // Creates a cart object called `cartModel`
 const cartModel = mongoose.model('cart', cartSchema);
@@ -49,6 +48,38 @@ exports.getByUser = (query, next) => {
   });
 };
 
+exports.getByUserWithPrices = (user, next) => {
+  cartModel.findOne({user: user}).exec((err, cart) => {
+    if (err) throw err;
+
+    if (!cart)
+      next(err, cart);
+    var prodIds = [];
+    cart.prod.forEach(function (item){
+      prodIds.push(item.id);
+    });
+    console.log(prodIds);
+    productModel.getAllIds(prodIds, function(err, products) {
+      var totalPrice = 0;
+      var subPrice;
+      var prodArray = [];
+      products.forEach(function (item){
+        var index = cart.prod.findIndex(x => x.id.equals(item._id));
+        var product = {};
+
+        subPrice = item.price * cart.prod[index].qty;
+        totalPrice += subPrice;
+
+        product['img'] = item.img;
+        product['subPrice'] = subPrice;
+        product['qty'] = cart.prod[index].qty;
+
+        prodArray.push(product);
+      });
+      next(err, {products: prodArray, total: totalPrice});
+    });
+  });
+};
 // Add item to cart
 exports.addProduct = (filter, update, qty, next) => {
   console.log('filter');

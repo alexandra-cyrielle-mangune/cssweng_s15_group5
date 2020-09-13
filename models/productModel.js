@@ -43,6 +43,12 @@ exports.getOne = (query, next) => {
   });
 };
 
+exports.getAllIds = (query, next) => {
+  productModel.find({'_id': {$in: query}}).exec((err, result) => {
+    if (err) throw err;
+    next(err, result);
+  });
+};
 // Get a specific product from the database using ID
 exports.getById = (query, next) => {
   productModel.findById(query).populate('_id').exec((err, result) => {

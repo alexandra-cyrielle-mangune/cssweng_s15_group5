@@ -45,8 +45,8 @@ exports.getUserCart = (req, res) => {
     var user = req.session.user;
     if (user) {
       cartModel.getByUser(user, (err, result) => {
-        console.log('ayyyy');
-        console.log('CART(GETBYUSER): ' + result.products[0].pName);
+        // console.log('ayyyy');
+        // console.log('CART(GETBYUSER): ' + result.products[0].pName);
         if(result) {
 
           console.log(result.products); // testing
@@ -61,6 +61,13 @@ exports.getUserCart = (req, res) => {
         }
         else {
           console.log(err);
+          res.render('cart', {
+            layout: 'main-1',
+            name: req.session.name,
+            title: "My Cart", 
+            loggedIn: user,
+            products: null
+          });
         }
       });
     }

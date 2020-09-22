@@ -27,7 +27,6 @@ router.get('/', (req, res) => {
   res.render('home', {
     name: req.session.name,
     title: 'Lipay',
-    layout: 'main',
     mastheadImg: 'img/masthead-banner-placeholder.jpg',
     products: temp,
     loggedIn: req.session.user

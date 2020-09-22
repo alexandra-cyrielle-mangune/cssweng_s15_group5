@@ -79,7 +79,6 @@ exports.getUserCart = (req, res) => {
           console.log(result.products); // testing
 
           res.render('cart', {
-            layout: 'main-1',
             name: req.session.name,
             title: "My Cart", 
             loggedIn: user,
@@ -89,7 +88,6 @@ exports.getUserCart = (req, res) => {
         else {
           console.log(err);
           res.render('cart', {
-            layout: 'main-1',
             name: req.session.name,
             title: "My Cart", 
             loggedIn: user,

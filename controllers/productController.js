@@ -36,11 +36,10 @@ exports.getAProduct = (req, res) => {
     else {
       res.render('productDetails', {
         title: 'Lipay',
-        layout: 'main-1',
         name: req.session.name,
         pName: product.pName,
         desc: product.desc,
-        img: '../' + product.img,
+        img: '/' + product.img,
         price: product.price,
         _id: product._id,
         loggedIn: req.session.user,

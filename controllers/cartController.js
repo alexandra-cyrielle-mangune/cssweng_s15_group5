@@ -38,6 +38,33 @@ exports.addToCart = (req, res) => {
   }
 };
 
+exports.removeFromCart = (req, res) => {
+  const errors = validationResult(req);
+  if(errors.isEmpty()) {
+    var product = req.params.id;
+    var user = req.session.user;
+    console.log('product(deletefromcart): ' + product);
+    console.log('user(deletefromcart): ' + user);
+    if(!user) {
+      console.log(user + ' ' + product); // testing
+      res.redirect('/login');
+    }
+    else {
+      cartModel.deleteProduct(user, product, (err, cart) => {
+        console.log('cart(deletefromcart): ' + cart);
+        if(err) {
+          req.flash('error_msg', 'Could not remove product. Please try again.');
+          return res.redirect('/cart');
+        }
+        else {
+          req.flash('success_msg', 'You have removed a product from the cart!');
+          return res.redirect('/cart');
+        }
+      });
+    }
+  }
+};
+
 exports.getUserCart = (req, res) => {
   const errors = validationResult(req);
   // console.log(errors);

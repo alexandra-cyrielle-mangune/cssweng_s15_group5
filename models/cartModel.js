@@ -132,7 +132,32 @@ exports.addProduct = (filter, update, qty, next) => {
   });
 };
 
-
+exports.removeProduct = (filter, update, next) => {
+  cartModel.findOne({user: filter}).exec((err, cart) => {
+    if (err) throw err;
+    if (cart) {
+      console.log(cart); // for testing
+      console.log(cart.prod.some(prod => prod.id == update));
+      if (!cart.prod.some(prod => prod.id == update)) {
+        next(err, cart);
+      }
+      else {
+        var prodArray = cart.prod;
+        var prodIndex = prodArray.findIndex(x => x.id == update);
+        cart.prod.splice(prodIndex);
+        if (cart.prod.length == 0) {
+          cartModel.deleteOne({user: filter}).exec((err, result) => {
+            next(err, result);
+          });
+        }
+        else {
+          cart.save(next(err, cart));
+        }
+      }
+    }
+  });
+}
+  
 exports.deleteOne = (id, next) => {
   cartModel.deleteOne({_id: id}, (err, result) => {
     if (err) throw err;

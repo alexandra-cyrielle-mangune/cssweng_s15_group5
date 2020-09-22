@@ -50,7 +50,7 @@ exports.removeFromCart = (req, res) => {
       res.redirect('/login');
     }
     else {
-      cartModel.deleteProduct(user, product, (err, cart) => {
+      cartModel.removeProduct(user, product, (err, cart) => {
         console.log('cart(deletefromcart): ' + cart);
         if(err) {
           req.flash('error_msg', 'Could not remove product. Please try again.');

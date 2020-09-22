@@ -70,6 +70,7 @@ exports.getByUser = (user, next) => {
             product['img'] = item.img;
             product['subPrice'] = subPrice;
             product['qty'] = cart.prod[index].qty;
+            product['id'] = item._id;
 
             prodArray.push(product);
           });
@@ -99,7 +100,7 @@ exports.addProduct = (filter, update, qty, next) => {
           cart.save(next(err, cart));
         }
         else {
-          cart.prod.splice(prodIndex);
+          cart.prod.splice(prodIndex, 1);
           if (cart.prod.length == 0) {
             cartModel.deleteOne({user: filter}).exec((err, result) => {
               next(err, result);
@@ -144,7 +145,7 @@ exports.removeProduct = (filter, update, next) => {
       else {
         var prodArray = cart.prod;
         var prodIndex = prodArray.findIndex(x => x.id == update);
-        cart.prod.splice(prodIndex);
+        cart.prod.splice(prodIndex, 1);
         if (cart.prod.length == 0) {
           cartModel.deleteOne({user: filter}).exec((err, result) => {
             next(err, result);

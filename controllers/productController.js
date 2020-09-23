@@ -1,5 +1,15 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'public/img');
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+const upload = multer({ storage: storage });
 
 // This functions gets all the products from the database 
 // and displays them in the catalogue
@@ -48,29 +58,24 @@ exports.getAProduct = (req, res) => {
   });
 };
 
-// Add a product to the CART
-// exports.addToCart = (req, res) => {
-//   var cart = new cartModel(req.session.cart ? req.session.cart: {});
-//   productModel.getOne({slug: req.params.slug}, (err, product) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     else {
-//       cart.addProduct(product, req.params._id);
-//       req.session.cart = cart;
-//       console.log(cart); // testing
-//       res.redirect('/cart');
-//     }
-//   });
-// };
-
 // This function add a new product to the database
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
-    var {pName, desc, pCat, price, img} = req.body;
+    var {pName, desc, pCat, price, prodImg} = req.body;
+    
+    console.log(prodImg); // testing
+
+    // creates a slug from the product name
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-    if(img == undefined) var temp = 'img/tote-bag-1.jpg';
+    
+    // error handling for image upload
+    if(prodImg == undefined) {
+      prodImg = 'img/tote-bag-1.jpg';
+    }
+    else {
+      prodImg = 'img/' + prodImg;
+    }
 
     productModel.getOne({slug: slug}, (err, result) => {
       if(result) {
@@ -85,7 +90,7 @@ exports.addProduct = (req, res) => {
           desc: desc,
           category: pCat,
           price: Math.round(price * 100) / 100.0,
-          img: temp
+          img: prodImg
         };
         productModel.create(newProduct, (err, product) => {
           if(err) {

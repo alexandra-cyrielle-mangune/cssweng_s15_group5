@@ -1,8 +1,8 @@
 // Connects to the database via Mongoose
 const mongoose = require('./connection');
-const { ObjectID } = require('mongodb');
-const e = require('express');
 const productModel = require('./productModel');
+const mkdirp = require('mkdirp');
+const fs = require('fs-extra');
 
 // Initializes a new cart schema
 const cartSchema = new mongoose.Schema({

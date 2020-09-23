@@ -2,6 +2,8 @@ const router = require('express').Router();
 const productController = require('../controllers/productController');
 const {productValidation} = require('../validators');
 const {isPublic} = require('../middlewares/checkAuth');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 var temp = [
   {
@@ -65,7 +67,7 @@ router.get('/add_new_item', isPublic, (req, res) => {
 /*
  *  POST METHOD: Add new item 
  */
-router.post('/add_new_item', isPublic, productValidation, productController.addProduct);
+router.post('/add_new_item', isPublic, upload.single('prodImg'), productValidation, productController.addProduct);
 
 router.get('/delete_items', isPublic, (req, res) => {
   res.render('deleteItems', {

@@ -2,11 +2,9 @@ const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const multer = require('multer');
 const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, 'public/img');
-  },
+  destination: './uploads/',
   filename: function(req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, file.filename);
   }
 });
 const upload = multer({ storage: storage });
@@ -74,7 +72,7 @@ exports.addProduct = (req, res) => {
       prodImg = 'img/tote-bag-1.jpg';
     }
     else {
-      prodImg = 'img/' + prodImg;
+      prodImg = 'uploads/' + prodImg;
     }
 
     productModel.getOne({slug: slug}, (err, result) => {

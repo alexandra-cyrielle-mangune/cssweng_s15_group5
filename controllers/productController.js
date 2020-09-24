@@ -27,7 +27,7 @@ exports.getAllProducts = (req, res) => {
 exports.viewAllProducts = (req, res) => {
   productModel.getAll({}, (err, products) => {
     res.render('viewItems', {
-      title: 'Lipay',
+      title: 'Lipay | Administrator',
       name: 'Admin Name',
       layout: 'main-admin',
       products: products
@@ -59,7 +59,7 @@ exports.getAProduct = (req, res) => {
 // Delete a Product
 exports.deleteProduct = (req, res) => {
   var product_id = req.params._id;
-  console.log(product_id);
+  console.log("delete product: " + product_id);
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
       console.log(err);
@@ -78,9 +78,49 @@ exports.deleteProduct = (req, res) => {
   });
 };
 
+// Get a product then display its details
+exports.getProduct = (req, res) => {
+  var product_id = req.params._id;
+  productModel.getById({_id: product_id}, (err, product) => {
+    console.log(product.slug);
+    if(err) {
+      console.log(err);
+    }
+    else {
+      res.render('editItem', {
+        title: 'Lipay | Administrator',
+        pName: product.pName,
+        desc: product.desc,
+        category: product.category,
+        price: product.price,
+        img: product.img,
+        layout: 'main-admin'
+      });
+    }
+  });
+};
+
 // Edit a Product
 exports.editProduct = (req, res) => {
-
+  var product_id = req.params._id;
+  console.log("edit product: " + product_id);
+  console.log(req.params.slug);
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      productModel.updateItem({_id: product_id}, (err, product) => {
+        if(err) {
+          console.log(err);
+        }
+        else {
+          req.flash('success_msg', 'Successfully edited!');
+          res.redirect('/edit_item/product_id');
+        }
+      })
+    }
+  });
 };
 
 // This function add a new product to the database

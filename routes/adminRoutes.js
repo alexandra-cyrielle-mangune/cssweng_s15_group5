@@ -40,7 +40,7 @@ var temp = [
 
 router.get('/dashboard', isPublic, (req, res) => {
   res.render('dashboard', {
-    title: 'Lipay',
+    title: 'Lipay | Administrator',
     name: 'Admin Name',
     layout: 'main-admin',
     products: temp
@@ -57,10 +57,9 @@ router.get('/view_all_items', isPublic, productController.viewAllProducts);
  */
 router.get('/add_new_item', isPublic, (req, res) => {
   res.render('addItem', {
-    title: 'Lipay',
+    title: 'Lipay | Administrator',
     name: 'Admin Name',
-    layout: 'main-admin',
-    products: temp
+    layout: 'main-admin'
   });
 });
 
@@ -74,18 +73,22 @@ router.post('/add_new_item', isPublic, upload.single('prodImg'), productValidati
 */
 router.get('/delete_item/:_id', isPublic, productController.deleteProduct);
 
+/*
+ *  GET METHOD: Edit an item
+ */
+router.get('/edit_item/:_id', isPublic, productController.getProduct);
+
+/*
+ *  POST METHOD: Edit an item
+ */
+// router.post('/edit_item:_id', isPublic, productController.editProduct);
+
+/*
+ *  GET METHOD: Featured items
+ */
 router.get('/featured_items', isPublic, (req, res) => {
   res.render('featuredItems', {
-    title: 'Lipay',
-    name: 'Admin Name',
-    layout: 'main-admin',
-    products: temp
-  });
-});
-
-router.get('/edit_item_details', isPublic, (req, res) => {
-  res.render('editItemDetails', {
-    title: 'Lipay',
+    title: 'Lipay | Administrator',
     name: 'Admin Name',
     layout: 'main-admin',
     products: temp

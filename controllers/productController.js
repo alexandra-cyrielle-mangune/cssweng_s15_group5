@@ -82,7 +82,7 @@ exports.deleteProduct = (req, res) => {
 exports.getProduct = (req, res) => {
   var product_id = req.params._id;
   productModel.getById({_id: product_id}, (err, product) => {
-    console.log(product.slug);
+    console.log("editPRoduct: " + req.params._id + " " + req.body.slug); // for testing
     if(err) {
       console.log(err);
     }
@@ -104,21 +104,21 @@ exports.getProduct = (req, res) => {
 exports.editProduct = (req, res) => {
   var product_id = req.params._id;
   console.log("edit product: " + product_id);
-  console.log(req.params.slug);
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
       console.log(err);
     }
     else {
-      productModel.updateItem({_id: product_id}, (err, product) => {
-        if(err) {
-          console.log(err);
-        }
-        else {
-          req.flash('success_msg', 'Successfully edited!');
-          res.redirect('/edit_item/product_id');
-        }
-      })
+      // productModel.updateItem({_id: product_id}, (err, product) => {
+      //   if(err) {
+      //     console.log(err);
+      //   }
+      //   else {
+      //     req.flash('success_msg', 'Successfully edited!');
+      //     res.redirect('/edit_item/product_id');
+      //   }
+      // });
+      console.log("exports.editProduct: " + req.body.desc);
     }
   });
 };

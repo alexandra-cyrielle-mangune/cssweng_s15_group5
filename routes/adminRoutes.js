@@ -81,7 +81,7 @@ router.get('/edit_item/:_id', isPublic, productController.getProduct);
 /*
  *  POST METHOD: Edit an item
  */
-// router.post('/edit_item:_id', isPublic, productController.editProduct);
+router.post('/edit_item:_id', isPublic, productController.editProduct);
 
 /*
  *  GET METHOD: Featured items

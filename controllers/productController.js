@@ -78,6 +78,11 @@ exports.deleteProduct = (req, res) => {
   });
 };
 
+// Edit a Product
+exports.editProduct = (req, res) => {
+
+};
+
 // This function add a new product to the database
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
@@ -131,4 +136,4 @@ exports.addProduct = (req, res) => {
     req.flash('error_msg', messages.join(' '));
     res.redirect('/add_new_item');
   }
-}
+};

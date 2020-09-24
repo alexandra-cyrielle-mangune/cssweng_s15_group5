@@ -1,13 +1,22 @@
-<nav class="admin navbar navbar-expand-lg navbar-light bg-light border-bottom">
-
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/dashboard">Lipay | Administrator</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
+      </li>
       <li class="nav-item">
-        <a class="nav-link" href="/dashboard">{{name}}</a>
+        <a class="nav-link" href="/view_all_items">All Items</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/add_new_item">Add Item</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/featured_items">Featured Items</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/">Logout</a>

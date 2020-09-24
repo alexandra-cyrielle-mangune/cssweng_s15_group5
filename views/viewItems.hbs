@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h4 class="mt-4">View All Items</h4>
-  <br>
   {{> messages}}
+  <br>
   <table class="table table-hover text-center">
     <thead>
       <tr>
@@ -23,7 +23,7 @@
           <td>{{this.slug}}</td>
           <td>{{this.desc}}</td>
           <td>{{this.price}}</td>
-          <td><a href="/edit_product">Edit</a></td>
+          <td><a href="/edit_item/{{this._id}}">Edit</a></td>
           <td><a href="/delete_item/{{this._id}}">Delete</a></td>
         </tr>
         {{/each}}

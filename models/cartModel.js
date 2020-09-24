@@ -74,6 +74,7 @@ exports.getByUser = (user, next) => {
 
             prodArray.push(product);
           });
+          console.log('before send: ' + totalPrice);
           next(err, {products: prodArray, total: totalPrice});
         });
       }

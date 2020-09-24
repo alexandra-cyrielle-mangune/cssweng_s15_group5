@@ -69,14 +69,10 @@ router.get('/add_new_item', isPublic, (req, res) => {
  */
 router.post('/add_new_item', isPublic, upload.single('prodImg'), productValidation, productController.addProduct);
 
-router.get('/delete_items', isPublic, (req, res) => {
-  res.render('deleteItems', {
-    title: 'Lipay',
-    name: 'Admin Name',
-    layout: 'main-admin',
-    products: temp
-  });
-});
+/*
+ *  GET METHOD: Delete an item
+*/
+router.get('/delete_item/:_id', isPublic, productController.deleteProduct);
 
 router.get('/featured_items', isPublic, (req, res) => {
   res.render('featuredItems', {

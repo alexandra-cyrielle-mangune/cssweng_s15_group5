@@ -82,8 +82,8 @@ exports.deleteAll = (query, next) => {
 };
 
 // Delete a product
-exports.deleteOne = (id, next) => {
-  productModel.deleteOne({_id: id}, (err, result) => {
+exports.removeProduct = (id, next) => {
+  productModel.deleteOne(id, (err, result) => {
     if (err) throw err;
     next(err, result);
   });

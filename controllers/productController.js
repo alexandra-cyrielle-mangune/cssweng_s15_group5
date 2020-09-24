@@ -56,6 +56,28 @@ exports.getAProduct = (req, res) => {
   });
 };
 
+// Delete a Product
+exports.deleteProduct = (req, res) => {
+  var product_id = req.params._id;
+  console.log(product_id);
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      productModel.removeProduct({_id: product_id}, (err, product) => {
+        if(err) {
+          console.log(err);
+        }
+        else {
+          req.flash('success_msg', 'Successfully deleted a product!');
+          res.redirect('/view_all_items');
+        }
+      })
+    }
+  });
+};
+
 // This function add a new product to the database
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);

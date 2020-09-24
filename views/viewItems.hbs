@@ -1,25 +1,30 @@
 <div class="container-fluid">
   <h4 class="mt-4">View All Items</h4>
   <br>
+  {{> messages}}
   <table class="table table-hover text-center">
     <thead>
       <tr>
-        <th scope="col">Product No.</th>
+        {{!-- <th scope="col">Product No.</th> --}}
         <th scope="col">Product Name</th>
         <th scope="col">Slug Name</th>
         <th scope="col">Description</th>
         <th scope="col">Price</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       {{#if products}}
         {{#each products}}
         <tr>
-          <th scope="row">{{this._id}}</th>
+          {{!-- <th scope="row">{{this._id}}</th> --}}
           <td>{{this.pName}}</td>
           <td>{{this.slug}}</td>
           <td>{{this.desc}}</td>
           <td>{{this.price}}</td>
+          <td><a href="/edit_product">Edit</a></td>
+          <td><a href="/delete_item/{{this._id}}">Delete</a></td>
         </tr>
         {{/each}}
       {{else}}

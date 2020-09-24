@@ -58,5 +58,9 @@ const productValidation = [
   body('price').not().isEmpty().withMessage('Product price should not be empty.')
 ];
 
+const purchaseValidation = [
+  body('billing').not().isEmpty().withMessage('Billing address is required.'),
+  body('shipping').not().isEmpty().withMessage('Shipping address is required.')
+];
 // Update exports
-module.exports = {registerValidation, loginValidation, adminValidation, productValidation};
+module.exports = {registerValidation, loginValidation, adminValidation, productValidation, purchaseValidation};

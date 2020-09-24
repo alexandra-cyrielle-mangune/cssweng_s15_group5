@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const cartController = require('../controllers/cartController');
 const productController = require('../controllers/productController');
+const purchaseController = require('../controllers/purchaseController');
+const {purchaseValidation} = require('../validators.js');
 const {isPrivate} = require('../middlewares/checkAuth');
+const { purchase } = require('../controllers/purchaseController');
 
 var temp = [
   {img: 'img/features-placeholder-1.jpg',
@@ -96,5 +99,7 @@ router.get('/payment_details', isPrivate, (req, res) => {
     loggedIn: req.session.user,
   });
 });
+
+router.post('/billing', isPrivate, purchaseValidation, purchaseController.purchase);
 
 module.exports = router;

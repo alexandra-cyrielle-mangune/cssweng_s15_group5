@@ -1,48 +1,50 @@
 <section id="features">
   <div class="container">
-    <div class="row justify-content-between mt-5">
-      <div class="col-8">
-        <div class="row p-3 rounded border border-dark">
-          <div class="form-group w-100">
-            <label for="input-shipping">Billing Address</label>
-            <textarea id="input-shipping" class="form-control" col="100" rows="10" name="billing" placeholder="Edit shipping address"></textarea>
+    <form class="form-div" action="/billing" method="POST">
+      <div class="row justify-content-between mt-5">
+        <div class="col-8">
+          <div class="row p-3 rounded border border-dark">
+            <div class="form-group w-100">
+              <label for="input-shipping">Billing Address</label>
+              <textarea id="input-shipping" class="form-control" col="100" rows="10" id="shipping" name="shipping" placeholder="Edit shipping address"></textarea>
+            </div>
+          </div>
+          <div class="row p-3 rounded border border-dark mt-3">
+            <div class="form-group w-100">
+              <label for="input-billing">Billing Address</label>
+              <textarea id="input-billing" class="form-control" col="100" rows="10" id="billing" name="billing" placeholder="Edit billing address"></textarea>
+            </div>
           </div>
         </div>
-        <div class="row p-3 rounded border border-dark mt-3">
-          <div class="form-group w-100">
-            <label for="input-billing">Billing Address</label>
-            <textarea id="input-billing" class="form-control" col="100" rows="10" name="billing" placeholder="Edit billing address"></textarea>
+        <div class="col-3 bg-light p-5 mt-4 align-self-start">
+          <div class="row">
+            <div class="col text-center">
+              Total:
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              Php 4,000.00
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group w-100">
+              <label for="transactionType">Mode of Transaction</label>
+              <select class="form-control" id="transactionType" name="transactionType">
+                <option>CoD</option>
+                <option>Online</option>
+                <option>Bank Transfer</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-3 bg-light p-5 mt-4 align-self-start">
-        <div class="row">
-          <div class="col text-center">
-            Total:
-          </div>
-        </div>
-        <div class="row">
-          <div class="col text-center">
-            Php 4,000.00
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group w-100">
-            <label for="input-transaction">Mode of Transaction</label>
-            <select class="form-control" id="input-transaction">
-              <option>CoD</option>
-              <option>Online</option>
-              <option>Bank Transfer</option>
-            </select>
-          </div>
+      <div class="row justify-content-center">
+        <div class="my-3 form-row">
+          <a class="btn btn-c-yellow mx-2" href="/cart">Return to Cart</a>
+          <a class="btn btn-c-pink mx-2 form-button" type="submit">Confirm Transaction</a>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="my-3 form-row">
-        <a class="btn btn-c-yellow mx-2" href="/cart">Return to Cart</a>
-        <a class="btn btn-c-pink mx-2" href="/payment-details">Confirm Transaction</a>
-      </div>
-    </div>
+    </form>
   </div>
 </section>

@@ -89,6 +89,7 @@ exports.getProduct = (req, res) => {
     else {
       res.render('editItem', {
         title: 'Lipay | Administrator',
+        id: product_id,
         pName: product.pName,
         desc: product.desc,
         category: product.category,

@@ -102,23 +102,25 @@ exports.getProduct = (req, res) => {
 
 // Edit a Product
 exports.editProduct = (req, res) => {
+  var {pName, desc, pCat, price, prodImg} = req.body;
+  var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
   var product_id = req.params._id;
+
   console.log("edit product: " + product_id);
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
-      console.log(err);
+      req.flash('error_msg', "Product no found.");
+      res.redirect('/view_all_items');
+      console.log(err); // for testing
     }
     else {
-      // productModel.updateItem({_id: product_id}, (err, product) => {
-      //   if(err) {
-      //     console.log(err);
-      //   }
-      //   else {
-      //     req.flash('success_msg', 'Successfully edited!');
-      //     res.redirect('/edit_item/product_id');
-      //   }
-      // });
-      console.log("exports.editProduct: " + req.body.desc);
+      productModel.getOne({slug: slug, _id: {'$ne': product_id}}, (err, product) => {
+        if(product) {
+          req.flash('error_msg', "Product already exists. Please try another name.");
+          res.redirect('/edit_item/' + product_id);
+        }
+        
+      });
     }
   });
 };

@@ -59,18 +59,12 @@ exports.getById = (query, next) => {
 
 // Update details of a specific product
 exports.updateItem = (id, pName, desc, category, price, img, next) => {
-  const filter = {_id: id};
-  const update = {
-    $set: {
-      pName: pName,
-      desc: desc,
-      category: category,
-      price: price,
-      img: img
-    }
-  };
-  productModel.updateOne(filter, update, (err,result) => {
+  productModel.updateOne(
+    {_id: id}, 
+    {$set: {pName: pName, desc: desc, category, category, price: price, img: img}}, 
+    (err,result) => {
     if(err) throw err;
+    next(err, result);
   });
 };
 

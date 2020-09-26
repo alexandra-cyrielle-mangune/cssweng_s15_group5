@@ -120,9 +120,6 @@ exports.editProduct = (req, res) => {
           pName = product.pName;
           slug = product.slug;
         }
-        else {
-          slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-        }
         if(desc == "") {
           desc = product.desc;
         }

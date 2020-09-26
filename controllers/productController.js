@@ -263,7 +263,7 @@ exports.unarchiveItem = (req, res) => {
           res.redirect('/archived_items');
         }
         else {
-          req.flash('success_msg', "Successfully archived an item!");
+          req.flash('success_msg', "Successfully unarchived an item!");
           res.redirect('/archived_items');
         }
       });

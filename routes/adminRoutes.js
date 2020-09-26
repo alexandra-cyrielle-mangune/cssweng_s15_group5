@@ -96,7 +96,7 @@ router.get('/archive_item/:_id', isPublic, productController.archiveItem);
 /*
  *  GET METHOD: Unarchive an item
  */
-router.get('/archive_item/:_id', isPublic, productController.unarchiveItem);
+router.get('/unarchive_item/:_id', isPublic, productController.unarchiveItem);
 
 
 /*

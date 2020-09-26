@@ -50,11 +50,17 @@ exports.purchase = (req, res) => {
     
               purchaseModel.create(details, (err, result) => {
                 if (result) {
+                  var purchaseId = result.toObject()._id;
                   if (transactionType == "CoD") {
-                    res.redirect('/');
+                    res.redirect('/purchase_details/' + purchaseId);
                   }
                   else { 
-                    res.redirect('payment_details');
+                    res.render('paymentDetails', {
+                      name: req.session.name,
+                      title: 'Payment Details',
+                      loggedIn: req.session.user,
+                      purchaseId: purchaseId,
+                    });
                   }
                 }
                 else {
@@ -89,7 +95,7 @@ exports.getPurchaseDetails = (req, res) => {
         var cartItems = purchase.cartItems;
 
         cartItems.forEach(function(item){
-          item.totalPrice = (item.qty * item.subPrice).toFixed(2);
+          item.unitPrice = (item.subPrice / item.qty).toFixed(2);
           item.subPrice = (item.subPrice).toFixed(2);
         });
         console.log(purchase.cartItems);

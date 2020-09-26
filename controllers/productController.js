@@ -1,6 +1,7 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const multer = require('multer');
+const e = require('express');
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req, file, cb) {
@@ -12,7 +13,7 @@ const upload = multer({ storage: storage });
 // This functions gets all the products from the database 
 // and displays them in the catalogue
 exports.getAllProducts = (req, res) => {
-  productModel.getAll({}, (err, products) => {
+  productModel.getMany({archive: false}, (err, products) => {
     res.render('catalogue', {
       name: req.session.name,
       title: 'Catalogue',
@@ -25,8 +26,19 @@ exports.getAllProducts = (req, res) => {
 // This functions gets all the products from the database 
 // and displays them in the admin 'view all products' pages
 exports.viewAllProducts = (req, res) => {
-  productModel.getAll({}, (err, products) => {
+  productModel.getMany({archive: false}, (err, products) => {
     res.render('viewItems', {
+      title: 'Lipay | Administrator',
+      name: 'Admin Name',
+      layout: 'main-admin',
+      products: products
+    });
+  });
+};
+
+exports.getArchivedItems = (req, res) => {
+  productModel.getMany({archive: true}, (err, products) => {
+    res.render('archivedItems', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
       layout: 'main-admin',
@@ -101,56 +113,6 @@ exports.getProduct = (req, res) => {
   });
 };
 
-// Edit a Product
-exports.editProduct = (req, res) => {
-  var {pName, desc, pCat, price, prodImg} = req.body;
-  var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-  var product_id = req.params._id;
-
-  console.log(slug);
-
-  productModel.getOne({_id: product_id}, (err, product) => {
-    if(err) {
-      req.flash('error_msg', "Product not found.");
-      res.redirect('/view_all_items');
-    }
-    else {
-      if(product) {
-        if(pName == "") {
-          pName = product.pName;
-          slug = product.slug;
-        }
-        if(desc == "") {
-          desc = product.desc;
-        }
-        if(pCat == "") {
-          pCat = product.category;
-        }
-        if(price == "") {
-          price = product.price;
-        }
-        if(prodImg == undefined || prodImg == "") {
-          prodImg = product.img;
-        }
-        else {
-          prodImg = 'uploads/' + prodImg;
-        }
-
-        productModel.updateItem(product_id, pName, slug, desc, pCat, price, prodImg, (err, result) => {
-          if(err) {
-            req.flash('error_msg', "There was a problem updating product details. Please try again.");
-            res.redirect('/edit_item/' + product_id);
-          }
-          else {
-            req.flash('success_msg', "Successfully updated product details of " + pName + ".");
-            res.redirect('/edit_item/' + product_id);
-          }
-        });
-      }
-    }
-  });
-};
-
 // This function add a new product to the database
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
@@ -183,6 +145,7 @@ exports.addProduct = (req, res) => {
           desc: desc,
           category: pCat,
           price: Math.round(price * 100) / 100.0,
+          archive: false,
           img: prodImg
         };
         productModel.create(newProduct, (err, product) => {
@@ -204,4 +167,106 @@ exports.addProduct = (req, res) => {
     req.flash('error_msg', messages.join(' '));
     res.redirect('/add_new_item');
   }
+};
+
+// Edit a Product
+exports.editProduct = (req, res) => {
+  var {pName, desc, pCat, price, prodImg} = req.body;
+  var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
+  var product_id = req.params._id;
+  
+  console.log(slug);
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Product not found.");
+      res.redirect('/view_all_items');
+    }
+    else {
+      if(product) {
+        if(pName == "") {
+          pName = product.pName;
+          slug = product.slug;
+        }
+        if(desc == "") {
+          desc = product.desc;
+        }
+        if(pCat == "") {
+          pCat = product.category;
+        }
+        if(price == "") {
+          price = product.price;
+        }
+        else {
+          price = Math.round(price * 100) / 100.0;
+        }
+        if(prodImg == undefined || prodImg == "") {
+          prodImg = product.img;
+        }
+        else {
+          prodImg = 'uploads/' + prodImg;
+        }
+
+        productModel.updateItem(product_id, pName, slug, desc, pCat, price, prodImg, (err, result) => {
+          if(err) {
+            req.flash('error_msg', "There was a problem updating product details. Please try again.");
+            res.redirect('/edit_item/' + product_id);
+          }
+          else {
+            req.flash('success_msg', "Successfully updated product details of " + pName + ".");
+            res.redirect('/edit_item/' + product_id);
+          }
+        });
+      }
+    }
+  });
+};
+
+// Archive an item
+exports.archiveItem = (req, res) => {
+  var product_id = req.params._id;
+  console.log("PRODUCTID::::" + product_id);
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Something went wrong. Please try again.");
+      res.redirect('/view_all_items');
+    }
+    else {
+      productModel.archive(product_id, (err, result) => {
+        if(err) {
+          req.flash('error_msg', "Something went wrong. Please try again.");
+          res.redirect('/view_all_items');
+        }
+        else {
+          req.flash('success_msg', "Successfully archived an item!");
+          res.redirect('/view_all_items');
+        }
+      });
+    }
+  });
+};
+
+// Unarchive an item
+exports.unarchiveItem = (req, res) => {
+  var product_id = req.params._id;
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Something went wrong. Please try again.");
+      res.redirect('/archived_items');
+    }
+    else {
+      productModel.unarchive(product_id, (err, result) => {
+        if(err) {
+          req.flash('error_msg', "Something went wrong. Please try again.");
+          res.redirect('/archived_items');
+        }
+        else {
+          req.flash('success_msg', "Successfully archived an item!");
+          res.redirect('/archived_items');
+        }
+      });
+    }
+  });
 };

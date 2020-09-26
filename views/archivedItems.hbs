@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <h4 class="mt-4">View All Items</h4>
+  <h4 class="mt-4">Archived Items</h4>
   {{> messages}}
   <br>
   <table class="table table-hover text-center">
@@ -10,8 +10,6 @@
         <th scope="col">Slug Name</th>
         <th scope="col">Description</th>
         <th scope="col">Price</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -24,9 +22,7 @@
           <td>{{this.slug}}</td>
           <td>{{this.desc}}</td>
           <td>{{this.price}}</td>
-          <td><a href="/archive_item/{{this._id}}"><i class="material-icons">archive</i></a></td>
-          <td><a href="/edit_item/{{this._id}}"><i class="material-icons">create</i></a></td>
-          <td><a href="/delete_item/{{this._id}}"><i class="material-icons">delete</i></a></td>
+          <td><a href="/unarchive_item/{{this._id}}"><i class="material-icons">unarchive</i></a></td>
         </tr>
         {{/each}}
       {{else}}

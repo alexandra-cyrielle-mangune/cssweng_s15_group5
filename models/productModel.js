@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   desc: {type: String, required: true},
   category: {type: String, required: true},
   price: {type: Number, required: true},
+  archive: {type: Boolean, required: true},
   img: {type: String}
 });
 
@@ -43,6 +44,18 @@ exports.getOne = (query, next) => {
   });
 };
 
+// Get specific products from the database
+exports.getMany = (query, next) => {
+  productModel.find(query).exec((err, products) => {
+    if(err) throw err;
+    const productObjects = [];
+    products.forEach((doc) => {
+      productObjects.push(doc.toObject());
+    });
+    next(err, productObjects);
+  })
+}
+
 exports.getAllIds = (query, next) => {
   productModel.find({'_id': {$in: query}}).exec((err, result) => {
     if (err) throw err;
@@ -63,6 +76,22 @@ exports.updateItem = (id, pName, slug, desc, category, price, img, next) => {
     {_id: id}, 
     {$set: {pName: pName, slug: slug, desc: desc, category: category, price: price, img: img}}, 
     (err,result) => {
+    if(err) throw err;
+    next(err, result);
+  });
+};
+
+// Archive an item
+exports.archive = (id, next) => {
+  productModel.updateOne({_id: id}, {$set: {archive: true}}, (err,result) => {
+    if(err) throw err;
+    next(err, result);
+  });
+};
+
+// Unarchive an item
+exports.unarchive = (id, next) => {
+  productModel.updateOne({_id: id}, {$set: {archive: false}}, (err,result) => {
     if(err) throw err;
     next(err, result);
   });

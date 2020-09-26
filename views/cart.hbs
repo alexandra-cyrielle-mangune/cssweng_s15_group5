@@ -4,11 +4,9 @@
     <h4>{{title}}</h4>
     <br>
     <div class="row">
-
       {{#if products}}
         {{#each products}}
           <div class="display-cart col-8">
-
             <div class="card">
               <div class="card-body">
                 <img src="{{this.img}}" width="250px">
@@ -18,16 +16,15 @@
                 <a href="/delete_from_cart/{{this.id}}" class="btn btn-c-pink">Delete</a>
               </div>
             </div>
-
           </div>
         {{/each}}
-      <div class="sidebar-cart col-4">
-        <p>Price Summary Here</p>
-      </div>
+        <div class="sidebar-cart col-4">
+          <p>Price Summary Here</p>
+          <a href="/billing" class="btn btn-c-yellow">Checkout</a>
+        </div>
       {{else}}
-      <p>No items in the cart!</p>
+        <p>No items in the cart!</p>
       {{/if}}
-
     </div>
   </div>
 </section>

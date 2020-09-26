@@ -7,33 +7,33 @@ const upload = multer({ dest: 'uploads/' });
 
 var temp = [
   {
-    id: '11648',
-    name: 'Pink Flowers Tote Bag',
-    description: 'XL-sized tote bag with pink flowers design.',
+    pName: 'Pink Flowers Tote Bag',
+    slug: 'pink-flowers-tote-bag',
+    desc: 'XL-sized tote bag with pink flowers design.',
     price: '₱450.00'
   },
   {
-    id: '11834',
-    name: 'Green Leaves Tote Bag',
-    description: 'L-sized tote bag with green leaves design.',
+    pName: 'Green Leaves Tote Bag',
+    slug: 'green-leaves-tote-bag',
+    desc: 'L-sized tote bag with green leaves design.',
     price: '₱250.00'
   },
   {
-    id: '11675',
-    name: 'Assorted Flowers Tote Bag',
-    description: 'M-sized tote bag with assorted flowers design.',
+    pName: 'Assorted Flowers Tote Bag',
+    slug: 'assorted-flowers-tote-bag',
+    desc: 'M-sized tote bag with assorted flowers design.',
     price: '₱150.00'
   },
   {
-    id: '11212',
-    name: 'Assorted Leaves Tote Bag',
-    description: 'XL-sized tote bag with assorted leaves design.',
+    pName: 'Assorted Leaves Tote Bag',
+    slug: 'assorted-leaves-tote-bag',
+    desc: 'XL-sized tote bag with assorted leaves design.',
     price: '₱450.00'
   },
   {
-    id: '11828',
-    name: 'Pink Flowers Tote Bag',
-    description: 'XL-sized tote bag with pink flowers design.',
+    pName: 'Pink Flowers Tote Bag',
+    slug: 'pink-flowers-tote-bag',
+    desc: 'XL-sized tote bag with pink flowers design.',
     price: '₱450.00'
   },
 ];
@@ -82,6 +82,22 @@ router.get('/edit_item/:_id', isPublic, productController.getProduct);
  *  POST METHOD: Edit an item
  */
 router.post('/edit_item/:_id', isPublic, productController.editProduct);
+
+/*
+ *  GET METHOD: Archived items
+ */
+router.get('/archived_items', isPublic, productController.getArchivedItems);
+
+/*
+ *  GET METHOD: Archive an item
+ */
+router.get('/archive_item/:_id', isPublic, productController.archiveItem);
+
+/*
+ *  GET METHOD: Unarchive an item
+ */
+router.get('/unarchive_item/:_id', isPublic, productController.unarchiveItem);
+
 
 /*
  *  GET METHOD: Featured items

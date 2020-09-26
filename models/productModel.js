@@ -58,10 +58,10 @@ exports.getById = (query, next) => {
 };
 
 // Update details of a specific product
-exports.updateItem = (id, pName, desc, category, price, img, next) => {
+exports.updateItem = (id, pName, slug, desc, category, price, img, next) => {
   productModel.updateOne(
     {_id: id}, 
-    {$set: {pName: pName, desc: desc, category, category, price: price, img: img}}, 
+    {$set: {pName: pName, slug: slug, desc: desc, category: category, price: price, img: img}}, 
     (err,result) => {
     if(err) throw err;
     next(err, result);

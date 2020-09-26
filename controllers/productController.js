@@ -107,6 +107,8 @@ exports.editProduct = (req, res) => {
   var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
   var product_id = req.params._id;
 
+  console.log(slug);
+
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
       req.flash('error_msg', "Product not found.");
@@ -114,11 +116,12 @@ exports.editProduct = (req, res) => {
     }
     else {
       if(product) {
-        console.log(product);
-        console.log("PROD IMG: " + prodImg);
         if(pName == "") {
           pName = product.pName;
           slug = product.slug;
+        }
+        else {
+          slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
         }
         if(desc == "") {
           desc = product.desc;
@@ -130,11 +133,13 @@ exports.editProduct = (req, res) => {
           price = product.price;
         }
         if(prodImg == undefined || prodImg == "") {
-          console.log("PROD IMG 1: " + prodImg);
           prodImg = product.img;
         }
+        else {
+          prodImg = 'uploads/' + prodImg;
+        }
 
-        productModel.updateItem(product_id, pName, desc, pCat, price, prodImg, (err, result) => {
+        productModel.updateItem(product_id, pName, slug, desc, pCat, price, prodImg, (err, result) => {
           if(err) {
             req.flash('error_msg', "There was a problem updating product details. Please try again.");
             res.redirect('/edit_item/' + product_id);

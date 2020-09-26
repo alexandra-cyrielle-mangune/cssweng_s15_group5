@@ -1,68 +1,51 @@
 <div class="purchase-details">
-  <table class="table table-borderless">
-    <tr>
-      <td>
-        <div class="card">
-          <div class="card-body">
-            <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-            <div class="card-text-group">
-              <a href="/product_details">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">Price: ₱ 450.00</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <table>
+  <div class="row my-4 align-items-center">
+    <div class="col">
+      <header class="h4">Purchase Details</header></div>
+    <div class="col text-right"> 
+      <a href="/purchase_history" class="btn btn-c-pink">Go Back to History</a>
+    </div>
+  </div>
+  <hr class="my-3">
+  <div class="row px-2 mt-4">
+    <div class="col">
+      <strong>Order ID: {{_id}}</strong>
+    </div>
+    <div class="col text-right">
+      <strong>Status: {{status}}</strong>
+    </div>
+  </div>
+  <div class="row px-2 mb-3">
+    <div class="col">
+      Purchased on: {{purchaseDate}}
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Product ID</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit Cost</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cartItems}}
           <tr>
-            <td class="dark-pink">Status</td>
-            <td class="light-pink text-center">Delivered</td>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.pName}}</td>
+            <td>{{this.qty}}</td>
+            <td>Php {{this.subPrice}}</td>
+            <td>Php {{this.totalPrice}}</td>
           </tr>
-          <tr>
-            <td class="dark-pink">Total</td>
-            <td class="light-pink text-center">₱ 1350.00</td>
-          </tr>
-          <tr>
-            <td class="dark-pink">Date</td>
-            <td class="light-pink text-center">07/20/2020</td>
-          </tr>
-          <tr>
-            <td><a href="/purchase_history" class="btn" type="button">Back</a></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="card">
-          <div class="card-body">
-            <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-            <div class="card-text-group">
-              <a href="/product_details">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">Price: ₱ 450.00</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div class="card">
-          <div class="card-body">
-            <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-            <div class="card-text-group">
-              <a href="/product_details">
-                <h5 class="card-title">Product Name</h5>
-                <p class="card-text">Price: ₱ 250.00</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </table>
+        {{/each}}
+        <tr>
+          <th colspan="4">Total:</th>
+          <th>Php {{total}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

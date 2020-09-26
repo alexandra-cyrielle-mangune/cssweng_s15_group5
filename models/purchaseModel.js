@@ -9,11 +9,13 @@ const purchaseSchema = new mongoose.Schema({
     pName: {type: String, required: true},
     id: {type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true},
     qty: {type: Number, required: true},
+    img: {type: String},
     subPrice: {type: Number, required: true}
   }],
   shippingAddress: {type: String, required: true},
   billingAddress: {type: String, required: true},
   paymentMethod: {type: String, required: true, enum: ['CoD', 'Online', 'Bank Transfer']},
+  purchaseDate: {type: Date, required: true, default: Date.now()},
   status: {
     type: String, 
     required: true, 
@@ -31,10 +33,10 @@ exports.create = (obj, next) => {
     if (err) throw err;
     next(err, purchase);
   });
-};
+}
 
-exports.getByStatus = (query, next) => {
-  purchaseModel.find({status: query}).exec((err, purchases) => {
+exports.getByQuery = (query, next) => {
+  purchaseModel.find(query).exec((err, purchases) => {
     if (err) throw err;
     const purchasesArr = [];
     purchases.forEach((doc) => {
@@ -42,10 +44,11 @@ exports.getByStatus = (query, next) => {
     });
     next(err, purchasesArr);
   });
-};
+}
 
-exports.makePurchase = (details, next) => {
-  var {shipping, billing, transactionType, user} = details;
-  cartModel.getByUser(user, next);
-
-};
+exports.getByID = (id, next) => {
+  purchaseModel.findById(id).exec((err, purchase) => {
+    if (err) throw err;
+    next(err, purchase.toObject());
+  });
+}

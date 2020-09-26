@@ -11,58 +11,143 @@ exports.purchase = (req, res) => {
       res.redirect('/login');
     }
     else {
-      cartModel.getByUser(user, (err, result) => {
-        if (result) {
+      cartModel.getByUser(user, (err, cart) => {
+        // cart contains {products: [{pName, img, subPrice, id, qty}], total}
+        if (err) throw err;
+        if (cart) {
           var cartItems = [];
-          // result contains {products: [{pName, img, subPrice, id, qty}], total}
-          result.products.forEach(function(item) {
-            var prod = {
-              pName: item.pName,
-              id: item.id,
-              qty: item.qty,
-              subPrice: item.subPrice
-            };
-            cartItems.push(prod);
-          });
-          
-          var status = null;
-          if (transactionType == 'COD') {
-            status = 'Preparing Order';
-          }
-          else {
-            status = 'Awaiting Proof of Payment';
-          }
-
-          var details = {
-            user: user,
-            cartItems: cartItems,
-            shippingAddress: shipping,
-            billingAddress: billing,
-            paymentMethod: transactionType,
-            status: status,
-            totalPrice: result.total
-          }
-
-          purchaseModel.create(details, (err, result) => {
-            if (result) {
-              if (transactionType == "CoD") {
-                res.redirect('/');
+          cartModel.deleteByuser(user, (err, result) => {
+            if (err) throw err;
+            if (result.ok == 1) {
+              cart.products.forEach(function(item) {
+                var prod = {
+                  pName: item.pName,
+                  id: item.id,
+                  qty: item.qty,
+                  img: item.img,
+                  subPrice: item.subPrice
+                };
+                cartItems.push(prod);
+              });
+              
+              var status = null;
+              if (transactionType == 'CoD') {
+                status = 'Preparing Order';
               }
-              else { 
-                res.redirect('payment_details');
+              else {
+                status = 'Awaiting Proof of Payment';
               }
-            }
-            else {
-              res.render('/cart', {
-                name: req.session.name,
-                title: "My Cart", 
-                loggedIn: user,
-                products: result.products
+    
+              var details = {
+                user: user,
+                cartItems: cartItems,
+                shippingAddress: shipping,
+                billingAddress: billing,
+                paymentMethod: transactionType,
+                status: status,
+                totalPrice: cart.total
+              }
+    
+              purchaseModel.create(details, (err, result) => {
+                if (result) {
+                  if (transactionType == "CoD") {
+                    res.redirect('/');
+                  }
+                  else { 
+                    res.redirect('payment_details');
+                  }
+                }
+                else {
+                  res.render('/cart', {
+                    name: req.session.name,
+                    title: "My Cart", 
+                    loggedIn: user,
+                    products: cart.products
+                  });
+                }
               });
             }
+            else {
+              // delete cart failed
+              res.redirect('/');
+            }
           });
+        
         }
       });
     }
+  }
+}
+
+exports.getPurchaseDetails = (req, res) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    console.log('test');
+    console.log(req.params.slug);
+    purchaseModel.getByID({_id: req.params.slug}, (err, purchase) => {
+      if (purchase.user.equals(req.session.user)) {
+        var cartItems = purchase.cartItems;
+
+        cartItems.forEach(function(item){
+          item.totalPrice = (item.qty * item.subPrice).toFixed(2);
+          item.subPrice = (item.subPrice).toFixed(2);
+        });
+        console.log(purchase.cartItems);
+
+        var date = purchase.purchaseDate;
+        date = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+        if (purchase) {
+          res.render('purchaseDetails', {
+            name: req.session.name,
+            title: 'Product Details',
+            loggedIn: req.session.user,
+            _id: purchase._id,
+            status: purchase.status,
+            purchaseDate: date,
+            cartItems: cartItems,
+            total: purchase.totalPrice.toFixed(2),
+          });
+        }
+        else {
+          res.redirect('/');
+        }
+      }
+      else {
+        res.redirect('/')
+      }
+    });
+  }
+}
+
+exports.getPurchaseHistory = (req, res) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()){
+    purchaseModel.getByQuery({user: req.session.user}, (err, purchases) => {
+      if (err) throw err;
+      var purchasesCopy = JSON.parse(JSON.stringify(purchases));
+      purchasesCopy.forEach(function(purchase){
+        var products = purchase.cartItems;
+        var totalQuantity = 0;
+
+        var firstImg = null;
+        products.forEach(function(product){
+          if (firstImg == null) {
+            firstImg = product.img;
+          }
+          totalQuantity += product.qty;
+        });
+        purchase.totalQty = totalQuantity;
+        purchase.firstImg = firstImg;
+        purchase.totalPrice = purchase.totalPrice.toFixed(2);
+        purchase.purchaseDate = purchase.purchaseDate.match(/(\d{4}-\d{2}-\d{2})/)[1];
+      });
+
+      res.render('purchaseHistory', {
+        name: req.session.name,
+        title: 'Product History',
+        loggedIn: req.session.user,
+        purchases: purchasesCopy
+      });
+    });
   }
 }

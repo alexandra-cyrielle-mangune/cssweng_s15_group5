@@ -54,7 +54,7 @@ exports.getAProduct = (req, res) => {
       });
     }
   });
-};
+}
 
 // Delete a Product
 exports.deleteProduct = (req, res) => {

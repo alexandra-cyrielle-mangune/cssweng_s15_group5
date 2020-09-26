@@ -56,22 +56,10 @@ router.get('/product_details/:slug', productController.getAProduct);
 router.get('/cart', isPrivate, cartController.getUserCart);
 
 // Purchase History
-router.get('/purchase_history', isPrivate, (req, res) => {
-  res.render('purchaseHistory', {
-    name: req.session.name,
-    title: "Lipay", 
-    loggedIn: req.session.user,
-  });
-});
+router.get('/purchase_history', isPrivate, purchaseController.getPurchaseHistory);
 
 // Purchase Details
-router.get('/purchase_details', isPrivate, (req, res) => {
-  res.render('purchaseDetails', {
-    name: req.session.name,
-    title: "Lipay", 
-    loggedIn: req.session.user,
-  });
-});
+router.get('/purchase_details/:slug', isPrivate, purchaseController.getPurchaseDetails);
 
 // User Settings
 router.get('/settings', isPrivate, (req, res) => {

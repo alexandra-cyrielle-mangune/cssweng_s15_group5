@@ -1,69 +1,43 @@
 <div class="purchase-history">
-
-  <div class="card">
-    <div class="card-body">
-      <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-      <div class="card-text-group">
-        <table class="table table-borderless">
-          <tr>
-            <td><h5 class="card-title">Product Name</h5></td>
-            <td><h5 class="card-title">Total: ₱ 1350.00</h5></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">3 item(s) in total</p></td>
-            <td><p class="card-text">Status: Delivered</p></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">Order placed on 07/20/2020</p></td>
-            <td><a href="/purchase_details" class="btn btn-c-pink" type="button">View More Details</a></td>
-          </tr>
-        </table>
-      </div>
+  <div class="row my-4 align-items-center">
+    <div class="col">
+      <header class="h4">Purchase History</header>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-body">
-      <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-      <div class="card-text-group">
-        <table class="table table-borderless">
-          <tr>
-            <td><h5 class="card-title">Product Name</h5></td>
-            <td><h5 class="card-title">Total: ₱ 1350.00</h5></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">3 item(s) in total</p></td>
-            <td><p class="card-text">Status: Delivered</p></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">Order placed on 07/20/2020</p></td>
-            <td><a href="/purchase_details" class="btn btn-c-pink" type="button">View More Details</a></td>
-          </tr>
-        </table>
+  <hr>
+  <div class="mt-4 mb-5">
+    {{#each purchases}}
+      <div class="row p-3 border border-dark {{#if @first}} rounded-top {{else}} border-top-0 {{/if}} {{#if @last}} rounded-bottom {{/if}}">
+        <div class="col col-3 align-self-center">
+          <img class="img-fluid" src="{{this.firstImg}}" width="150px">
+        </div>
+        <div class="col col-9">
+          <div class="row">
+            <div class="col-8 align-self-center">
+              Order ID: {{this._id}}
+            </div>
+            <div class="col-4 align-self-center">
+              <strong>Php {{this.totalPrice}}</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 align-self-center">
+              Quantity: {{this.totalQty}}
+            </div>
+            <div class="col-4 align-self-center">
+              Status: {{this.status}}
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-8">
+              Order placed on: {{this.purchaseDate}}
+            </div>
+            <div class="col-4 align-self-center">
+              <a href="/purchase_details/{{this._id}}" class="btn btn-c-pink">View Details</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    {{/each}}
   </div>
-
-  <div class="card">
-    <div class="card-body">
-      <img class="img-fluid" src="/img/features-placeholder-2.jpg" alt="productimage" width="250px">
-      <div class="card-text-group">
-        <table class="table table-borderless">
-          <tr>
-            <td><h5 class="card-title">Product Name</h5></td>
-            <td><h5 class="card-title">Total: ₱ 1350.00</h5></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">3 item(s) in total</p></td>
-            <td><p class="card-text">Status: Delivered</p></td>
-          </tr>
-          <tr>
-            <td><p class="card-text">Order placed on 07/20/2020</p></td>
-            <td><a href="/purchase_details" class="btn btn-c-pink" type="button">View More Details</a></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
 </div>

@@ -75,13 +75,19 @@ exports.getByUser = (user, next) => {
             prodArray.push(product);
           });
           console.log('before send: ' + totalPrice);
-          next(err, {products: prodArray, total: totalPrice});
+          next(err, {_id: cart._id, products: prodArray, total: totalPrice});
         });
       }
     }
   });
 };
 
+exports.deleteByuser = (user, next) => {
+  cartModel.deleteOne({user: user}).exec((err, result) => {
+    if (err) throw err;
+    next(err, result);
+  });
+}
 // Add item to cart
 exports.addProduct = (filter, update, qty, next) => {
   cartModel.findOne({user: filter}).exec((err, cart) => {
@@ -132,7 +138,7 @@ exports.addProduct = (filter, update, qty, next) => {
       }
     }
   });
-};
+}
 
 exports.removeProduct = (filter, update, next) => {
   cartModel.findOne({user: filter}).exec((err, cart) => {

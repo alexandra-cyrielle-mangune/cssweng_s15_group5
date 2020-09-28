@@ -82,7 +82,7 @@ exports.refreshProducts = (req, res) => {
 // This functions gets all the products from the database 
 // and displays them in the admin 'view all products' pages
 exports.viewAllProducts = (req, res) => {
-  productModel.getMany({archive: false}, (err, products) => {
+  productModel.getMany({archive: false}, {pName: 1}, (err, products) => {
     res.render('viewItems', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
@@ -93,7 +93,7 @@ exports.viewAllProducts = (req, res) => {
 };
 
 exports.getArchivedItems = (req, res) => {
-  productModel.getMany({archive: true}, (err, products) => {
+  productModel.getMany({archive: true}, {pName: 1}, (err, products) => {
     res.render('archivedItems', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',

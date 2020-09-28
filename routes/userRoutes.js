@@ -38,6 +38,7 @@ router.get('/', (req, res) => {
 
 // Catalogue
 router.get('/catalogue', productController.getAllProducts);
+router.post('/catalogue', productController.refreshProducts);
 
 // Contact Us
 router.get('/contact_us', (req, res) => {

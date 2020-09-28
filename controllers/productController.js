@@ -13,15 +13,71 @@ const upload = multer({ storage: storage });
 // This functions gets all the products from the database 
 // and displays them in the catalogue
 exports.getAllProducts = (req, res) => {
-  productModel.getMany({archive: false}, (err, products) => {
+  var query = {archive: false};
+  var sort = {pName: 1};
+  if (req.body.category && req.body.category != 'No Filter') {
+    query.category = req.body.category;
+  }
+
+  if (req.body.sort && req.body.sort != 'name') {
+    if (req.body.sort == "asc") {
+      sort = {price: 1, pName: 1}
+    }
+    else {
+      sort = {price: -1, pName: 1};
+    }
+  }
+  console.log('---');
+  productModel.getMany(query, sort, (err, products) => {
+    var categories = [];
+    products.forEach(function(item){
+      if (!categories.includes(item.category)) {
+        categories.push(item.category);
+      }
+    });
+
+    console.log(products);
     res.render('catalogue', {
       name: req.session.name,
       title: 'Catalogue',
       products: products,
       loggedIn: req.session.user,
+      categories: categories
     });
   });
 };
+
+exports.refreshProducts = (req, res) => {
+  var query = {archive: false};
+  var sort = {pName: 1};
+  if (req.body.category && req.body.category != 'No Filter') {
+    query.category = req.body.category;
+  }
+
+  if (req.body.sort && req.body.sort != 'name') {
+    if (req.body.sort == "asc") {
+      sort = {price: 1, pName: 1}
+    }
+    else {
+      sort = {price: -1, pName: 1};
+    }
+  }
+  console.log('---');
+  productModel.getMany(query, sort, (err, products) => {
+    var categories = [];
+    products.forEach(function(item){
+      if (!categories.includes(item.category)) {
+        categories.push(item.category);
+      }
+    });
+
+    console.log(products);
+    res.render('products', {
+      layout: null,
+      products: products,
+    });
+  });
+}
 
 // This functions gets all the products from the database 
 // and displays them in the admin 'view all products' pages

@@ -10,12 +10,34 @@
         </div>
       </div>
       <br>
-      <h4>Categories</h4>
-      <div class="list-group-flush categories w-75">
-        <a href="#" class="list-group-item list-group-item-action">Placeholder #1</a>
-        <a href="#" class="list-group-item list-group-item-action">Placeholder #2</a>
-        <a href="#" class="list-group-item list-group-item-action">Placeholder #3</a>
-        <a href="#" class="list-group-item list-group-item-action">Placeholder #4</a>
+      <h4>Category:</h4>
+      <div class="list-group-flush categories w-75 mb-4">
+        <div class="form-check">
+          <input class="form-check-input categoryRadio" name="categoryRadio" type="radio" value="No Filter" id="noFilterRadio">
+          <label for="noFilterRadio" class="form-check-label categoryRadio" value="Erase Filter">All Items</label>
+        </div>
+        <hr class="my-1" style="border-width: medium !important">
+        {{#each categories}}
+          <div class="form-check">
+            <input class="form-check-input categoryRadio" name="categoryRadio" type="radio" value="{{this}}" id="{{this}}Radio">
+            <label for="{{this}}" class="form-check-label">{{this}}</label>
+          </div>
+        {{/each}}
+      </div>
+      <h4>Arrange by:</h4>
+      <div class="list-group-flush sort-price w-75">
+        <div class="form-check">
+          <input class="form-check-input sortRadio" name="sortRadio" type="radio" value="name" id="nameRadio">
+          <label for="asc" class="form-check-label">Name</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input sortRadio" name="sortRadio" type="radio" value="asc" id="ascRadio">
+          <label for="asc" class="form-check-label">Price Ascending</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input sortRadio" name="sortRadio" type="radio" value="desc" id="descRadio">
+          <label for="asc" class="form-check-label">Price Descending</label>
+        </div>
       </div>
     </div>
     <div class="display-catalogue display-items col-8">

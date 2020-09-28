@@ -157,3 +157,14 @@ exports.getPurchaseHistory = (req, res) => {
     });
   }
 }
+
+exports.getAllPurchases = (req, res) => {
+  purchaseModel.getAll({}, (err, purchases) => {
+    res.render('dashboard', {
+      title: 'Lipay | Administrator',
+      name: 'Admin Name',
+      layout: 'main-admin',
+      purchases: purchases
+    });
+  });
+};

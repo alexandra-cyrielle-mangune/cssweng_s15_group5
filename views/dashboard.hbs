@@ -1,50 +1,35 @@
 <div class="container-fluid">
-  <h4 class="mt-4">Dashboard</h4>
+  <h4 class="mt-4">Dashboard | View All Orders</h4>
+  {{> messages}}
   <br>
   <table class="table table-hover text-center">
-  <thead>
-    <tr>
-      <th scope="col">User No.</th>
-      <th scope="col">Username</th>
-      <th scope="col">Product No.</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Date Purchased</th>
-      <th scope="col">Total Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">100</th>
-      <td>Juan Dela Cruz</td>
-      <td>11828</td>
-      <td>1</td>
-      <td>2020-08-30</td>
-      <td>450.00</td>
-    </tr>
-    <tr>
-      <th scope="row">200</th>
-      <td>John Smith</td>
-      <td>11828</td>
-      <td>1</td>
-      <td>2020-08-30</td>
-      <td>450.00</td>
-    </tr>
-    <tr>
-      <th scope="row">300</th>
-      <td>Maria Clara</td>
-      <td>11828</td>
-      <td>1</td>
-      <td>2020-08-30</td>
-      <td>450.00</td>
-    </tr>
-    <tr>
-      <th scope="row">100</th>
-      <td>Juan Dela Cruz</td>
-      <td>11828</td>
-      <td>1</td>
-      <td>2020-08-30</td>
-      <td>450.00</td>
-    </tr>
-  </tbody>
-</table>
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Purchase No.</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">Purchase Date</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Status</th>
+        <th scope="col">Edit Status</th>
+        <th scope="col">View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if purchases}}
+        {{#each purchases}}
+        <tr>
+          <th scope="row">{{this._id}}</th>
+          <td>{{this.totalPrice}}</td>
+          <td>{{this.purchaseDate}}</td>
+          <td>{{this.paymentMethod}}</td>
+          <td>{{this.status}}</td>
+          <td><a href="/edit_status/{{this._id}}"><i class="material-icons">create</i></a></td>
+          <td><a href="/view_order/{{this._id}}"><i class="material-icons">visibility</i></a></td>
+        </tr>
+        {{/each}}
+      {{else}}
+        <h4>No purchases available</h4>
+      {{/if}}
+    </tbody>
+  </table>
 </div>

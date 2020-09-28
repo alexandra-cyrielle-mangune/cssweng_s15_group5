@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const productController = require('../controllers/productController');
+const purchaseController = require('../controllers/purchaseController');
 const {productValidation} = require('../validators');
 const {isPublic} = require('../middlewares/checkAuth');
 const multer = require('multer');
@@ -38,14 +39,10 @@ var temp = [
   },
 ];
 
-router.get('/dashboard', isPublic, (req, res) => {
-  res.render('dashboard', {
-    title: 'Lipay | Administrator',
-    name: 'Admin Name',
-    layout: 'main-admin',
-    products: temp
-  });
-});
+/*
+ *  GET METHOD: View all orders (in the dashboard)
+ */
+router.get('/dashboard', isPublic, purchaseController.getAllPurchases);
 
 /*
  *  GET METHOD: View all items 

@@ -1,6 +1,7 @@
 // Connects to the database via Mongoose
 const mongoose = require('./connection');
 const cartModel = require('./cartModel');
+const dateFormat = require('dateformat');
 
 // Initializes a new cart schema
 const purchaseSchema = new mongoose.Schema({
@@ -57,8 +58,13 @@ exports.getAll = (query, next) => {
   purchaseModel.find({}).exec((err, products) => {
     if (err) throw err;
     const productObjects = [];
+    i=0;
     products.forEach((doc) => {
       productObjects.push(doc.toObject());
+      temp = dateFormat(productObjects[i].purchaseDate, "mm/dd/yyyy");
+      productObjects[i].purchaseDate = temp;
+      console.log(temp); // testing
+      i++;
     });
     next(err, productObjects);
   });

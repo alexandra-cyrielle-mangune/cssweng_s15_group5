@@ -1,5 +1,6 @@
 const purchaseModel = require('../models/purchaseModel');
 const cartModel = require('../models/cartModel');
+const dateFormat = require('dateformat');
 const {validationResult} = require('express-validator');
 
 exports.purchase = (req, res) => {
@@ -159,12 +160,14 @@ exports.getPurchaseHistory = (req, res) => {
 }
 
 exports.getAllPurchases = (req, res) => {
-  purchaseModel.getAll({}, (err, purchases) => {
+  purchaseModel.getAll({}, (err, result) => {
+    // console.log(dateFormat(result.purchaseDate, "mm/dd/yyyy"));
     res.render('dashboard', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
       layout: 'main-admin',
-      purchases: purchases
+      purchases: result,
+      purchaseDate: dateFormat(result.purchaseDate, "mm/dd/yyyy")
     });
   });
 };

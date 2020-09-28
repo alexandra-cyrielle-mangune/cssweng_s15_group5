@@ -52,3 +52,14 @@ exports.getByID = (id, next) => {
     next(err, purchase.toObject());
   });
 }
+
+exports.getAll = (query, next) => {
+  purchaseModel.find({}).exec((err, products) => {
+    if (err) throw err;
+    const productObjects = [];
+    products.forEach((doc) => {
+      productObjects.push(doc.toObject());
+    });
+    next(err, productObjects);
+  });
+};

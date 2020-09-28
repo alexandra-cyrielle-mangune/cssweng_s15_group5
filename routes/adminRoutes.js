@@ -38,6 +38,9 @@ var temp = [
   },
 ];
 
+/*
+ *  GET METHOD: View all orders (in the dashboard)
+ */
 router.get('/dashboard', isPublic, (req, res) => {
   res.render('dashboard', {
     title: 'Lipay | Administrator',

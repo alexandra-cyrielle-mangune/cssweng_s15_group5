@@ -85,13 +85,16 @@ router.get('/view_order/:_id', isPublic, purchaseController.getOneOrder);
 /*
  *  GET METHOD: Featured items
  */
-router.get('/featured_items', isPublic, (req, res) => {
-  res.render('featuredItems', {
-    title: 'Lipay | Administrator',
-    name: 'Admin Name',
-    layout: 'main-admin',
-    // products: temp
-  });
-});
+router.get('/featured_items', isPublic, productController.getFeaturedItems);
+
+/*
+ *  GET METHOD: Feature an item
+ */
+router.get('/feature_item/:_id', isPublic, productController.featureItem);
+
+/*
+ *  GET METHOD: Unfeature an item
+ */
+router.get('/unfeature_item/:_id', isPublic, productController.unfeatureItem);
 
 module.exports = router;

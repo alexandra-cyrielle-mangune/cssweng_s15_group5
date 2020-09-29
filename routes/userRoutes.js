@@ -6,35 +6,8 @@ const {purchaseValidation} = require('../validators.js');
 const {isPrivate} = require('../middlewares/checkAuth');
 const { purchase } = require('../controllers/purchaseController');
 
-var temp = [
-  {img: 'img/features-placeholder-1.jpg',
-  info: 'Placeholder Item #1',
-  productDetailsLink: '/product_details',
-  price: '₱ 250.00'},
-  {img: 'img/features-placeholder-2.jpg',
-  info: 'Placeholder Item #2',
-  productDetailsLink: '/product_details',
-  price: '₱ 150.00'},
-  {img: 'img/features-placeholder-3.jpg',
-  info: 'Placeholder Item #3',
-  productDetailsLink: '/product_details',
-  price: '₱ 200.00'},
-  {img: 'img/features-placeholder-4.jpg',
-  info: 'Placeholder Item #4',
-  productDetailsLink: '/product_details',
-  price: '₱ 450.00'}
-];
-
 // Homepage
-router.get('/', (req, res) => {
-  res.render('home', {
-    name: req.session.name,
-    title: 'Lipay',
-    mastheadImg: 'img/masthead-banner-placeholder.jpg',
-    products: temp,
-    loggedIn: req.session.user
-  });
-});
+router.get('/', productController.displayFeaturedItems);
 
 // Catalogue
 router.get('/catalogue', productController.getAllProducts);

@@ -7,12 +7,13 @@
       <tr>
         {{!-- <th scope="col">Product No.</th> --}}
         <th scope="col">Product Name</th>
-        <th scope="col">Slug Name</th>
+        {{!-- <th scope="col">Slug Name</th> --}}
         <th scope="col">Description</th>
         <th scope="col">Price</th>
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
+         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -21,9 +22,10 @@
         <tr>
           {{!-- <th scope="row">{{this._id}}</th> --}}
           <td>{{this.pName}}</td>
-          <td>{{this.slug}}</td>
+          {{!-- <td>{{this.slug}}</td> --}}
           <td>{{this.desc}}</td>
-          <td>{{this.price}}</td>
+          <td>₱ {{this.price}}</td>
+          <td><a href="/feature_item/{{this._id}}"><i class="material-icons">add_to_queue</i></a></td>
           <td><a href="/archive_item/{{this._id}}"><i class="material-icons">archive</i></a></td>
           <td><a href="/edit_item/{{this._id}}"><i class="material-icons">create</i></a></td>
           <td><a href="/delete_item/{{this._id}}"><i class="material-icons">delete</i></a></td>

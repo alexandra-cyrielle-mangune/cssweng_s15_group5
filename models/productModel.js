@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema({
   category: {type: String, required: true},
   price: {type: Number, required: true},
   archive: {type: Boolean, required: true},
+  feature: {type: Boolean, required: true},
   img: {type: String}
 });
 
@@ -92,6 +93,22 @@ exports.archive = (id, next) => {
 // Unarchive an item
 exports.unarchive = (id, next) => {
   productModel.updateOne({_id: id}, {$set: {archive: false}}, (err,result) => {
+    if(err) throw err;
+    next(err, result);
+  });
+};
+
+// Feature an item
+exports.feature = (id, next) => {
+  productModel.updateOne({_id: id}, {$set: {feature: true}}, (err,result) => {
+    if(err) throw err;
+    next(err, result);
+  });
+};
+
+// Unfeature an item
+exports.unfeature = (id, next) => {
+  productModel.updateOne({_id: id}, {$set: {feature: false}}, (err,result) => {
     if(err) throw err;
     next(err, result);
   });

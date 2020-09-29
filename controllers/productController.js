@@ -79,6 +79,9 @@ exports.refreshProducts = (req, res) => {
 // and displays them in the admin 'view all products' pages
 exports.viewAllProducts = (req, res) => {
   productModel.getMany({archive: false}, {pName: 1}, (err, products) => {
+    products.forEach((item)=> {
+      item.price = item.price.toFixed(2);
+    });
     res.render('viewItems', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
@@ -206,6 +209,7 @@ exports.addProduct = async (req, res) => {
           category: pCat,
           price: Math.round(price * 100) / 100.0,
           archive: false,
+          feature: false,
           img: image
         };
         productModel.create(newProduct, (err, product) => {
@@ -285,7 +289,6 @@ exports.editProduct = (req, res) => {
 // Archive an item
 exports.archiveItem = (req, res) => {
   var product_id = req.params._id;
-  console.log("PRODUCTID::::" + product_id);
 
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
@@ -330,3 +333,72 @@ exports.unarchiveItem = (req, res) => {
     }
   });
 };
+
+exports.featureItem = (req, res) => {
+  var product_id = req.params._id;
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Something went wrong. Please try again.");
+      res.redirect('/view_all_items');
+    }
+    else {
+      productModel.feature(product_id, (err, result) => {
+        if(err) {
+          req.flash('error_msg', "Something went wrong. Please try again.");
+          res.redirect('/view_all_items');
+        }
+        else {
+          req.flash('success_msg', "Successfully featured an item!");
+          res.redirect('/view_all_items');
+        }
+      });
+    }
+  });
+};
+
+exports.unfeatureItem = (req, res) => {
+  var product_id = req.params._id;
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Something went wrong. Please try again.");
+      res.redirect('/view_all_items');
+    }
+    else {
+      productModel.unfeature(product_id, (err, result) => {
+        if(err) {
+          req.flash('error_msg', "Something went wrong. Please try again.");
+          res.redirect('/view_all_items');
+        }
+        else {
+          req.flash('success_msg', "Successfully unfeatured an item!");
+          res.redirect('/view_all_items');
+        }
+      });
+    }
+  });
+};
+
+exports.getFeaturedItems = (req, res) => {
+  productModel.getMany({feature: true}, {pName: 1}, (err, products) => {
+    res.render('featuredItems', {
+      title: 'Lipay | Administrator',
+      name: 'Admin Name',
+      layout: 'main-admin',
+      products: products
+    });
+  });
+};
+
+exports.displayFeaturedItems = (req, res) => {
+  productModel.getMany({feature: true}, {pName: 1}, (err, products) => {
+    res.render('home', {
+      name: req.session.name,
+      title: 'Lipay',
+      mastheadImg: 'img/masthead-banner-placeholder.jpg',
+      products: products,
+      loggedIn: req.session.user
+    });
+  })
+}

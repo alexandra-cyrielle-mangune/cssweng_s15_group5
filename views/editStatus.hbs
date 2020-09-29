@@ -51,8 +51,9 @@
 
   <div class="col">
     <br>
-    <header class="h4">Change Status</header>
+    <header class="h4">Change Order Status</header>
   </div>
+  <hr class="my-3">
   <form action="/edit_status/{{_id}}" method="POST">
     <table class="table table-borderless">
       <tr>
@@ -69,7 +70,7 @@
           <label for="preparing">Preparing Order</label>
         </td>
         <td>
-          <input type="radio" id="sent" name="status" value="Send for Delivery">
+          <input type="radio" id="sent" name="status" value="Sent for Delivery">
           <label for="sent">Sent for Delivery</label>
         </td>
         <td>

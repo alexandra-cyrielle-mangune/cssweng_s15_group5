@@ -161,14 +161,17 @@ exports.getPurchaseHistory = (req, res) => {
 
 exports.getAllPurchases = (req, res) => {
   purchaseModel.getAll({}, (err, result) => {
-    // console.log(dateFormat(result.purchaseDate, "mm/dd/yyyy"));
+
+    result.forEach((item)=> {
+      item.totalPrice = item.totalPrice.toFixed(2);
+    });
+
     if (err) throw err;
     res.render('dashboard', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
       layout: 'main-admin',
       purchases: result,
-      purchaseDate: dateFormat(result.purchaseDate, "mm/dd/yyyy")
     });
   });
 };

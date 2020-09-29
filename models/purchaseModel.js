@@ -1,6 +1,7 @@
 // Connects to the database via Mongoose
 const mongoose = require('./connection');
 const cartModel = require('./cartModel');
+const userModel = require('./userModel');
 const dateFormat = require('dateformat');
 
 // Initializes a new cart schema

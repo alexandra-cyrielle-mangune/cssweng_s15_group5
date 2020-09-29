@@ -13,7 +13,8 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
-         <th scope="col"></th>
+        <th scope="col"></th>
+        {{!-- <th scope="col"></th> --}}
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
           {{!-- <td>{{this.slug}}</td> --}}
           <td>{{this.desc}}</td>
           <td>₱ {{this.price}}</td>
+          {{!-- <td><a href="/view_item/{{this._id}}"><i class="material-icons">search</i></a></td> --}}
           <td><a href="/feature_item/{{this._id}}"><i class="material-icons">add_to_queue</i></a></td>
           <td><a href="/archive_item/{{this._id}}"><i class="material-icons">archive</i></a></td>
           <td><a href="/edit_item/{{this._id}}"><i class="material-icons">create</i></a></td>

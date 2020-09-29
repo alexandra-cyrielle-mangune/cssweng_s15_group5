@@ -11,7 +11,7 @@
         <th scope="col">Payment Method</th>
         <th scope="col">Status</th>
         <th scope="col">Edit Status</th>
-        <th scope="col">View Details</th>
+        {{!-- <th scope="col">View Details</th> --}}
       </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@
           <td>{{this.paymentMethod}}</td>
           <td>{{this.status}}</td>
           <td><a href="/edit_status/{{this._id}}"><i class="material-icons">create</i></a></td>
-          <td><a href="/view_order/{{this._id}}"><i class="material-icons">visibility</i></a></td>
+          {{!-- <td><a href="/view_order/{{this._id}}"><i class="material-icons">visibility</i></a></td> --}}
         </tr>
         {{/each}}
       {{else}}

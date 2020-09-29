@@ -1,10 +1,91 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const multer = require('multer');
-const fs = require('fs');
-const {promisify} = require('util');
-const pipeline = promisify(require("stream").pipeline);
 const e = require('express');
+
+
+// This function add a new product to the database
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ 
+  storage: storage 
+}).single("image");
+
+exports.addProduct = (req, res) => {
+  const errors = validationResult(req);
+
+  upload(req, res, (err) => {
+    console.log(req.file);
+    console.log(req.body.pName);
+  });
+
+  if(errors.isEmpty()) {
+
+    upload(req, res, (err) => {
+      console.log(req.file);
+      console.log(req.body.pName);
+    });
+    
+    // var {pName, desc, pCat, price, image} = req.body;
+    var pName = req.body.pName;
+    var desc = req.body.desc;
+    var pCat = req.body.pCat;
+    var price = req.body.price;
+    var image = req.body.image;
+
+    console.log(pName);
+
+    // creates a slug from the product name
+    var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
+    
+    // error handling for image upload
+    if(image == undefined) {
+      image = 'img/tote-bag-1.jpg';
+    }
+
+    productModel.getOne({slug: slug}, (err, result) => {
+      if(result) {
+        console.log(result); // for testing
+        req.flash('error_msg', 'Product already exists.');
+        res.redirect('/add_new_item');
+      }
+      else {
+        const newProduct = {
+          pName: pName,
+          slug: slug,
+          desc: desc,
+          category: pCat,
+          price: Math.round(price * 100) / 100.0,
+          archive: false,
+          feature: false,
+          img: image
+        };
+        productModel.create(newProduct, (err, product) => {
+          if(err) {
+            req.flash('error_msg', 'Could not create product. Please try again.');
+            res.redirect('/add_new_item');
+          }
+          else {
+            console.log(slug); // for testing
+            req.flash('success_msg', 'You have added a new product in the catalogue!');
+            res.redirect('/add_new_item');
+          }
+        });
+      }
+    });
+  }
+  else {
+    const messages = errors.array().map((item) => item.msg);
+    req.flash('error_msg', messages.join(' '));
+    res.redirect('/add_new_item');
+  }
+};
+
 
 // This functions gets all the products from the database 
 // and displays them in the catalogue
@@ -168,71 +249,6 @@ exports.getProduct = (req, res) => {
   });
 };
 
-// This function add a new product to the database
-exports.addProduct = async (req, res) => {
-  const errors = validationResult(req);
-  if(errors.isEmpty()) {
-    var {pName, desc, pCat, price, image} = req.body;
-    // var {image} = req.file;
-
-    console.log("PROD IMAGE : " + image);
-    
-    console.log(image); // testing
-
-    // creates a slug from the product name
-    var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-    
-    // error handling for image upload
-    if(image == undefined) {
-      image = 'img/tote-bag-1.jpg';
-    }
-    else {
-      image = 'uploads/' + image; // filename
-      await pipeline(
-        image.stream,
-        fs.createWriteStream(`${__dirname}/../public/uploads/${image}`)
-      );
-      console.log("File UPLOADED! " + image);
-    }
-
-    productModel.getOne({slug: slug}, (err, result) => {
-      if(result) {
-        console.log(result); // for testing
-        req.flash('error_msg', 'Product already exists.');
-        res.redirect('/add_new_item');
-      }
-      else {
-        const newProduct = {
-          pName: pName,
-          slug: slug,
-          desc: desc,
-          category: pCat,
-          price: Math.round(price * 100) / 100.0,
-          archive: false,
-          feature: false,
-          img: image
-        };
-        productModel.create(newProduct, (err, product) => {
-          if(err) {
-            req.flash('error_msg', 'Could not create product. Please try again.');
-            res.redirect('/add_new_item');
-          }
-          else {
-            console.log(slug); // for testing
-            req.flash('success_msg', 'You have added a new product in the catalogue!');
-            res.redirect('/add_new_item');
-          }
-        });
-      }
-    });
-  }
-  else {
-    const messages = errors.array().map((item) => item.msg);
-    req.flash('error_msg', messages.join(' '));
-    res.redirect('/add_new_item');
-  }
-};
-
 // Edit a Product
 exports.editProduct = (req, res) => {
   var {pName, desc, pCat, price, prodImg} = req.body;
@@ -363,17 +379,17 @@ exports.unfeatureItem = (req, res) => {
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
       req.flash('error_msg', "Something went wrong. Please try again.");
-      res.redirect('/view_all_items');
+      res.redirect('/featured_items');
     }
     else {
       productModel.unfeature(product_id, (err, result) => {
         if(err) {
           req.flash('error_msg', "Something went wrong. Please try again.");
-          res.redirect('/view_all_items');
+          res.redirect('/featured_items');
         }
         else {
           req.flash('success_msg', "Successfully unfeatured an item!");
-          res.redirect('/view_all_items');
+          res.redirect('/featured_items');
         }
       });
     }
@@ -381,7 +397,7 @@ exports.unfeatureItem = (req, res) => {
 };
 
 exports.getFeaturedItems = (req, res) => {
-  productModel.getMany({feature: true}, {pName: 1}, (err, products) => {
+  productModel.getMany({feature: true, archive: false}, {pName: 1}, (err, products) => {
     res.render('featuredItems', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
@@ -392,7 +408,7 @@ exports.getFeaturedItems = (req, res) => {
 };
 
 exports.displayFeaturedItems = (req, res) => {
-  productModel.getMany({feature: true}, {pName: 1}, (err, products) => {
+  productModel.getMany({feature: true, archive: false}, {pName: 1}, (err, products) => {
     res.render('home', {
       name: req.session.name,
       title: 'Lipay',

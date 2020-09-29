@@ -1,43 +1,14 @@
 const router = require('express').Router();
 const productController = require('../controllers/productController');
 const purchaseController = require('../controllers/purchaseController');
+const {validationResult} = require('express-validator');
 const {productValidation} = require('../validators');
 const {isPublic} = require('../middlewares/checkAuth');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
-
-var temp = [
-  {
-    pName: 'Pink Flowers Tote Bag',
-    slug: 'pink-flowers-tote-bag',
-    desc: 'XL-sized tote bag with pink flowers design.',
-    price: '₱450.00'
-  },
-  {
-    pName: 'Green Leaves Tote Bag',
-    slug: 'green-leaves-tote-bag',
-    desc: 'L-sized tote bag with green leaves design.',
-    price: '₱250.00'
-  },
-  {
-    pName: 'Assorted Flowers Tote Bag',
-    slug: 'assorted-flowers-tote-bag',
-    desc: 'M-sized tote bag with assorted flowers design.',
-    price: '₱150.00'
-  },
-  {
-    pName: 'Assorted Leaves Tote Bag',
-    slug: 'assorted-leaves-tote-bag',
-    desc: 'XL-sized tote bag with assorted leaves design.',
-    price: '₱450.00'
-  },
-  {
-    pName: 'Pink Flowers Tote Bag',
-    slug: 'pink-flowers-tote-bag',
-    desc: 'XL-sized tote bag with pink flowers design.',
-    price: '₱450.00'
-  },
-];
+const fs = require('fs');
+const {promisify} = require('util');
+const pipeline = promisify(require("stream").pipeline);
+const productModel = require('../models/productModel');
 
 /*
  *  GET METHOD: View all orders (in the dashboard)
@@ -63,7 +34,8 @@ router.get('/add_new_item', isPublic, (req, res) => {
 /*
  *  POST METHOD: Add new item 
  */
-router.post('/add_new_item', isPublic, upload.single('prodImg'), productValidation, productController.addProduct);
+const upload = multer();
+router.post('/add_new_item', isPublic, upload.single("image"), productController.addProduct);
 
 /*
  *  GET METHOD: Delete an item
@@ -118,7 +90,7 @@ router.get('/featured_items', isPublic, (req, res) => {
     title: 'Lipay | Administrator',
     name: 'Admin Name',
     layout: 'main-admin',
-    products: temp
+    // products: temp
   });
 });
 

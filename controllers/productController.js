@@ -1,14 +1,10 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const multer = require('multer');
+const fs = require('fs');
+const {promisify} = require('util');
+const pipeline = promisify(require("stream").pipeline);
 const e = require('express');
-const storage = multer.diskStorage({
-  destination: './uploads/',
-  filename: function(req, file, cb) {
-    cb(null, file.filename);
-  }
-});
-const upload = multer({ storage: storage });
 
 // This functions gets all the products from the database 
 // and displays them in the catalogue
@@ -170,22 +166,30 @@ exports.getProduct = (req, res) => {
 };
 
 // This function add a new product to the database
-exports.addProduct = (req, res) => {
+exports.addProduct = async (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
-    var {pName, desc, pCat, price, prodImg} = req.body;
+    var {pName, desc, pCat, price, image} = req.body;
+    // var {image} = req.file;
+
+    console.log("PROD IMAGE : " + image);
     
-    console.log(prodImg); // testing
+    console.log(image); // testing
 
     // creates a slug from the product name
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
     
     // error handling for image upload
-    if(prodImg == undefined) {
-      prodImg = 'img/tote-bag-1.jpg';
+    if(image == undefined) {
+      image = 'img/tote-bag-1.jpg';
     }
     else {
-      prodImg = 'uploads/' + prodImg;
+      image = 'uploads/' + image; // filename
+      await pipeline(
+        image.stream,
+        fs.createWriteStream(`${__dirname}/../public/uploads/${image}`)
+      );
+      console.log("File UPLOADED! " + image);
     }
 
     productModel.getOne({slug: slug}, (err, result) => {
@@ -202,7 +206,7 @@ exports.addProduct = (req, res) => {
           category: pCat,
           price: Math.round(price * 100) / 100.0,
           archive: false,
-          img: prodImg
+          img: image
         };
         productModel.create(newProduct, (err, product) => {
           if(err) {

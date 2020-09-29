@@ -1,0 +1,91 @@
+<div class="purchase-details">
+  <div class="row my-4 align-items-center">
+    <div class="col">
+      <br>
+      <header class="h4">Order Details</header>
+    </div>
+    <div class="col text-right"> 
+      <a href="/dashboard" class="btn btn-c-green">Back to Dashboard</a>
+    </div>
+  </div>
+  <hr class="my-3">
+  <div class="row px-2 mt-4">
+    <div class="col">
+      <strong>Order ID: {{_id}}</strong>
+    </div>
+    <div class="col text-right">
+      <strong>Status: {{status}}</strong>
+    </div>
+  </div>
+  <div class="row px-2 mb-3">
+    <div class="col">
+      Purchased on: {{purchaseDate}}
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit Cost</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cartItems}}
+          <tr>
+            <th scope="row">{{this.pName}}</td>
+            <td>{{this.qty}}</td>
+            <td>Php {{this.unitPrice}}</td>
+            <td>Php {{this.subPrice}}</td>
+          </tr>
+        {{/each}}
+        <tr>
+          <th colspan="3">Total:</th>
+          <th>Php {{total}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col">
+    <br>
+    <header class="h4">Change Status</header>
+  </div>
+  <form action="/edit_status/{{_id}}" method="POST">
+    <table class="table table-borderless">
+      <tr>
+        <td>
+          <input type="radio" id="proof" name="status" value="Awaiting Proof of Payment">
+          <label for="proof">Awaiting Proof of Payment</label>
+        </td>
+        <td>
+          <input type="radio" id="confirm" name="status" value="Awaiting Confirmation">
+          <label for="confirm">Awaiting Confirmation</label>
+        </td>
+        <td>
+          <input type="radio" id="preparing" name="status" value="Preparing Order">
+          <label for="preparing">Preparing Order</label>
+        </td>
+        <td>
+          <input type="radio" id="sent" name="status" value="Send for Delivery">
+          <label for="sent">Sent for Delivery</label>
+        </td>
+        <td>
+          <input type="radio" id="delivered" name="status" value="Delivered">
+          <label for="delivered">Delivered</label>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <button class="btn btn-c-green" type="submit">Change Status</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>

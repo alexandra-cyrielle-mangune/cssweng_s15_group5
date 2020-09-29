@@ -2,10 +2,10 @@
   <h4 class="mt-4">Dashboard | View All Orders</h4>
   {{> messages}}
   <br>
-  <table class="table table-hover text-center">
+  <table class="table text-center">
     <thead class="thead-light">
       <tr>
-        <th scope="col">Purchase No.</th>
+        <th scope="col">Order No.</th>
         <th scope="col">Total Price</th>
         <th scope="col">Purchase Date</th>
         <th scope="col">Payment Method</th>
@@ -19,7 +19,7 @@
         {{#each purchases}}
         <tr>
           <th scope="row">{{this._id}}</th>
-          <td>{{this.totalPrice}}</td>
+          <td>₱ {{this.totalPrice}}</td>
           <td>{{this.purchaseDate}}</td>
           <td>{{this.paymentMethod}}</td>
           <td>{{this.status}}</td>

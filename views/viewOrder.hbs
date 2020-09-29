@@ -1,0 +1,50 @@
+<div class="purchase-details">
+  <div class="row my-4 align-items-center">
+    <div class="col">
+      <header class="h4">Order Details</header>
+    </div>
+    <div class="col text-right"> 
+      <a href="/dashboard" class="btn btn-c-green">Back to Dashboard</a>
+    </div>
+  </div>
+  <hr class="my-3">
+  <div class="row px-2 mt-4">
+    <div class="col">
+      <strong>Order ID: {{_id}}</strong>
+    </div>
+    <div class="col text-right">
+      <strong>Status: {{status}}</strong>
+    </div>
+  </div>
+  <div class="row px-2 mb-3">
+    <div class="col">
+      Purchased on: {{purchaseDate}}
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit Cost</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each cartItems}}
+          <tr>
+            <th scope="row">{{this.pName}}</td>
+            <td>{{this.qty}}</td>
+            <td>Php {{this.unitPrice}}</td>
+            <td>Php {{this.subPrice}}</td>
+          </tr>
+        {{/each}}
+        <tr>
+          <th colspan="3">Total:</th>
+          <th>Php {{total}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

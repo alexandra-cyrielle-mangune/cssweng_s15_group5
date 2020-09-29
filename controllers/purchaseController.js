@@ -162,6 +162,7 @@ exports.getPurchaseHistory = (req, res) => {
 exports.getAllPurchases = (req, res) => {
   purchaseModel.getAll({}, (err, result) => {
     // console.log(dateFormat(result.purchaseDate, "mm/dd/yyyy"));
+    if (err) throw err;
     res.render('dashboard', {
       title: 'Lipay | Administrator',
       name: 'Admin Name',
@@ -169,5 +170,83 @@ exports.getAllPurchases = (req, res) => {
       purchases: result,
       purchaseDate: dateFormat(result.purchaseDate, "mm/dd/yyyy")
     });
+  });
+};
+
+exports.editStatus = (req, res) => {
+  var product_id = req.params._id;
+  var newStatus = req.body.status;
+  console.log("status: " + newStatus);
+  purchaseModel.editStatus({_id: product_id}, newStatus, (err, result) => {
+    if(err) {
+      console.log(err);
+      req.flash('err_msg', "Something went wrong. Please try again.");
+      res.redirect('/edit_status/' + product_id);
+    }
+    else {
+      req.flash('success_msg', "Successfully changed order status!");
+      res.redirect('/edit_status/' + product_id);
+    }
+  });
+};
+
+exports.getOneOrder = (req, res) => {
+  var product_id = req.params._id;
+  purchaseModel.getByID({_id: product_id}, (err, product) => {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      
+      var cartItems = product.cartItems;
+
+      cartItems.forEach( (item) => {
+        item.unitPrice = (item.subPrice / item.qty).toFixed(2);
+        item.subPrice = (item.subPrice).toFixed(2);
+      });
+
+      var totalPrice = product.totalPrice.toFixed(2);
+
+      res.render('viewOrder', {
+        title: 'Lipay | Administrator',
+        layout: 'main-admin',
+        _id: product_id,
+        status: product.status,
+        purchaseDate: dateFormat(product.purchaseDate, "mm/dd/yyyy"),
+        cartItems: cartItems,
+        total: totalPrice
+      });
+    }
+  });
+};
+
+exports.getOrder = (req, res) => {
+  var product_id = req.params._id;
+  purchaseModel.getByID({_id: product_id}, (err, product) => {
+    if(err) {
+      console.log(err);
+    }
+    else {
+      // console.log(product.status);
+      
+      var cartItems = product.cartItems;
+
+      cartItems.forEach( (item) => {
+        item.unitPrice = (item.subPrice / item.qty).toFixed(2);
+        item.subPrice = (item.subPrice).toFixed(2);
+      });
+
+      var totalPrice = product.totalPrice.toFixed(2);
+
+      res.render('editStatus', {
+        title: 'Lipay | Administrator',
+        layout: 'main-admin',
+        _id: product_id,
+        status: product.status,
+        purchaseDate: dateFormat(product.purchaseDate, "mm/dd/yyyy"),
+        cartItems: cartItems,
+        total: totalPrice
+      });
+    }
   });
 };

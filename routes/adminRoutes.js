@@ -95,6 +95,20 @@ router.get('/archive_item/:_id', isPublic, productController.archiveItem);
  */
 router.get('/unarchive_item/:_id', isPublic, productController.unarchiveItem);
 
+/*
+ *  GET METHOD: Edit order status
+ */
+router.get('/edit_status/:_id', isPublic, purchaseController.getOrder);
+
+/*
+ *  POST METHOD: Edit order status
+ */
+router.post('/edit_status/:_id', isPublic, purchaseController.editStatus);
+
+/*
+ *  GET METHOD: View order details
+ */
+router.get('/view_order/:_id', isPublic, purchaseController.getOneOrder);
 
 /*
  *  GET METHOD: Featured items

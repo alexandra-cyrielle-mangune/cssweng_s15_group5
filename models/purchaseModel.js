@@ -63,9 +63,16 @@ exports.getAll = (query, next) => {
       productObjects.push(doc.toObject());
       temp = dateFormat(productObjects[i].purchaseDate, "mm/dd/yyyy");
       productObjects[i].purchaseDate = temp;
-      console.log(temp); // testing
+      // console.log(temp); // testing
       i++;
     });
     next(err, productObjects);
   });
+};
+
+exports.editStatus = (id, newStatus, next) => {
+  purchaseModel.updateOne(id, {$set: {status: newStatus}}, (err, result) => {
+    if (err) throw err;
+    next(err, result);
+  })
 };

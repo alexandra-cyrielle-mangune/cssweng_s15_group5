@@ -49,44 +49,63 @@
     </table>
   </div>
 
-  <div class="col">
-    <br>
-    <header class="h4">Change Order Status</header>
+  <div class="row mt-3 justify-content-md-between">
+    <div class="col-5 border border-dark rounded ml-3 p-4">
+      <h4><Strong>Shipping Address:</Strong></h4>
+      <hr>
+      <div>{{shipping}}</div>
+    </div>
+    <div class="col-5 border border-dark rounded mr-3 p-4">
+      <h4><strong>Billing Address:</strong></h4>
+      <hr>
+      <div>{{billing}}</div>
+    </div>
   </div>
-  <hr class="my-3">
-  <form action="/edit_status/{{_id}}" method="POST">
-    <table class="table table-borderless">
-      <tr>
-        <td>
-          <input type="radio" id="proof" name="status" value="Awaiting Proof of Payment">
-          <label for="proof">Awaiting Proof of Payment</label>
-        </td>
-        <td>
-          <input type="radio" id="confirm" name="status" value="Awaiting Confirmation">
-          <label for="confirm">Awaiting Confirmation</label>
-        </td>
-        <td>
-          <input type="radio" id="preparing" name="status" value="Preparing Order">
-          <label for="preparing">Preparing Order</label>
-        </td>
-        <td>
-          <input type="radio" id="sent" name="status" value="Sent for Delivery">
-          <label for="sent">Sent for Delivery</label>
-        </td>
-        <td>
-          <input type="radio" id="delivered" name="status" value="Delivered">
-          <label for="delivered">Delivered</label>
-        </td>
-        <td>
-          <input type="radio" id="cancelled" name="status" value="Cancelled">
-          <label for="delivered">Cancelled</label>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button class="btn btn-c-green" type="submit">Change Status</button>
-        </td>
-      </tr>
-    </table>
-  </form>
+
+  <div class="row mt-3">
+    <div class="col">
+      <br>
+      <header class="h4">Change Order Status</header>
+      <hr class="my-3">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form action="/edit_status/{{_id}}" method="POST">
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <input type="radio" id="proof" name="status" value="Awaiting Proof of Payment">
+              <label for="proof">Awaiting Proof of Payment</label>
+            </td>
+            <td>
+              <input type="radio" id="confirm" name="status" value="Awaiting Confirmation">
+              <label for="confirm">Awaiting Confirmation</label>
+            </td>
+            <td>
+              <input type="radio" id="preparing" name="status" value="Preparing Order">
+              <label for="preparing">Preparing Order</label>
+            </td>
+            <td>
+              <input type="radio" id="sent" name="status" value="Sent for Delivery">
+              <label for="sent">Sent for Delivery</label>
+            </td>
+            <td>
+              <input type="radio" id="delivered" name="status" value="Delivered">
+              <label for="delivered">Delivered</label>
+            </td>
+            <td>
+              <input type="radio" id="cancelled" name="status" value="Cancelled">
+              <label for="delivered">Cancelled</label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="btn btn-c-green" type="submit">Change Status</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
 </div>

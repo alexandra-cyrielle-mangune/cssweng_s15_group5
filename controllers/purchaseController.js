@@ -162,7 +162,7 @@ exports.getPurchaseHistory = (req, res) => {
 exports.getAllPurchases = (req, res) => {
   purchaseModel.getAll({}, (err, result) => {
 
-    result.forEach((item)=> {
+    result.forEach((item) => {
       item.totalPrice = item.totalPrice.toFixed(2);
     });
 
@@ -248,7 +248,9 @@ exports.getOrder = (req, res) => {
         status: product.status,
         purchaseDate: dateFormat(product.purchaseDate, "mm/dd/yyyy"),
         cartItems: cartItems,
-        total: totalPrice
+        total: totalPrice,
+        billing: product.billingAddress,
+        shipping: product.shippingAddress
       });
     }
   });

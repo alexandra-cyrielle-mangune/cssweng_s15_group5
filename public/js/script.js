@@ -1,4 +1,4 @@
-function changedRadio (){ 
+function changedRadio () { 
   $.post('/catalogue/', {
     category: $('input[name="categoryRadio"]:checked').val(), 
     sort: $('input[name="sortRadio"]:checked').val()
@@ -7,7 +7,7 @@ function changedRadio (){
   });
 }
 
-$(function(){
+$(function() {
   $("#noFilterRadio").prop("checked", true);
   $("#nameRadio").prop("checked", true);
 

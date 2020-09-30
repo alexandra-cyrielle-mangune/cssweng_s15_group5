@@ -21,6 +21,9 @@ exports.create = (obj, next) => {
   const product = new productModel(obj);
   product.save((err, product) => {
     if (err) throw err;
+    // mkdirp('public/uploads/' + obj.img, function (err) {
+    //   return console.log(err);
+    // });
     next(err, product);
   });
 };

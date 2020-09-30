@@ -1,42 +1,29 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const multer = require('multer');
-const e = require('express');
 
-
-// This function add a new product to the database
 const storage = multer.diskStorage({
-  destination: './public/uploads/',
+  destination: function(req, file, cb) {
+    cb(null, './public/uploads');
+  },
   filename: function(req, file, cb) {
     cb(null, file.originalname);
   }
 });
 
-const upload = multer({ 
-  storage: storage 
-}).single("image");
+const upload = multer({storage: storage});
+
+
+// This function add a new product to the database
 
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
 
-  upload(req, res, (err) => {
-    console.log(req.file);
-    console.log(req.body.pName);
-  });
+  console.log(req.file); // testing
 
   if(errors.isEmpty()) {
-
-    upload(req, res, (err) => {
-      console.log(req.file);
-      console.log(req.body.pName);
-    });
     
-    // var {pName, desc, pCat, price, image} = req.body;
-    var pName = req.body.pName;
-    var desc = req.body.desc;
-    var pCat = req.body.pCat;
-    var price = req.body.price;
-    var image = req.body.image;
+    var {pName, desc, pCat, price, image} = req.body;
 
     console.log(pName);
 
@@ -63,7 +50,7 @@ exports.addProduct = (req, res) => {
           price: Math.round(price * 100) / 100.0,
           archive: false,
           feature: false,
-          img: image
+          img: "uploads/" + req.file.originalname
         };
         productModel.create(newProduct, (err, product) => {
           if(err) {
@@ -251,11 +238,16 @@ exports.getProduct = (req, res) => {
 
 // Edit a Product
 exports.editProduct = (req, res) => {
+
+  console.log(req.file); // testing
+
   var {pName, desc, pCat, price, prodImg} = req.body;
   var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
   var product_id = req.params._id;
   
   console.log(slug);
+
+  prodImg = req.file.originalname;
 
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
@@ -280,11 +272,8 @@ exports.editProduct = (req, res) => {
         else {
           price = Math.round(price * 100) / 100.0;
         }
-        if(prodImg == undefined || prodImg == "") {
+        if(req.file.originalname == undefined || req.file.originalname == "") {
           prodImg = product.img;
-        }
-        else {
-          prodImg = 'uploads/' + prodImg;
         }
 
         productModel.updateItem(product_id, pName, slug, desc, pCat, price, prodImg, (err, result) => {

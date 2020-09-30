@@ -8,7 +8,6 @@ const mongoose = require('./models/connection');
 const session = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(session);
-const moment = require('moment');
 
 // express application
 const app = express();
@@ -22,7 +21,10 @@ app.engine('hbs', exphbs({
   partialsDir: path.join(__dirname, '/views/partials')
 }));
 
+// sets handlebars as template
 app.set('view engine', 'hbs');
+
+// body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

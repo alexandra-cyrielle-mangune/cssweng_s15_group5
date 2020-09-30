@@ -4,7 +4,7 @@
   <br>
   {{> messages}}
   <br>
-  <form action="/edit_item/{{id}}" method="POST">
+  <form action="/edit_item/{{id}}" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label><b>Product Name</b></label>
       <input type="text" class="form-control w-50" id="pName" name="pName" placeholder="{{pName}}">

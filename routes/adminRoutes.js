@@ -1,11 +1,19 @@
 const router = require('express').Router();
-const productModel = require('../models/productModel');
 const productController = require('../controllers/productController');
 const purchaseController = require('../controllers/purchaseController');
-const {validationResult} = require('express-validator');
 const {isPublic} = require('../middlewares/checkAuth');
 const multer = require('multer');
-const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './public/uploads');
+  },
+  filename: function(req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({storage: storage});
 
 /*
  *  GET METHOD: Add new item 
@@ -21,7 +29,7 @@ router.get('/add_new_item', isPublic, (req, res) => {
 /*
  *  POST METHOD: Add new item 
  */
-router.post('/add_new_item', isPublic, productController.addProduct);
+router.post('/add_new_item', isPublic, upload.single('display'), productController.addProduct);
 
 /*
  *  GET METHOD: View all orders (in the dashboard)
@@ -46,7 +54,7 @@ router.get('/edit_item/:_id', isPublic, productController.getProduct);
 /*
  *  POST METHOD: Edit an item
  */
-router.post('/edit_item/:_id', isPublic, productController.editProduct);
+router.post('/edit_item/:_id', isPublic, upload.single('prodImg'), productController.editProduct);
 
 /*
  *  GET METHOD: Archived items

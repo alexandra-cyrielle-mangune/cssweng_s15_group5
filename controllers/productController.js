@@ -1,5 +1,6 @@
 const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
+const {productValidation} = require('../validators');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -19,7 +20,8 @@ const upload = multer({storage: storage});
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
-    var {pName, desc, pCat, price, image} = req.body;
+    var image = req.file.originalname;
+    var {pName, desc, pCat, price} = req.body;
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
     if(image == undefined || image == null || image == "") {
       image = 'img/tote-bag-1.jpg';
@@ -68,7 +70,8 @@ exports.addProduct = (req, res) => {
 
 // Edit a Product
 exports.editProduct = (req, res) => {
-  var {pName, desc, pCat, price, image} = req.body;
+  var image = req.file.originalname;
+  var {pName, desc, pCat, price} = req.body;
   var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
   var product_id = req.params._id;
   if(image == undefined || image == null || image == "") {

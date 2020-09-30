@@ -55,7 +55,7 @@ const productValidation = [
   body('pCat').not().isEmpty().withMessage('Product category is required.'),
 
   // Product price should not be empty
-  body('price').not().isEmpty().withMessage('Product price should not be empty.')
+  body('price').not().isEmpty().withMessage('Product price should not be empty.'),
 ];
 
 const purchaseValidation = [

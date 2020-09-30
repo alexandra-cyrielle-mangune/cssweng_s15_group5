@@ -18,21 +18,14 @@ const upload = multer({storage: storage});
 
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
-
-  console.log(req.file); // testing
-
   if(errors.isEmpty()) {
-    
     var {pName, desc, pCat, price, image} = req.body;
-
-    console.log(pName);
-
-    // creates a slug from the product name
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-    
-    // error handling for image upload
-    if(image == undefined) {
+    if(image == undefined || image == null || image == "") {
       image = 'img/tote-bag-1.jpg';
+    }
+    else {
+      image = "uploads/" + req.file.originalname
     }
 
     productModel.getOne({slug: slug}, (err, result) => {
@@ -50,7 +43,7 @@ exports.addProduct = (req, res) => {
           price: Math.round(price * 100) / 100.0,
           archive: false,
           feature: false,
-          img: "uploads/" + req.file.originalname
+          img: image
         };
         productModel.create(newProduct, (err, product) => {
           if(err) {
@@ -71,6 +64,60 @@ exports.addProduct = (req, res) => {
     req.flash('error_msg', messages.join(' '));
     res.redirect('/add_new_item');
   }
+};
+
+// Edit a Product
+exports.editProduct = (req, res) => {
+  var {pName, desc, pCat, price, image} = req.body;
+  var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
+  var product_id = req.params._id;
+  if(image == undefined || image == null || image == "") {
+    image = 'img/tote-bag-1.jpg';
+  }
+  else {
+    image = "uploads/" + req.file.originalname
+  }
+
+  productModel.getOne({_id: product_id}, (err, product) => {
+    if(err) {
+      req.flash('error_msg', "Product not found.");
+      res.redirect('/view_all_items');
+    }
+    else {
+      if(product) {
+        if(pName == "") {
+          pName = product.pName;
+          slug = product.slug;
+        }
+        if(desc == "") {
+          desc = product.desc;
+        }
+        if(pCat == "") {
+          pCat = product.category;
+        }
+        if(price == "") {
+          price = product.price;
+        }
+        else {
+          price = Math.round(price * 100) / 100.0;
+        }
+        if(req.file.originalname == undefined || req.file.originalname == "") {
+          image = product.img;
+        }
+
+        productModel.updateItem(product_id, pName, slug, desc, pCat, price, image, (err, result) => {
+          if(err) {
+            req.flash('error_msg', "There was a problem updating product details. Please try again.");
+            res.redirect('/edit_item/' + product_id);
+          }
+          else {
+            req.flash('success_msg', "Successfully updated product details of " + pName + ".");
+            res.redirect('/edit_item/' + product_id);
+          }
+        });
+      }
+    }
+  });
 };
 
 
@@ -232,61 +279,6 @@ exports.getProduct = (req, res) => {
         img: product.img,
         layout: 'main-admin'
       });
-    }
-  });
-};
-
-// Edit a Product
-exports.editProduct = (req, res) => {
-
-  console.log(req.file); // testing
-
-  var {pName, desc, pCat, price, prodImg} = req.body;
-  var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-  var product_id = req.params._id;
-  
-  console.log(slug);
-
-  prodImg = "uploads/" + req.file.originalname;
-
-  productModel.getOne({_id: product_id}, (err, product) => {
-    if(err) {
-      req.flash('error_msg', "Product not found.");
-      res.redirect('/view_all_items');
-    }
-    else {
-      if(product) {
-        if(pName == "") {
-          pName = product.pName;
-          slug = product.slug;
-        }
-        if(desc == "") {
-          desc = product.desc;
-        }
-        if(pCat == "") {
-          pCat = product.category;
-        }
-        if(price == "") {
-          price = product.price;
-        }
-        else {
-          price = Math.round(price * 100) / 100.0;
-        }
-        if(req.file.originalname == undefined || req.file.originalname == "") {
-          prodImg = product.img;
-        }
-
-        productModel.updateItem(product_id, pName, slug, desc, pCat, price, prodImg, (err, result) => {
-          if(err) {
-            req.flash('error_msg', "There was a problem updating product details. Please try again.");
-            res.redirect('/edit_item/' + product_id);
-          }
-          else {
-            req.flash('success_msg', "Successfully updated product details of " + pName + ".");
-            res.redirect('/edit_item/' + product_id);
-          }
-        });
-      }
     }
   });
 };

@@ -76,7 +76,7 @@ exports.getByUser = (user, next) => {
             prodArray.push(product);
           });
           console.log('before send: ' + totalPrice);
-          next(err, {_id: cart._id, products: prodArray, total: totalPrice});
+          next(err, {_id: cart._id, products: prodArray, total: totalPrice.toFixed(2)});
         });
       }
     }

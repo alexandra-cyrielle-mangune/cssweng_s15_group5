@@ -16,29 +16,33 @@
               <p>{{desc}}</p>
             </dd>
           </dl>
-          <div class="row">
-            <div class="col">
-              <!-- Product Price -->
-              <h3 class="price-detail-warp">₱ {{price}}</h3>
+          <form class="form-div" action="/add_to_cart/{{_id}}" method="POST">
+            <div class="row">
+              <div class="col">
+                <!-- Product Price -->
+                <h3 class="price-detail-warp">₱ {{price}}</h3>
+              </div>
+              <div class="col">
+                <!-- Quantity -->
+                <div class="quantity buttons_added">
+                <input type="button" class="btn btn-c-yellow rounded-right btnQty" id="minus" value="-">
+                <input type="number" step="1" min="1" max="99" name="qty" value="1" title="Quantity to Add" class="input-text qty text" size="4" id="itemQty">
+                <input type="button" class="btn btn-c-yellow rounded-left btnQty" id="plus" value="+">
+                </div>
+              </div>
             </div>
-            {{!-- <div class="col">
-              <!-- Quantity -->
-              <div class="quantity buttons_added">
-              <input type="button" value="-" class="btn btn-c-yellow rounded-right minus">
-              <input type="number" step="1" min="1" max="" name="quantity" value="1" title="qty" class="input-text qty text" size="4" pattern="" inputmode="">
-              <input type="button" value="+" class="btn btn-c-yellow rounded-left plus">
-            </div> --}}
-          </div>
-          <!-- Buttons -->
-          <table class="table table-borderless">
-            <tr>
-              <td><a href='/add_to_cart/{{_id}}' class="btn btn-c-yellow w-100">Add to Cart</a></td>
-              <td><a href="/add_checkout/{{_id}}" class="btn btn-c-pink w-100">Add and Checkout</a></td>
-            </tr>
-          </table>
+            <!-- Buttons -->
+            <table class="table table-borderless">
+              <tr>
+                <td><input type="submit" class="btn btn-c-yellow w-100 btnCart" name="btnPressed" value="Add to Cart"></td>
+                <td><input type="submit" class="btn btn-c-pink w-100 btnCart" name="btnPressed" value="Add and Checkout"></td>
+              </tr>
+            </table>
+          </form>
         </article>
       </aside>
     </div>
+    <div id="productId" hidden>{{_id}}</div>
   </div>
 
   <!-- Contact Us -->

@@ -225,6 +225,10 @@ body {
   margin-right: 2rem;
 }
 
+#itemQty {
+  width: 70px;
+}
+
 .btn-checkout {
   background-color: #D48199 !important;
 }

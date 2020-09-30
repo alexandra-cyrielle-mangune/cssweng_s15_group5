@@ -247,7 +247,7 @@ exports.editProduct = (req, res) => {
   
   console.log(slug);
 
-  prodImg = req.file.originalname;
+  prodImg = "uploads/" + req.file.originalname;
 
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {

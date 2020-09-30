@@ -3,27 +3,52 @@
     <br><br>
     <h4>{{title}}</h4>
     <br>
-    <div class="row">
+    <div class="row justify-content-between">
       {{#if products}}
-        {{#each products}}
-          <div class="display-cart col-8">
-            <div class="card">
-              <div class="card-body">
-                <img src="{{this.img}}" width="250px">
-                <h5 class="card-title">{{this.pName}}</h5>
-                <p class="card-text">Qty.: {{this.qty}}</p>
-                <p class="card-text">Php: {{this.subPrice}}</p>
-                <a href="/delete_from_cart/{{this.id}}" class="btn btn-c-pink">Delete</a>
+        <div class="col-7">
+          {{#each products}}
+            <div class="row my-3">
+              <div class="col-4">
+                <a href="/product_details/{{this.slug}}">
+                  <img class="img-fluid" src="{{this.img}}">
+                </a>
+              </div>
+              <div class="col-8 cart-product">
+                <a href="/product_details/{{this.slug}}">
+                  <h5><strong>{{this.pName}}</strong></h5>
+                </a>
+                <small>Product ID. {{this.id}}</small>
+                <p class="mb-5">Quantity: {{this.qty}}</p>
+                <p class="float-left">Php {{this.subPrice}}</p>
+                <a href="/delete_from_cart/{{this.id}}" class="float-right"><i class="material-icons">delete_outline</i></a>
               </div>
             </div>
-          </div>
-        {{/each}}
-        <div class="sidebar-cart col-4">
-          <p>Price Summary Here</p>
-          <a href="/billing" class="btn btn-c-yellow">Checkout</a>
+          {{/each}}
+        </div>
+        <div class="col-4">
+          <table class="table table-sm table-borderless">
+            {{#each products}}
+              <tr>
+                <td colspan="2">{{this.pName}}</td>
+                <td class="text-right"><strong>Php {{this.subPrice}}</strong></td>
+              </tr>
+            {{/each}}
+            <tr>
+              <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+              <th scope="row" colspan="2">Total:</th>
+              <td class="text-right"><strong>Php {{total}}</strong></td>
+            </tr>
+          </table>
+          <div class="row mt-5">
+            <div class="col text-center">
+              <a href="/billing" class="btn btn-c-pink" style="width: 200px;">Checkout</a>
+            </div>
+          </div>    
         </div>
       {{else}}
-        <p>No items in the cart!</p>
+        <h3>No items in the cart!</h3>
       {{/if}}
     </div>
   </div>

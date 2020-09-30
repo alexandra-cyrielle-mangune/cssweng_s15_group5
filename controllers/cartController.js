@@ -97,14 +97,12 @@ exports.getUserCart = (req, res) => {
         // console.log('ayyyy');
         // console.log('CART(GETBYUSER): ' + result.products[0].pName);
         if(result) {
-
-          console.log(result.products); // testing
-
           res.render('cart', {
             name: req.session.name,
             title: "My Cart", 
             loggedIn: user,
-            products: result.products
+            products: result.products,
+            total: result.total
           });
         }
         else {

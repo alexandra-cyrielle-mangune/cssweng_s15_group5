@@ -71,6 +71,7 @@ exports.getByUser = (user, next) => {
             product['subPrice'] = subPrice;
             product['qty'] = cart.prod[index].qty;
             product['id'] = item._id;
+            product['slug'] = item.slug;
 
             prodArray.push(product);
           });

@@ -2,6 +2,43 @@ const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const {productValidation} = require('../validators');
 const multer = require('multer');
+const db = require('../setters/db');
+
+// const mongoose = require('mongoose');
+// const path = require('path');
+// const crypto = require('crypto');
+// const GridFsStorage = require('multer-gridfs-storage');
+// const Grid = require('gridfs-stream');
+// const initDb = require('../setters/db');
+// const getDb = require('../setters/db');
+
+
+// let gfs;
+// var db = getDb();
+
+// db.once('open', () => {
+//   gfs = Grid(db, mongoose.mongo);
+//   gfs.collection('uploads');
+// });
+
+// const storage = new GridFsStorage({
+//   db: db,
+//   file: (req, file) => {
+//     return new Promise((resolve, reject) => {
+//       crypto.randomBytes(16, (err, buffer) => {
+//         if(err) {
+//           return reject(err);
+//         }
+//         const filename = buffer.toString('hex') + path.extname(file.originalname);
+//         const fileInfo = {
+//           filename: filename,
+//           bucketName: 'uploads'
+//         };
+//         resolve(fileInfo);
+//       });
+//     });
+//   }
+// });
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -12,27 +49,33 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({storage: storage});
-
-
-// This function add a new product to the database
+const upload = multer({
+  storage: storage
+});
 
 exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
-    var image = req.file.originalname;
+
     var {pName, desc, pCat, price} = req.body;
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
-    if(image == undefined || image == null || image == "") {
-      image = 'img/tote-bag-1.jpg';
+
+    if(req.file == undefined || req.file == null || req.file == "") {
+      req.flash('error_msg', "Please upload an image!");
+      res.redirect('/add_new_item');
     }
     else {
-      image = "uploads/" + req.file.originalname
+      var {image} = req.file;
+      if(image == undefined || image == null || image == "") {
+        image = 'img/tote-bag-1.jpg';
+      }
+      else {
+        image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();;
+      }
     }
 
     productModel.getOne({slug: slug}, (err, result) => {
       if(result) {
-        console.log(result); // for testing
         req.flash('error_msg', 'Product already exists.');
         res.redirect('/add_new_item');
       }

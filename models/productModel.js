@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
   price: {type: Number, required: true},
   archive: {type: Boolean, required: true},
   feature: {type: Boolean, required: true},
-  img: {type: String}
+  img: {type: String, required: true}
 });
 
 // Creates a product object called `productModel`

@@ -4,6 +4,42 @@ const purchaseController = require('../controllers/purchaseController');
 const {isPublic} = require('../middlewares/checkAuth');
 const multer = require('multer');
 
+// const mongoose = require('mongoose');
+// const path = require('path');
+// const crypto = require('crypto');
+// const GridFsStorage = require('multer-gridfs-storage');
+// const Grid = require('gridfs-stream');
+// const initDb = require('../setters/db');
+// const getDb = require('../setters/db');
+
+
+// let gfs;
+// var db = getDb();
+
+// db.once('open', () => {
+//   gfs = Grid(db, mongoose.mongo);
+//   gfs.collection('uploads');
+// });
+
+// const storage = new GridFsStorage({
+//   db: db,
+//   file: (req, file) => {
+//     return new Promise((resolve, reject) => {
+//       crypto.randomBytes(16, (err, buffer) => {
+//         if(err) {
+//           return reject(err);
+//         }
+//         const filename = buffer.toString('hex') + path.extname(file.originalname);
+//         const fileInfo = {
+//           filename: filename,
+//           bucketName: 'uploads'
+//         };
+//         resolve(fileInfo);
+//       });
+//     });
+//   }
+// });
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './public/uploads');

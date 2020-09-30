@@ -2,8 +2,6 @@ const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const {productValidation} = require('../validators');
 const multer = require('multer');
-const fs = require('fs');
-
 
 // const db = require('../setters/db');
 // const mongoose = require('mongoose');
@@ -42,14 +40,18 @@ const fs = require('fs');
 //   }
 // });
 
+// function generateName(oldName) {
+//   console.log(oldName.replace(/\s+/g, '-').toLowerCase());
+//   return oldName.replace(/\s+/g, '-').toLowerCase();
+// }
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './public/uploads');
   },
   filename: function(req, file, cb) {
-    cb(null, fs.rename(file.originalname, file.originalname.replace(/\s+/g, '-').toLowerCase(), () => {
-      console.log('File renamed!');
-    }));
+    cb(null,file.originalname);
+    // console.log(generateName(file.originalname));
   }
 });
 
@@ -65,7 +67,7 @@ exports.addProduct = (req, res) => {
     var {pName, desc, pCat, price} = req.body;
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
 
-    console.log(req.file); // testing
+    // console.log(req.file); // testing
 
     if(req.file == undefined || req.file == null || req.file == "") {
       req.flash('error_msg', "Please upload an image!");
@@ -77,7 +79,8 @@ exports.addProduct = (req, res) => {
         image = 'img/tote-bag-1.jpg';
       }
       else {
-        image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
+        // image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
+        image = "uploads/" + req.file.originalname;
       }
     }
 
@@ -154,7 +157,8 @@ exports.editProduct = (req, res) => {
           image = product.img;
         }
         else {
-          image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
+          // image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
+          image = "uploads/" + req.file.originalname;
         }
 
         productModel.updateItem(product_id, pName, slug, desc, pCat, price, image, (err, result) => {

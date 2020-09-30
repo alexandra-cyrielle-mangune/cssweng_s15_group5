@@ -29,7 +29,7 @@ router.get('/add_new_item', isPublic, (req, res) => {
 /*
  *  POST METHOD: Add new item 
  */
-router.post('/add_new_item', isPublic, upload.single('display'), productController.addProduct);
+router.post('/add_new_item', isPublic, upload.single('image'), productController.addProduct);
 
 /*
  *  GET METHOD: View all orders (in the dashboard)
@@ -54,7 +54,7 @@ router.get('/edit_item/:_id', isPublic, productController.getProduct);
 /*
  *  POST METHOD: Edit an item
  */
-router.post('/edit_item/:_id', isPublic, upload.single('prodImg'), productController.editProduct);
+router.post('/edit_item/:_id', isPublic, upload.single('image'), productController.editProduct);
 
 /*
  *  GET METHOD: Archived items

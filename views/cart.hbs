@@ -4,23 +4,52 @@
     <h4>{{title}}</h4>
     <br>
     <div class="row">
+      <div class="display-cart col-8">
       {{#if products}}
         {{#each products}}
-          <div class="display-cart col-8">
             <div class="card">
               <div class="card-body">
-                <img src="{{this.img}}" width="250px">
-                <h5 class="card-title">{{this.pName}}</h5>
-                <p class="card-text">Qty.: {{this.qty}}</p>
-                <p class="card-text">Php: {{this.subPrice}}</p>
-                <a href="/delete_from_cart/{{this.id}}" class="btn btn-c-pink">Delete</a>
+                <div class="row">
+                  <div class="col-4">
+                    <img src="{{this.img}}" height="150px">
+                  </div>
+                  <div class="col-8">
+                    <h5 class="card-title">{{this.pName}}</h5>
+                    <p class="card-text">Quantity: {{this.qty}}</p>
+                    <p class="card-text">₱ {{this.subPrice}}</p>
+                    <div class="text-right">
+                      <a href="/delete_from_cart/{{this.id}}">
+                        <i class="material-icons">delete</i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <br>
         {{/each}}
+        </div>
         <div class="sidebar-cart col-4">
-          <p>Price Summary Here</p>
-          <a href="/billing" class="btn btn-c-yellow">Checkout</a>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center">Purchase Summary</h5>
+              <hr>
+              {{#each products}}
+              <div class="row">
+                <div class="col">
+                  <p class="card-text">{{this.pName}}</p>
+                </div>
+                <div class="col">
+                  <p class="card-text text-right">₱ {{this.subPrice}}</p>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+            <div class="text-center">
+              <a href="/billing" class="btn w-50 btn-c-yellow">Checkout</a>
+              <br><br>
+            </div>
+          </div>
         </div>
       {{else}}
         <p>No items in the cart!</p>

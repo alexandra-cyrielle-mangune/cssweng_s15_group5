@@ -2,8 +2,10 @@ const productModel = require('../models/productModel');
 const {validationResult} = require('express-validator');
 const {productValidation} = require('../validators');
 const multer = require('multer');
-const db = require('../setters/db');
+const fs = require('fs');
 
+
+// const db = require('../setters/db');
 // const mongoose = require('mongoose');
 // const path = require('path');
 // const crypto = require('crypto');
@@ -45,7 +47,9 @@ const storage = multer.diskStorage({
     cb(null, './public/uploads');
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname);
+    cb(null, fs.rename(file.originalname, file.originalname.replace(/\s+/g, '-').toLowerCase(), () => {
+      console.log('File renamed!');
+    }));
   }
 });
 
@@ -57,22 +61,27 @@ exports.addProduct = (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
 
+    var image;
     var {pName, desc, pCat, price} = req.body;
     var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
+
+    console.log(req.file); // testing
 
     if(req.file == undefined || req.file == null || req.file == "") {
       req.flash('error_msg', "Please upload an image!");
       res.redirect('/add_new_item');
     }
     else {
-      var {image} = req.file;
+      image = req.file;
       if(image == undefined || image == null || image == "") {
         image = 'img/tote-bag-1.jpg';
       }
       else {
-        image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();;
+        image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
       }
     }
+
+    console.log(image);
 
     productModel.getOne({slug: slug}, (err, result) => {
       if(result) {
@@ -96,8 +105,7 @@ exports.addProduct = (req, res) => {
             res.redirect('/add_new_item');
           }
           else {
-            
-            req.flash('success_msg', 'You have successfully edited the details of a product!');
+            req.flash('success_msg', 'You have added a new product in the catalogue!');
             res.redirect('/add_new_item');
           }
         });

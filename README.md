@@ -21,7 +21,8 @@
 
 ## Admin Login
 * To access the admin panel, open [http://localhost:4000/admin]() in a browser.
-* There is no admin validation yet, so just press the `Log In` button to access the admin panel.
+* Username: admin
+* Password: pass1234
 
 ## User Login
 * User authentication is enabled.

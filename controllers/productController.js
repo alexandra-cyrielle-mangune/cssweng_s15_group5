@@ -96,8 +96,8 @@ exports.addProduct = (req, res) => {
             res.redirect('/add_new_item');
           }
           else {
-            console.log(slug); // for testing
-            req.flash('success_msg', 'You have added a new product in the catalogue!');
+            
+            req.flash('success_msg', 'You have successfully edited the details of a product!');
             res.redirect('/add_new_item');
           }
         });
@@ -113,16 +113,11 @@ exports.addProduct = (req, res) => {
 
 // Edit a Product
 exports.editProduct = (req, res) => {
-  var image = req.file.originalname;
+
+  var image;
   var {pName, desc, pCat, price} = req.body;
   var slug = req.body.pName.replace(/\s+/g, '-').toLowerCase();
   var product_id = req.params._id;
-  if(image == undefined || image == null || image == "") {
-    image = 'img/tote-bag-1.jpg';
-  }
-  else {
-    image = "uploads/" + req.file.originalname
-  }
 
   productModel.getOne({_id: product_id}, (err, product) => {
     if(err) {
@@ -147,8 +142,11 @@ exports.editProduct = (req, res) => {
         else {
           price = Math.round(price * 100) / 100.0;
         }
-        if(req.file.originalname == undefined || req.file.originalname == "") {
+        if(req.file == undefined || req.file == null || req.file == "") {
           image = product.img;
+        }
+        else {
+          image = "uploads/" + req.file.originalname.replace(/\s+/g, '-').toLowerCase();
         }
 
         productModel.updateItem(product_id, pName, slug, desc, pCat, price, image, (err, result) => {

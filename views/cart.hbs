@@ -2,8 +2,8 @@
   <div class="container">
     <br><br>
     <h4>{{title}}</h4>
-    <br>
-    <div class="row justify-content-between">
+    <hr>
+    <div class="row justify-content-between mt-5">
       {{#if products}}
         <div class="col-7">
           {{#each products}}
@@ -48,7 +48,7 @@
           </div>    
         </div>
       {{else}}
-        <h3>No items in the cart!</h3>
+        <h4 class="mb-5">No items in the cart! Please add some items from the catalogue.</h4>
       {{/if}}
     </div>
   </div>

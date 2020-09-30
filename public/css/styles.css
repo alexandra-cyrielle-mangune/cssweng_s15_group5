@@ -477,3 +477,7 @@ body {
 .cart-product a {
   color: black;
 }
+
+.rounded-25 {
+  border-radius: 25px;
+}

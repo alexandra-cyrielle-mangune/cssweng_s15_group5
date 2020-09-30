@@ -45,13 +45,7 @@ router.get('/settings', isPrivate, (req, res) => {
 });
 
 // Billing
-router.get('/billing', isPrivate, (req, res) => {
-  res.render('billing', {
-    name: req.session.name,
-    title: "Lipay", 
-    loggedIn: req.session.user,
-  });
-});
+router.get('/billing', isPrivate, cartController.getBilling);
 
 // Payment Details (Online Payment / GCash)
 router.get('/payment_details', isPrivate, (req, res) => {

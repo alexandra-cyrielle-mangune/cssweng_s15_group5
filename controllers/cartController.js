@@ -97,14 +97,12 @@ exports.getUserCart = (req, res) => {
         // console.log('ayyyy');
         // console.log('CART(GETBYUSER): ' + result.products[0].pName);
         if(result) {
-
-          console.log(result.products); // testing
-
           res.render('cart', {
             name: req.session.name,
             title: "My Cart", 
             loggedIn: user,
-            products: result.products
+            products: result.products,
+            total: result.total
           });
         }
         else {
@@ -122,4 +120,37 @@ exports.getUserCart = (req, res) => {
   else {
     console.log(errors);
   }
-};
+}
+
+exports.getBilling = (req, res) => {
+  const errors = validationResult(req);
+  // console.log(errors);
+  if(errors.isEmpty()) {
+    var user = req.session.user;
+    if (user) {
+      cartModel.getByUser(user, (err, result) => {
+        if (result) {
+          res.render('billing', {
+            name: req.session.name,
+            title: "Billing Information", 
+            loggedIn: user,
+            products: result.products,
+            total: result.total
+          });
+        }
+        else {
+          console.log(err);
+          res.render('billing', {
+            name: req.session.name,
+            title: "Billing Information", 
+            loggedIn: user,
+            products: null
+          });
+        }
+      });
+    }
+  }
+  else {
+    console.log(errors);
+  }
+}

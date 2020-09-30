@@ -465,3 +465,19 @@ body {
 .products-price {
   font-size: small;
 }
+
+.material-icons {
+  color: black;
+}
+
+.material-icons:hover {
+  color: #555555;
+}
+
+.cart-product a {
+  color: black;
+}
+
+.rounded-25 {
+  border-radius: 25px;
+}

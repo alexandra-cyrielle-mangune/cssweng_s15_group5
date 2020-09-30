@@ -2,57 +2,53 @@
   <div class="container">
     <br><br>
     <h4>{{title}}</h4>
-    <br>
-    <div class="row">
-      <div class="display-cart col-8">
+    <hr>
+    <div class="row justify-content-between mt-5">
       {{#if products}}
-        {{#each products}}
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-4">
-                    <img src="{{this.img}}" height="150px">
-                  </div>
-                  <div class="col-8">
-                    <h5 class="card-title">{{this.pName}}</h5>
-                    <p class="card-text">Quantity: {{this.qty}}</p>
-                    <p class="card-text">₱ {{this.subPrice}}</p>
-                    <div class="text-right">
-                      <a href="/delete_from_cart/{{this.id}}">
-                        <i class="material-icons">delete</i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+        <div class="col-7">
+          {{#each products}}
+            <div class="row my-3">
+              <div class="col-4">
+                <a href="/product_details/{{this.slug}}">
+                  <img class="img-fluid" src="{{this.img}}">
+                </a>
+              </div>
+              <div class="col-8 cart-product">
+                <a href="/product_details/{{this.slug}}">
+                  <h5><strong>{{this.pName}}</strong></h5>
+                </a>
+                <small>Product ID. {{this.id}}</small>
+                <p class="mb-5">Quantity: {{this.qty}}</p>
+                <p class="float-left">Php {{this.subPrice}}</p>
+                <a href="/delete_from_cart/{{this.id}}" class="float-right"><i class="material-icons">delete_outline</i></a>
               </div>
             </div>
-            <br>
-        {{/each}}
+          {{/each}}
         </div>
-        <div class="sidebar-cart col-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title text-center">Purchase Summary</h5>
-              <hr>
-              {{#each products}}
-              <div class="row">
-                <div class="col">
-                  <p class="card-text">{{this.pName}}</p>
-                </div>
-                <div class="col">
-                  <p class="card-text text-right">₱ {{this.subPrice}}</p>
-                </div>
-              </div>
-              {{/each}}
+        <div class="col-4">
+          <table class="table table-sm table-borderless">
+            {{#each products}}
+              <tr>
+                <td colspan="2">{{this.pName}}</td>
+                <td class="text-right"><strong>Php {{this.subPrice}}</strong></td>
+              </tr>
+            {{/each}}
+            <tr>
+              <td colspan="3"><hr></td>
+            </tr>
+            <tr>
+              <th scope="row" colspan="2">Total:</th>
+              <td class="text-right"><strong>Php {{total}}</strong></td>
+            </tr>
+          </table>
+          <div class="row mt-5">
+            <div class="col text-center">
+              <a href="/billing" class="btn btn-c-pink" style="width: 200px;">Checkout</a>
             </div>
-            <div class="text-center">
-              <a href="/billing" class="btn w-50 btn-c-yellow">Checkout</a>
-              <br><br>
-            </div>
-          </div>
+          </div>    
         </div>
       {{else}}
-        <p>No items in the cart!</p>
+        <h4 class="mb-5">No items in the cart! Please add some items from the catalogue.</h4>
       {{/if}}
     </div>
   </div>

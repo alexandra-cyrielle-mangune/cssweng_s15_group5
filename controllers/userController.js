@@ -105,10 +105,10 @@ exports.logoutUser = (req, res) => {
 exports.adminLogin = (req, res) => {
   const errors = validationResult(req);
   if(errors.isEmpty()) {
-    const {email, password} = req.body;
-    console.log(req.body.email) // for testing
+    const {username, password} = req.body;
+    console.log(req.body.username) // for testing
 
-    userModel.getOne({email: email}, (err, user) => {
+    userModel.getOne({name: username}, (err, user) => {
       if(err) {
         req.flash('error_msg', 'Something happened! Please try again.');
         res.redirect('/admin');

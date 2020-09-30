@@ -68,7 +68,7 @@ exports.getByUser = (user, next) => {
 
             product['pName'] = item.pName;
             product['img'] = item.img;
-            product['subPrice'] = subPrice;
+            product['subPrice'] = subPrice.toFixed(2);
             product['qty'] = cart.prod[index].qty;
             product['id'] = item._id;
             product['slug'] = item.slug;
